@@ -19,10 +19,10 @@ public class Elevator extends SubsystemBase {
 
 
   public Elevator() {
-    elevatorLeft = new SparkMax(Constants.elevatorConstants.elevatorLeft, MotorType.kBrushless);
-    elevatorRight = new SparkMax(Constants.elevatorConstants.elevatorRight, MotorType.kBrushless);
-    limitSwitchTop = new DigitalInput(Constants.elevatorConstants.limitSwitchTop );
-    limitSwitchBottom = new DigitalInput(Constants.elevatorConstants.limitSwitchBottom );
+    elevatorLeft = new SparkMax(Constants.Elevator.LEFT_ID, MotorType.kBrushless);
+    elevatorRight = new SparkMax(Constants.Elevator.RIGHT_ID, MotorType.kBrushless);
+    limitSwitchTop = new DigitalInput(Constants.ELevator.LIMIT_SWITCH_TOP);
+    limitSwitchBottom = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_BOTTOM);
   }
   public boolean getTop(){
     return  limitSwitchTop.get();
@@ -38,7 +38,6 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
-    setPower(0);
     // This method will be called once per scheduler run
   }
 }
