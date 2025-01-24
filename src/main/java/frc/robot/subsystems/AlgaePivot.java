@@ -7,14 +7,17 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+
 
 public class AlgaePivot extends SubsystemBase {
   /** Creates a new AlgaePivot. */
-  private SparkMax pivot ;
+  private SparkMax pivot;
 
   public AlgaePivot() {
-    pivot = new SparkMax(constants.AlgaePivot.pivot, MotorType:kBrushless)
+    pivot = new SparkMax(Constants.AlgaeConstants.PIVOT, MotorType.kBrushless); //Mark will add constants
   }
 
   public void setPivotPower(double power){
