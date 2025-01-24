@@ -123,6 +123,35 @@ public class Constants {
       public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
   }
+
+  public static final class Algae {
+    public static final int INTAKE_ID = 41;
+    public static final int ALGAE_LIMIT_SWITCH_ID = 42;
+  }
+
+  public static final class AlgaePivot {
+    public static final int PIVOT_ID = 51;
+  }
+
+  public static final class Coral {
+    public static final int INTAKE_ID = 52;
+    public static final int CORAL_LIMIT_SWITCH_ID = 53;
+  }
   
+  public static final class CoralPivot {
+    public static final int PIVOT_ID = 54;
+  }
+
+  public static final class Climber {
+    public static final int LEFT_ID = 55;
+    public static final int RIGHT_ID = 56;
+  }
+
+  public static final class Elevator {
+    public static final int LEFT_ID = 57;
+    public static final int RIGHT_ID = 58;
+    public static final int LIMIT_SWITCH_BOTTOM = 59;
+    public static final int LIMIT_SWITCH_TOP = 60;
+  }
     
 }
