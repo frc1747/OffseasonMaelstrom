@@ -15,7 +15,7 @@ public class CoralPivot extends SubsystemBase {
   private SparkMax pivot;
   /** Creates a new CoralPivot. */
   public CoralPivot() {
-    pivot = new SparkMax(Constants.CoralConstants.PIVOT, MotorType.kBrushless);
+    pivot = new SparkMax(Constants.CoralPivot.PIVOT_ID, MotorType.kBrushless);
   }
 
   public void setPivotPower(double power){

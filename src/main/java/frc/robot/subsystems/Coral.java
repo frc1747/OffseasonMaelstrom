@@ -17,7 +17,7 @@ public class Coral extends SubsystemBase {
 
   public Coral() {
     coral = new Talon(Constants.Coral.INTAKE_ID);
-    limitSwitch = new DigitalInput(Constants.Coral.LIMIT_SWITCH_ID); //ID CORAL_LIMIT_SWITCH does not exist yet, fix later
+    limitSwitch = new DigitalInput(Constants.Coral.CORAL_LIMIT_SWITCH_ID); 
     //configure brake mode
   }
 

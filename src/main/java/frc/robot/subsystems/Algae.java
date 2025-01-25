@@ -17,7 +17,7 @@ public class Algae extends SubsystemBase {
 
   public Algae() {
     intake = new SparkMax(Constants.Algae.INTAKE_ID, MotorType.kBrushless);
-    limitSwitch = new DigitalInput(Constants.Algae.LIMIT_SWITCH_ID);
+    limitSwitch = new DigitalInput(Constants.Algae.ALGAE_LIMIT_SWITCH_ID);
   }
 
   public void setIntakePower(double power){

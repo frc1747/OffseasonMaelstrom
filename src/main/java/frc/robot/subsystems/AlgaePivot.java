@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -14,9 +15,11 @@ import frc.robot.Constants;
 
 public class AlgaePivot extends SubsystemBase {
   private SparkMax pivot;
+  private DigitalInput limitSwitch;
 
   public AlgaePivot() {
-    pivot = new SparkMax(Constants.AlgaePivot.PIVOT_ID, MotorType.kBrushless); //Mark will add constants
+    pivot = new SparkMax(Constants.AlgaePivot.PIVOT_ID, MotorType.kBrushless);
+    limitSwitch = new DigitalInput(Constants.AlgaePivot.LIMIT_SWITCH_ID);
   }
 
   public void setPivotPower(double power){
@@ -25,6 +28,16 @@ public class AlgaePivot extends SubsystemBase {
   
   public double getPosition(){
     return pivot.getEncoder().getPosition();
+  }
+
+  public void dropIntake(){
+    pivot.getEncoder().setPosition(Constants.AlgaePivot.DROPPED); //DROPPED TBD
+  }
+
+
+
+  public boolean switchPressed(){
+    return !limitSwitch.get();
   }
 
   @Override

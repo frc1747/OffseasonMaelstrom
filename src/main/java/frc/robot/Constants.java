@@ -131,6 +131,7 @@ public class Constants {
 
   public static final class AlgaePivot {
     public static final int PIVOT_ID = 51;
+    public static final int LIMIT_SWITCH_ID = 61;
   }
 
   public static final class Coral {
