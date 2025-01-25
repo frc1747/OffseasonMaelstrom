@@ -14,10 +14,10 @@ import frc.robot.Constants;
 public class Coral extends SubsystemBase {
   private Talon coral;
   private DigitalInput limitSwitch;
-  /** Creates a new Coral. */
+
   public Coral() {
-    coral = new Talon(Constants.CoralConstants.INTAKE); //ID INTAKE does not exist yet, fix later
-    limitSwitch = new DigitalInput(Constants.CoralConstants.CORAL_LIMIT_SWITCH); //ID CORAL_LIMIT_SWITCH does not exist yet, fix later
+    coral = new Talon(Constants.Coral.INTAKE_ID);
+    limitSwitch = new DigitalInput(Constants.Coral.LIMIT_SWITCH_ID); //ID CORAL_LIMIT_SWITCH does not exist yet, fix later
     //configure brake mode
   }
 
@@ -31,6 +31,5 @@ public class Coral extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
   }
 }

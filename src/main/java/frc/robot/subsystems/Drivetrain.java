@@ -61,7 +61,7 @@ public class Drivetrain extends SubsystemBase {
 
     // Create an instance of the gyro, config its parameters, and zero it out, 
     // making whichever direction the robot is facing when robot code is initialized 0
-    gyro = new Pigeon2(Constants.DrivetrainConstants.PIGEON_ID);
+    gyro = new Pigeon2(Constants.Drivetrain.PIGEON_ID);
     gyro.reset();
     zeroGyro();
     //speed = new ChassisSpeeds(0,0,0);
@@ -69,10 +69,10 @@ public class Drivetrain extends SubsystemBase {
 
     // Define all swerve modules with the constants defined in Constants.java
     swerveMods = new SwerveModule[] {
-      new SwerveModule(0, Constants.DrivetrainConstants.FRONT_LEFT.constants),
-      new SwerveModule(1, Constants.DrivetrainConstants.FRONT_RIGHT.constants),
-      new SwerveModule(2, Constants.DrivetrainConstants.REAR_LEFT.constants),
-      new SwerveModule(3, Constants.DrivetrainConstants.REAR_RIGHT.constants)
+      new SwerveModule(0, Constants.Drivetrain.FRONT_LEFT.constants),
+      new SwerveModule(1, Constants.Drivetrain.FRONT_RIGHT.constants),
+      new SwerveModule(2, Constants.Drivetrain.REAR_LEFT.constants),
+      new SwerveModule(3, Constants.Drivetrain.REAR_RIGHT.constants)
     };
     // swerveModuleStates = new SwerveModuleState[] {
     //   new SwerveModuleState(),

@@ -13,11 +13,10 @@ import frc.robot.Constants;
 
 
 public class AlgaePivot extends SubsystemBase {
-  /** Creates a new AlgaePivot. */
   private SparkMax pivot;
 
   public AlgaePivot() {
-    pivot = new SparkMax(Constants.AlgaeConstants.PIVOT, MotorType.kBrushless); //Mark will add constants
+    pivot = new SparkMax(Constants.AlgaePivot.PIVOT_ID, MotorType.kBrushless); //Mark will add constants
   }
 
   public void setPivotPower(double power){
@@ -30,7 +29,6 @@ public class AlgaePivot extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     SmartDashboard.putNumber("Algae Pivot Encoder", getPosition());
   }
 }

@@ -17,11 +17,10 @@ public class Elevator extends SubsystemBase {
   private DigitalInput limitSwitchTop;
   private DigitalInput limitSwitchBottom;
 
-
   public Elevator() {
     elevatorLeft = new SparkMax(Constants.Elevator.LEFT_ID, MotorType.kBrushless);
     elevatorRight = new SparkMax(Constants.Elevator.RIGHT_ID, MotorType.kBrushless);
-    limitSwitchTop = new DigitalInput(Constants.ELevator.LIMIT_SWITCH_TOP);
+    limitSwitchTop = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_TOP);
     limitSwitchBottom = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_BOTTOM);
   }
   public boolean getTop(){
@@ -38,6 +37,5 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
   }
 }

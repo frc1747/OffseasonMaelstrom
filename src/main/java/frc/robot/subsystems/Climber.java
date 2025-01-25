@@ -12,15 +12,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
 
-public class climber extends SubsystemBase {
-  
+public class Climber extends SubsystemBase {
   private TalonFX climbingLeft;
   private TalonFX climbingRight;
 
-  /** Creates a new climber. */
-  public climber() {
-    climbingLeft = new TalonFX(Constants.ClimberConstants.LEFT); //ID LEFT doesnt exist yet, fix later
-    climbingRight = new TalonFX(Constants.ClimberConstants.RIGHT); //ID RIGHT doesnt exist yet, fix later
+  public Climber() {
+    climbingLeft = new TalonFX(Constants.Climber.LEFT_ID);
+    climbingRight = new TalonFX(Constants.Climber.RIGHT_ID);
     climbingLeft.setNeutralMode(NeutralModeValue.Brake);
     climbingRight.setNeutralMode(NeutralModeValue.Brake);
   }

@@ -12,13 +12,12 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Algae extends SubsystemBase {
-  /** Creates a new Algae. */
   private SparkMax intake;
   private DigitalInput limitSwitch;
 
   public Algae() {
-    intake = new SparkMax(Constants.AlgaeConstants.INTAKE, MotorType.kBrushless); //Mark will add constants
-    limitSwitch = new DigitalInput(Constants.AlgaeConstants.ALGAE_LIMIT_SWITCH); //^^^
+    intake = new SparkMax(Constants.Algae.INTAKE_ID, MotorType.kBrushless);
+    limitSwitch = new DigitalInput(Constants.Algae.LIMIT_SWITCH_ID);
   }
 
   public void setIntakePower(double power){
@@ -31,6 +30,5 @@ public class Algae extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
   }
 }
