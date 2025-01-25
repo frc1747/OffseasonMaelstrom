@@ -20,8 +20,8 @@ public class Elevator extends SubsystemBase {
   public Elevator() {
     elevatorLeft = new SparkMax(Constants.Elevator.LEFT_ID, MotorType.kBrushless);
     elevatorRight = new SparkMax(Constants.Elevator.RIGHT_ID, MotorType.kBrushless);
-    limitSwitchTop = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_TOP);
-    limitSwitchBottom = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_BOTTOM);
+    limitSwitchTop = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_TOP_ID);
+    limitSwitchBottom = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_BOTTOM_ID);
   }
   public boolean getTop(){
     return  limitSwitchTop.get();

@@ -131,28 +131,29 @@ public class Constants {
 
   public static final class AlgaePivot {
     public static final int PIVOT_ID = 51;
-    public static final int LIMIT_SWITCH_ID = 61;
+    public static final int LIMIT_SWITCH_ID = 52;
   }
 
   public static final class Coral {
-    public static final int INTAKE_ID = 52;
-    public static final int CORAL_LIMIT_SWITCH_ID = 53;
+    public static final int INTAKE_ID = 53;
+    public static final int CORAL_LIMIT_SWITCH_ID = 54;
   }
   
   public static final class CoralPivot {
-    public static final int PIVOT_ID = 54;
+    public static final int PIVOT_ID = 55;
   }
 
   public static final class Climber {
-    public static final int LEFT_ID = 55;
-    public static final int RIGHT_ID = 56;
+    public static final int LEFT_ID = 56;
+    public static final int RIGHT_ID = 57;
+    public static final int LINEBREAK_ID = 58;
   }
 
   public static final class Elevator {
-    public static final int LEFT_ID = 57;
-    public static final int RIGHT_ID = 58;
-    public static final int LIMIT_SWITCH_BOTTOM = 59;
-    public static final int LIMIT_SWITCH_TOP = 60;
+    public static final int LEFT_ID = 59;
+    public static final int RIGHT_ID = 60;
+    public static final int LIMIT_SWITCH_BOTTOM_ID = 61;
+    public static final int LIMIT_SWITCH_TOP_ID = 62;
   }
     
 }
