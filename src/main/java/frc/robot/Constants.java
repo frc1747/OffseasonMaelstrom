@@ -130,30 +130,33 @@ public class Constants {
   }
 
   public static final class AlgaePivot {
-    public static final int PIVOT_ID = 51;
-    public static final int LIMIT_SWITCH_ID = 52;
+    public static final int PIVOT_ID = 43;
+    public static final int LIMIT_SWITCH_ID = 44;
   }
 
   public static final class Coral {
-    public static final int INTAKE_ID = 53;
-    public static final int CORAL_LIMIT_SWITCH_ID = 54;
+    public static final int INTAKE_ID = 45;
+    public static final int CORAL_LIMIT_SWITCH_ID = 46;
   }
   
   public static final class CoralPivot {
-    public static final int PIVOT_ID = 55;
+    public static final int PIVOT_ID = 47;
   }
 
   public static final class Climber {
-    public static final int LEFT_ID = 56;
-    public static final int RIGHT_ID = 57;
-    public static final int LINEBREAK_ID = 58;
+    public static final int LEFT_ID = 48;
+    public static final int RIGHT_ID = 49;
+    public static final int LINEBREAK_ID = 50;
   }
 
   public static final class Elevator {
-    public static final int LEFT_ID = 59;
-    public static final int RIGHT_ID = 60;
-    public static final int LIMIT_SWITCH_BOTTOM_ID = 61;
-    public static final int LIMIT_SWITCH_TOP_ID = 62;
+    public static final int ELEVATOR_ID = 51;
+    public static final int LIMIT_SWITCH_BOTTOM_ID = 52;
+    public static final int LIMIT_SWITCH_TOP_ID = 53;
+    public static final int LEVEL_ONE_LINEBREAK_ID = 54;
+    public static final int LEVEL_TWO_LINEBREAK_ID = 55;
+    public static final int LEVEL_THREE_LINEBREAK_ID = 56;
+    public static final int LEVEL_FOUR_LINEBREAK_ID = 57;
   }
     
 }

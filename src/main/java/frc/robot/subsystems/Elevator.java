@@ -12,27 +12,43 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
-  private SparkMax elevatorLeft;
-  private SparkMax elevatorRight;
+  private SparkMax elevator;
   private DigitalInput limitSwitchTop;
   private DigitalInput limitSwitchBottom;
+  private DigitalInput levelOneLinebreak;
+  private DigitalInput levelTwoLinebreak;
+  private DigitalInput levelThreeLinebreak;
+  private DigitalInput levelFourLinebreak;
 
   public Elevator() {
-    elevatorLeft = new SparkMax(Constants.Elevator.LEFT_ID, MotorType.kBrushless);
-    elevatorRight = new SparkMax(Constants.Elevator.RIGHT_ID, MotorType.kBrushless);
+    elevator = new SparkMax(Constants.Elevator.ELEVATOR_ID, MotorType.kBrushless);
     limitSwitchTop = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_TOP_ID);
     limitSwitchBottom = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_BOTTOM_ID);
+    levelOneLinebreak = new DigitalInput(Constants.Elevator.LEVEL_ONE_LINEBREAK_ID);
+    levelTwoLinebreak = new DigitalInput(Constants.Elevator.LEVEL_TWO_LINEBREAK_ID);
+    levelThreeLinebreak = new DigitalInput(Constants.Elevator.LEVEL_THREE_LINEBREAK_ID);
+    levelFourLinebreak = new DigitalInput(Constants.Elevator.LEVEL_FOUR_LINEBREAK_ID);
   }
-  public boolean getTop(){
-    return  limitSwitchTop.get();
+  public boolean isAtTop(){
+    return  !limitSwitchTop.get();
   }
-  public boolean getBottom(){
-    return limitSwitchBottom.get();
+  public boolean isAtBottom(){
+    return !limitSwitchBottom.get();
   }
-
   public void setPower(double pow){
-    elevatorLeft.set(pow);
-    elevatorRight.set(pow);
+    elevator.set(pow);
+  }
+  public boolean isAtLevelOne(){
+    return !levelOneLinebreak.get();
+  }
+  public boolean isAtLevelTwo(){
+    return !levelTwoLinebreak.get();
+  }
+  public boolean isAtLevelThree(){
+    return !levelThreeLinebreak.get();
+  }
+  public boolean isAtLevelFour(){
+    return !levelFourLinebreak.get();
   }
 
   @Override
