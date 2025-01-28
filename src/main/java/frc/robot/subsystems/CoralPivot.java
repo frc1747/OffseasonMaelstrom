@@ -13,7 +13,7 @@ import frc.robot.Constants;
 
 public class CoralPivot extends SubsystemBase {
   private SparkMax pivot;
-  /** Creates a new CoralPivot. */
+
   public CoralPivot() {
     pivot = new SparkMax(Constants.CoralPivot.PIVOT_ID, MotorType.kBrushless);
   }
@@ -28,7 +28,6 @@ public class CoralPivot extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     SmartDashboard.putNumber("Coral Pivot Encoder", getPosition());
   }
 }

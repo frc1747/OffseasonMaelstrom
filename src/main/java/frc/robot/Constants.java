@@ -1,8 +1,15 @@
 package frc.robot;
 
+import com.ctre.phoenix6.signals.SensorDirectionValue;
+
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.util.Units;
+import frc.robot.util.COTSFalconSwerveConstants;
+import frc.robot.util.SwerveModuleConstants;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -126,7 +133,7 @@ public class Constants {
 
   public static final class Algae {
     public static final int INTAKE_ID = 41;
-    public static final int ALGAE_LIMIT_SWITCH_ID = 42;
+    public static final int LIMIT_SWITCH_ID = 42;
   }
 
   public static final class AlgaePivot {
