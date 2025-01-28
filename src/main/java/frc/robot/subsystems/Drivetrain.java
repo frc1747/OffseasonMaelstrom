@@ -40,13 +40,11 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.lib.util.CANCoderUtil;
-import frc.lib.util.CANSparkMaxUtil;
-import frc.lib.util.SwerveModuleConstants;
-import frc.lib.util.CANCoderUtil.CCUsage;
-import frc.lib.util.CANSparkMaxUtil.Usage;
+import frc.robot.util.CANCoderUtil;
+import frc.robot.util.SwerveModuleConstants;
+import frc.robot.util.CANCoderUtil.CCUsage;
+import frc.robot.CTREConfigs;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 public class Drivetrain extends SubsystemBase {
   public SwerveDriveOdometry swerveOdometry;
@@ -88,7 +86,7 @@ public class Drivetrain extends SubsystemBase {
     Timer.delay(1.0);
     resetModulesToAbsolute();
 
-    swerveOdometry = new SwerveDriveOdometry(Constants.DrivetrainConstants.swerveKinematics, getYaw(), getModulePositions());
+    swerveOdometry = new SwerveDriveOdometry(Constants.Drivetrain.swerveKinematics, getYaw(), getModulePositions());
     /*
     AutoBuilder.configureHolonomic(
       this::getPose, // Robot pose supplier
@@ -114,7 +112,7 @@ public class Drivetrain extends SubsystemBase {
         0, 
         1
       ), 
-      Constants.DrivetrainConstants.CENTER_TO_WHEEL
+      Constants.Drivetrain.CENTER_TO_WHEEL
     );
     try {
       ppConfig = RobotConfig.fromGUISettings();
@@ -147,15 +145,15 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public ChassisSpeeds getRobotRelativeChassisSpeeds() {
-    return Constants.DrivetrainConstants.swerveKinematics.toChassisSpeeds(getModuleStates());
+    return Constants.Drivetrain.swerveKinematics.toChassisSpeeds(getModuleStates());
   }
 
   public void drive(ChassisSpeeds speeds){
-    SwerveModuleState[] states = Constants.DrivetrainConstants.swerveKinematics.toSwerveModuleStates(
+    SwerveModuleState[] states = Constants.Drivetrain.swerveKinematics.toSwerveModuleStates(
       ChassisSpeeds.fromFieldRelativeSpeeds(speeds, getYaw())
     );
     
-    SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.DrivetrainConstants.MAX_SPEED);
+    SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.Drivetrain.MAX_SPEED);
     for(SwerveModule mod : swerveMods){
       mod.setDesiredState(states[mod.moduleNumber], true);
     }
@@ -168,7 +166,7 @@ public class Drivetrain extends SubsystemBase {
        //       translation.getY(), 
          //     rotation);
     SwerveModuleState[] swerveModuleStates =
-      Constants.DrivetrainConstants.swerveKinematics.toSwerveModuleStates(
+      Constants.Drivetrain.swerveKinematics.toSwerveModuleStates(
         fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
               translation.getX(), 
               translation.getY(), 
@@ -180,7 +178,7 @@ public class Drivetrain extends SubsystemBase {
               translation.getY(), 
               rotation)
           );
-        SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.DrivetrainConstants.MAX_SPEED);
+        SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Drivetrain.MAX_SPEED);
 
         for(SwerveModule mod : swerveMods){
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
@@ -188,7 +186,7 @@ public class Drivetrain extends SubsystemBase {
 }
 
   public void setModuleStates(SwerveModuleState[] desiredStates, boolean isOpenLoop) {
-    SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.DrivetrainConstants.MAX_SPEED);
+    SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.Drivetrain.MAX_SPEED);
 
     for (SwerveModule mod : swerveMods) {
       mod.setDesiredState(desiredStates[mod.moduleNumber], isOpenLoop);
@@ -209,7 +207,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public Rotation2d getYaw() {
-    return (Constants.DrivetrainConstants.invertGyro) ? Rotation2d.fromDegrees(180-gyro.getYaw().getValueAsDouble()) : Rotation2d.fromDegrees(gyro.getYaw().getValueAsDouble());
+    return (Constants.Drivetrain.invertGyro) ? Rotation2d.fromDegrees(180-gyro.getYaw().getValueAsDouble()) : Rotation2d.fromDegrees(gyro.getYaw().getValueAsDouble());
   }
 
   public void resetModulesToAbsolute() {
@@ -264,20 +262,7 @@ public class Drivetrain extends SubsystemBase {
       SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond); 
       SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Position", mod.getPosition().distanceMeters);  
     }
-
-    //swerveMods[1].setMotorForTest();
   }
-
-
-
-
-
-
-
-
-
-
-
 
   public class SwerveModule {
     // This might go in its own class, but am leaving it here for now
@@ -297,12 +282,16 @@ public class Drivetrain extends SubsystemBase {
     private SparkClosedLoopController driveController;  // Deprecated from SparkMaxPIDController
     private SparkClosedLoopController angleController;
 
-    private SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.DrivetrainConstants.DRIVE_KS, Constants.DrivetrainConstants.DRIVE_KV, Constants.DrivetrainConstants.DRIVE_KA);
+    private SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Drivetrain.DRIVE_KS, Constants.Drivetrain.DRIVE_KV, Constants.Drivetrain.DRIVE_KA);
 
+
+    CTREConfigs ctreConfigs;
 
     public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants) {
       this.moduleNumber = moduleNumber;
       this.angleOffset = moduleConstants.angleOffset;
+
+      ctreConfigs = new CTREConfigs();
 
       // CANCoder
       angleEncoder = new CANcoder(moduleConstants.cancoderID);  // Fix this deprecation later
@@ -326,25 +315,25 @@ public class Drivetrain extends SubsystemBase {
     private void configAngleEncoder() {
       angleEncoder.getConfigurator().apply(new CANcoderConfiguration());
       CANCoderUtil.setCANCoderBusUsage(angleEncoder, CCUsage.kMinimal);
-      angleEncoder.getConfigurator().apply(RobotContainer.ctreConfigs.swerveCanCoderConfig);
+      angleEncoder.getConfigurator().apply(ctreConfigs.swerveCanCoderConfig);
     }
 
     private void configAngleMotor() {
       EncoderConfig encoderConfig = new EncoderConfig();
-      encoderConfig.positionConversionFactor(Constants.DrivetrainConstants.angleConversionFactor);
+      encoderConfig.positionConversionFactor(Constants.Drivetrain.angleConversionFactor);
 
       SparkMaxConfig config = new SparkMaxConfig();
       config
-        .smartCurrentLimit(Constants.DrivetrainConstants.angleContinuousCurrentLimit)
-        .idleMode(Constants.DrivetrainConstants.angleNeutralMode)
-        .inverted(Constants.DrivetrainConstants.angleMotorInvert)
+        .smartCurrentLimit(Constants.Drivetrain.angleContinuousCurrentLimit)
+        .idleMode(Constants.Drivetrain.angleNeutralMode)
+        .inverted(Constants.Drivetrain.angleMotorInvert)
         .apply(encoderConfig)
         .closedLoop
           .pidf(
-            Constants.DrivetrainConstants.ANGLE_KP, 
-            Constants.DrivetrainConstants.ANGLE_KI, 
-            Constants.DrivetrainConstants.ANGLE_KD, 
-            Constants.DrivetrainConstants.ANGLE_KF
+            Constants.Drivetrain.ANGLE_KP, 
+            Constants.Drivetrain.ANGLE_KI, 
+            Constants.Drivetrain.ANGLE_KD, 
+            Constants.Drivetrain.ANGLE_KF
           );
       config
         .signals
@@ -359,29 +348,25 @@ public class Drivetrain extends SubsystemBase {
       resetToAbsolute();
     }
 
-    public void setMotorForTest() {
-      angleMotor.set(1.0);
-    }
-
     private void configDriveMotor() {    
       EncoderConfig encoderConfig = new EncoderConfig();
       encoderConfig
-        .positionConversionFactor(Constants.DrivetrainConstants.driveConversionPositionFactor)
-        .velocityConversionFactor(Constants.DrivetrainConstants.driveConversionVelocityFactor);
+        .positionConversionFactor(Constants.Drivetrain.driveConversionPositionFactor)
+        .velocityConversionFactor(Constants.Drivetrain.driveConversionVelocityFactor);
       
       SparkMaxConfig config = new SparkMaxConfig();
       config
-        .smartCurrentLimit(Constants.DrivetrainConstants.driveContinuousCurrentLimit)
-        .idleMode(Constants.DrivetrainConstants.driveNeutralMode)
-        .inverted(Constants.DrivetrainConstants.driveMotorInvert)
-        .voltageCompensation(Constants.DrivetrainConstants.voltageComp)
+        .smartCurrentLimit(Constants.Drivetrain.driveContinuousCurrentLimit)
+        .idleMode(Constants.Drivetrain.driveNeutralMode)
+        .inverted(Constants.Drivetrain.driveMotorInvert)
+        .voltageCompensation(Constants.Drivetrain.voltageComp)
         .apply(encoderConfig)
         .closedLoop
           .pidf(
-            Constants.DrivetrainConstants.DRIVE_KP, 
-            Constants.DrivetrainConstants.DRIVE_KI, 
-            Constants.DrivetrainConstants.DRIVE_KD, 
-            Constants.DrivetrainConstants.DRIVE_KF
+            Constants.Drivetrain.DRIVE_KP, 
+            Constants.Drivetrain.DRIVE_KI, 
+            Constants.Drivetrain.DRIVE_KD, 
+            Constants.Drivetrain.DRIVE_KF
           );
       config
         .signals
@@ -410,7 +395,7 @@ public class Drivetrain extends SubsystemBase {
 
     private void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop) {
       if (isOpenLoop) {
-        double percentOutput = desiredState.speedMetersPerSecond / Constants.DrivetrainConstants.MAX_SPEED;
+        double percentOutput = desiredState.speedMetersPerSecond / Constants.Drivetrain.MAX_SPEED;
         driveMotor.set(percentOutput);
       } else {        
         driveController.setReference(
@@ -423,7 +408,7 @@ public class Drivetrain extends SubsystemBase {
 
     public void setAngle(SwerveModuleState desiredState) {
       // Prevent roating module if speed is less than 1%
-      Rotation2d angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.DrivetrainConstants.MAX_SPEED * 0.01)) ? lastAngle : desiredState.angle;
+      Rotation2d angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Constants.Drivetrain.MAX_SPEED * 0.01)) ? lastAngle : desiredState.angle;
 
       angleController.setReference(angle.getDegrees(), ControlType.kPosition);
       lastAngle = angle;
