@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -15,6 +16,7 @@ import frc.robot.Constants;
 public class Climber extends SubsystemBase {
   private TalonFX climbingLeft;
   private TalonFX climbingRight;
+  private DigitalInput linebreak;
 
   public Climber() {
     climbingLeft = new TalonFX(Constants.Climber.LEFT_ID);
@@ -26,7 +28,7 @@ public class Climber extends SubsystemBase {
   public void setClimberLPower(double power){
     climbingLeft.set(power); //could be wrong direction, fix when we get bot
   }
-  public void setCLimberRPower(double power){
+  public void setClimberRPower(double power){
     climbingRight.set(-power); //could be wrong direction, fix when we get bot
   }
 
@@ -36,6 +38,10 @@ public class Climber extends SubsystemBase {
 
   public double getRPosition() {
     return climbingRight.getPosition().getValueAsDouble();
+  }
+
+  public boolean cageInPosition(){
+    return !linebreak.get();
   }
 
   @Override

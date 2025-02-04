@@ -5,6 +5,7 @@
 package frc.robot;
 
 import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
@@ -14,6 +15,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.Teleop.TeleopSwerve;
+import frc.robot.commands.Teleop.Climb;
+import frc.robot.commands.Teleop.DropAlgaeIntake;
+import frc.robot.commands.Teleop.EjectAlgae;
+import frc.robot.commands.Teleop.EjectCoral;
+import frc.robot.commands.Teleop.IntakeAlgae;
+import frc.robot.commands.Teleop.StowAlgaeIntake;
+import frc.robot.commands.Teleop.IntakeCoral;
+import frc.robot.commands.Teleop.MoveElevator;
+import frc.robot.commands.Teleop.PivotCoralIntake;
 import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.AlgaePivot;
 import frc.robot.subsystems.Climber;
@@ -23,8 +35,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 
 public class RobotContainer {
-  public RobotContainer() {
-    public static CTREConfigs ctreConfigs = new CTREConfigs();
+  public static CTREConfigs ctreConfigs = new CTREConfigs();
 
     //subsystems
     public final Climber climber = new Climber();
@@ -52,24 +63,81 @@ public class RobotContainer {
 
     // Driver Buttons
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
-    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+  private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
     // Alerts
     private final Alert driverDisconnectedAlert = new Alert("Driver controller is disconnected (port " + driver.getPort() + ").", AlertType.WARNING);
     private final Alert operatorDisconnectedAlert = new Alert("Operator controller is disconnected (port " + operator.getPort() + ").", AlertType.WARNING);
 
     // BooleanSuppliers
-    private final BooleanSupplier rightTrigger = () -> operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > Short.MAX_VALUE - 10;
-    private final BooleanSupplier leftTrigger = () -> operator.getRawAxis(XboxController.Axis.kLeftTrigger.value) > Short.MAX_VALUE - 10;
-    private final BooleanSupplier rightBumper = () -> operator.getRawAxis(XboxController.Button.kRightBumper.value) == 1;
-    private final BooleanSupplier leftBumper = () -> operator.getRawAxis(XboxController.Button.kLeftBumper.value) == 1;
-    private final BooleanSupplier toggleManual = () -> operator.getRawAxis(XboxController.Button.kStart.value) == 1; 
+    private final BooleanSupplier rightTriggerOperator = () -> operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > Short.MAX_VALUE - 10;
+    private final BooleanSupplier leftTriggerOperator = () -> operator.getRawAxis(XboxController.Axis.kLeftTrigger.value) > Short.MAX_VALUE - 10;
+    private final BooleanSupplier rightBumperOperator = () -> operator.getRawAxis(XboxController.Button.kRightBumper.value) == 1;
+    private final BooleanSupplier leftBumperOperator = () -> operator.getRawAxis(XboxController.Button.kLeftBumper.value) == 1;
+    private final BooleanSupplier toggleManualOperator = () -> operator.getRawAxis(XboxController.Button.kStart.value) == 1;
+    private final BooleanSupplier BooleanElevator = () -> operator.getRawAxis(XboxController.Axis.kLeftY.value) != 0;
+    private final BooleanSupplier BooleanCoralIntakePivot = () -> operator.getRawAxis(XboxController.Axis.kRightY.value) != 0;
+    // booleanSuppliers driver
+    private final BooleanSupplier rightTriggerDriver = () -> driver.getRawAxis(XboxController.Axis.kRightTrigger.value) > Short.MAX_VALUE - 10;
 
+    
+    //DoubleSuppliers
+    private final DoubleSupplier manualCoralIntakePivot = () -> operator.getRawAxis(XboxController.Axis.kRightY.value);
+    private final DoubleSupplier manualElevator = () -> operator.getRawAxis(XboxController.Axis.kLeftY.value);
+
+  public RobotContainer() {
+    
+    
+    //drivetrain
+    drivetrain.setDefaultCommand(
+      new TeleopSwerve(
+        drivetrain, 
+        () -> -driver.getRawAxis(translationAxis), 
+        () -> -driver.getRawAxis(strafeAxis), 
+        () -> -driver.getRawAxis(rotationAxis), 
+        () -> robotCentric.getAsBoolean()
+      )
+    );
     configureBindings();
   }
 
   private void configureBindings() {
+
+
+
     //text
+    //driver commands 
+     new JoystickButton(driver, XboxController.Button.kA.value)
+     .whileTrue(new EjectAlgae(algae));
+     new Trigger(rightTriggerDriver)
+     .onTrue(new DropAlgaeIntake(algaePivot))
+     .whileTrue(new IntakeAlgae(algae))
+     .onFalse(new StowAlgaeIntake(algaePivot));
+     
+
+    //operater Coral commands
+
+    new JoystickButton(operator, XboxController.Button.kB.value)
+    .whileTrue(new IntakeCoral( coral));  
+    new Trigger(rightTriggerOperator)
+    .whileTrue( new EjectCoral(coral));   
+
+    new Trigger(leftTriggerOperator)
+    .whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED));
+    new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
+    .whileTrue(new Climb(climber, -Constants.Climber.CLIMB_SPEED));
+
+    // Elevator
+    new Trigger(BooleanElevator)
+    .whileTrue(new MoveElevator(elevator,manualElevator.getAsDouble()));
+    
+    new Trigger(BooleanCoralIntakePivot)
+    .whileTrue(new PivotCoralIntake(coralPivot, manualCoralIntakePivot.getAsDouble()));
+
+
+
+
+
   }
 
   public Command getAutonomousCommand() {

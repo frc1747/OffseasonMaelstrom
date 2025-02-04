@@ -12,7 +12,7 @@ public class PivotCoralIntake extends Command {
   /** Creates a new PivotCoralIntake. */
   private CoralPivot pivot;
   private double speed;
-  public PivotCoralIntake(double speed, CoralPivot pivot) {
+  public PivotCoralIntake(CoralPivot pivot, double speed) {
     this.pivot = pivot;
     this.speed = speed;
     addRequirements(pivot);

@@ -10,13 +10,11 @@ import frc.robot.subsystems.Climber;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class Climb extends Command {
   private Climber climber;
-  private double speedL;
-  private double speedR;
+  private double speed;
   /** Creates a new Climb. */
-  public Climb(Climber climber, double speedL, double speedR) {
+  public Climb(Climber climber, double speed) {
     this.climber = climber;
-    this.speedL = speedL;
-    this.speedR = speedR;
+    this.speed = speed;
     addRequirements(climber);
   }
 
@@ -28,8 +26,8 @@ public class Climb extends Command {
   @Override
   public void execute() {
     if (climber.cageInPosition()){
-      climber.setClimberLPower(speedL);
-      climber.setClimberRPower(speedR);
+      climber.setClimberLPower(speed);
+      climber.setClimberRPower(speed);
     }
   }
 
