@@ -4,8 +4,13 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,25 +21,38 @@ import frc.robot.Constants;
 public class AlgaePivot extends SubsystemBase {
   private SparkMax pivot;
   private DigitalInput limitSwitch;
+  private SparkClosedLoopController controller;
 
   public AlgaePivot() {
     pivot = new SparkMax(Constants.AlgaePivot.PIVOT_ID, MotorType.kBrushless);
     limitSwitch = new DigitalInput(Constants.AlgaePivot.LIMIT_SWITCH_ID);
+    controller = pivot.getClosedLoopController();
+    double p,i,d,f;
+
+    SparkMaxConfig config = new SparkMaxConfig();
+    config
+      .closedLoop
+        .pidf(
+          p,
+          i,
+          d,
+          f
+        );
+    
+    pivot.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   public void setPivotPower(double power){
     pivot.set(power);
   }
+
+  public void setPosition(double position) {
+    controller.setReference(position, SparkBase.ControlType.kPosition);
+  }
   
   public double getPosition(){
     return pivot.getEncoder().getPosition();
   }
-
-  public void dropIntake(){
-    pivot.getEncoder().setPosition(Constants.AlgaePivot.DROPPED); //DROPPED TBD
-  }
-
-
 
   public boolean switchPressed(){
     return !limitSwitch.get();
