@@ -18,14 +18,17 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.commands.Teleop.Climb;
+import frc.robot.commands.Teleop.CoralAngle;
 import frc.robot.commands.Teleop.DropAlgaeIntake;
 import frc.robot.commands.Teleop.EjectAlgae;
 import frc.robot.commands.Teleop.EjectCoral;
+import frc.robot.commands.Teleop.GoToLevel;
 import frc.robot.commands.Teleop.IntakeAlgae;
 import frc.robot.commands.Teleop.StowAlgaeIntake;
 import frc.robot.commands.Teleop.IntakeCoral;
 import frc.robot.commands.Teleop.MoveElevator;
 import frc.robot.commands.Teleop.PivotCoralIntake;
+import frc.robot.commands.Teleop.ResetGyro;
 import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.AlgaePivot;
 import frc.robot.subsystems.Climber;
@@ -62,12 +65,12 @@ public class RobotContainer {
     private final int rotationAxis = XboxController.Axis.kRightX.value;
 
     // Driver Buttons
-    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
-  private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final POVButton zeroGyro = new POVButton(driver, 180);
+    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
     // Alerts
-    private final Alert driverDisconnectedAlert = new Alert("Driver controller is disconnected (port " + driver.getPort() + ").", AlertType.WARNING);
-    private final Alert operatorDisconnectedAlert = new Alert("Operator controller is disconnected (port " + operator.getPort() + ").", AlertType.WARNING);
+    private final Alert driverDisconnectedAlert = new Alert("Driver controller is disconnected (port " + driver.getPort() + ").", AlertType.kWarning);
+    private final Alert operatorDisconnectedAlert = new Alert("Operator controller is disconnected (port " + operator.getPort() + ").", AlertType.kWarning);
 
     // BooleanSuppliers
     private final BooleanSupplier rightTriggerOperator = () -> operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > Short.MAX_VALUE - 10;
@@ -118,7 +121,7 @@ public class RobotContainer {
     //operater Coral commands
 
     new JoystickButton(operator, XboxController.Button.kB.value)
-    .whileTrue(new IntakeCoral( coral));  
+    .whileTrue(new IntakeCoral(coral));  
     new Trigger(rightTriggerOperator)
     .whileTrue( new EjectCoral(coral));   
 
@@ -128,16 +131,40 @@ public class RobotContainer {
     .whileTrue(new Climb(climber, -Constants.Climber.CLIMB_SPEED));
 
     // Elevator
+    //Manual
     new Trigger(BooleanElevator)
     .whileTrue(new MoveElevator(elevator,manualElevator.getAsDouble()));
+
+    //Presets (elevator & coral pivot)
+    new JoystickButton(operator, XboxController.Button.kA.value)
+    .onTrue(new GoToLevel(elevator, Constants.Elevator.LOWER_ALGAE_POSITION));
+    new JoystickButton(operator, XboxController.Button.kY.value)
+    .onTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION));
+    new JoystickButton(operator, XboxController.Button.kX.value)
+    .onTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION))
+    .onTrue(new CoralAngle(coralPivot, Constants.CoralPivot.CORAL_STATION_POSITION));
     
+    operatorDpadUp
+    .onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION))
+    .onTrue(new CoralAngle(coralPivot, Constants.CoralPivot.REEF_POSITION));
+    
+    operatorDpadRight.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_THREE_POSITION))
+    .onTrue(new CoralAngle(coralPivot, Constants.CoralPivot.REEF_POSITION));
+    
+    operatorDpadLeft.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION))
+    .onTrue(new CoralAngle(coralPivot, Constants.CoralPivot.REEF_POSITION));
+    
+    operatorDpadDown.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_ONE_POSITION))
+    .onTrue(new CoralAngle(coralPivot, Constants.CoralPivot.REEF_POSITION));
+
+    //Coral Pivot
+    //Manual
     new Trigger(BooleanCoralIntakePivot)
     .whileTrue(new PivotCoralIntake(coralPivot, manualCoralIntakePivot.getAsDouble()));
 
-
-
-
-
+    //Reset Gyro
+    zeroGyro
+    .onTrue(new ResetGyro(drivetrain));
   }
 
   public Command getAutonomousCommand() {

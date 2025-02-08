@@ -5,6 +5,14 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkMaxConfig;
+
+import java.lang.reflect.Constructor;
+
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,10 +21,29 @@ import frc.robot.Constants;
 
 public class CoralPivot extends SubsystemBase {
   private SparkMax pivot;
+  private SparkClosedLoopController controller;
 
   public CoralPivot() {
     pivot = new SparkMax(Constants.CoralPivot.PIVOT_ID, MotorType.kBrushless);
+    controller = pivot.getClosedLoopController();
+    double p = Constants.CoralPivot.PID_P;
+    double i = Constants.CoralPivot.PID_I;
+    double d = Constants.CoralPivot.PID_D;
+    double f = Constants.CoralPivot.PID_F;
+
+    SparkMaxConfig config = new SparkMaxConfig();
+    config
+      .closedLoop
+        .pidf(
+          p,
+          i,
+          d,
+          f
+        );
+    
+    pivot.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
+  
 
   public void setPivotPower(double power){
     pivot.set(power);
@@ -24,6 +51,10 @@ public class CoralPivot extends SubsystemBase {
 
   public double getPosition(){
     return pivot.getEncoder().getPosition();
+  }
+
+  public void setPosition(double position) {
+    controller.setReference(position, SparkBase.ControlType.kPosition);
   }
 
   @Override

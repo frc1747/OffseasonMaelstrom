@@ -5,6 +5,7 @@
 package frc.robot.commands.Teleop;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.AlgaePivot;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -21,7 +22,7 @@ public class DropAlgaeIntake extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intakePivot.dropIntake();
+    intakePivot.setPosition(Constants.AlgaePivot.DROPPED);
     done = true;
   }
 

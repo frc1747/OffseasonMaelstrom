@@ -4,8 +4,13 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,19 +20,29 @@ public class Elevator extends SubsystemBase {
   private SparkMax elevator;
   private DigitalInput limitSwitchTop;
   private DigitalInput limitSwitchBottom;
-  private DigitalInput levelOneLinebreak;
-  private DigitalInput levelTwoLinebreak;
-  private DigitalInput levelThreeLinebreak;
-  private DigitalInput levelFourLinebreak;
+  private SparkClosedLoopController controller;
 
   public Elevator() {
     elevator = new SparkMax(Constants.Elevator.ELEVATOR_ID, MotorType.kBrushless);
     limitSwitchTop = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_TOP_ID);
     limitSwitchBottom = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_BOTTOM_ID);
-    levelOneLinebreak = new DigitalInput(Constants.Elevator.LEVEL_ONE_LINEBREAK_ID);
-    levelTwoLinebreak = new DigitalInput(Constants.Elevator.LEVEL_TWO_LINEBREAK_ID);
-    levelThreeLinebreak = new DigitalInput(Constants.Elevator.LEVEL_THREE_LINEBREAK_ID);
-    levelFourLinebreak = new DigitalInput(Constants.Elevator.LEVEL_FOUR_LINEBREAK_ID);
+    controller = elevator.getClosedLoopController();
+    double p = Constants.Elevator.PID_P;
+    double i = Constants.Elevator.PID_I;
+    double d = Constants.Elevator.PID_D;
+    double f = Constants.Elevator.PID_F;
+
+    SparkMaxConfig config = new SparkMaxConfig();
+    config
+      .closedLoop
+        .pidf(
+          p,
+          i,
+          d,
+          f
+        );
+    
+    elevator.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
   public boolean isAtTop(){
     return  !limitSwitchTop.get();
@@ -38,17 +53,9 @@ public class Elevator extends SubsystemBase {
   public void setPower(double pow){
     elevator.set(pow);
   }
-  public boolean isAtLevelOne(){
-    return !levelOneLinebreak.get();
-  }
-  public boolean isAtLevelTwo(){
-    return !levelTwoLinebreak.get();
-  }
-  public boolean isAtLevelThree(){
-    return !levelThreeLinebreak.get();
-  }
-  public boolean isAtLevelFour(){
-    return !levelFourLinebreak.get();
+
+  public void setPosition(double position) {
+    controller.setReference(position, SparkBase.ControlType.kPosition);
   }
 
   @Override

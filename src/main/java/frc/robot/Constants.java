@@ -134,36 +134,67 @@ public class Constants {
   public static final class Algae {
     public static final int INTAKE_ID = 41;
     public static final int LIMIT_SWITCH_ID = 42;
+    public static final double ROLLER_SPEED = 0.1;
   }
 
   public static final class AlgaePivot {
     public static final int PIVOT_ID = 43;
     public static final int LIMIT_SWITCH_ID = 44;
+    public static final double PIVOT_IN_SPEED = 0.2;
+    public static final double PIVOT_IN_SPEED_SLOW = 0.1;
+    public static final double SLOW_POSITION = 100;
+    public static final double DROPPED = 500;
+    public static final double PID_P = 1;
+    public static final double PID_I = 0;
+    public static final double PID_D = 0;
+    public static final double PID_F = 0;
   }
 
   public static final class Coral {
     public static final int INTAKE_ID = 45;
     public static final int CORAL_LIMIT_SWITCH_ID = 46;
+    public static final double INTAKE_SPEED = 0.1;
   }
   
   public static final class CoralPivot {
     public static final int PIVOT_ID = 47;
+    public static final double CORAL_STATION_POSITION = 100;
+    public static final double REEF_POSITION = 200;
+    public static final double PID_P = 1;
+    public static final double PID_I = 0;
+    public static final double PID_D = 0;
+    public static final double PID_F = 0;
   }
 
   public static final class Climber {
     public static final int LEFT_ID = 48;
     public static final int RIGHT_ID = 49;
     public static final int LINEBREAK_ID = 50;
+    public static final double CLIMB_SPEED = 0.2;
   }
 
   public static final class Elevator {
     public static final int ELEVATOR_ID = 51;
     public static final int LIMIT_SWITCH_BOTTOM_ID = 52;
     public static final int LIMIT_SWITCH_TOP_ID = 53;
-    public static final int LEVEL_ONE_LINEBREAK_ID = 54;
-    public static final int LEVEL_TWO_LINEBREAK_ID = 55;
-    public static final int LEVEL_THREE_LINEBREAK_ID = 56;
-    public static final int LEVEL_FOUR_LINEBREAK_ID = 57;
+    public static final double LEVEL_ONE_POSITION = 100;
+    public static final double LEVEL_TWO_POSITION = 200;
+    public static final double LEVEL_THREE_POSITION = 300;
+    public static final double LEVEL_FOUR_POSITION = 400;
+    public static final double CORAL_STATION_POSITION = 290;
+    public static final double LOWER_ALGAE_POSITION = 150;
+    public static final double UPPER_ALGAE_POSITION = 250;
+    public static final double PID_P = 1;
+    public static final double PID_I = 0;
+    public static final double PID_D = 0;
+    public static final double PID_F = 0;
+  }
+
+  public static class Controller {
+    public static final int DRIVER_CONTROLLER_PORT = 0;
+    public static final int OPERATOR_CONTROLLER_PORT = 1;
+
+    public static final double STICK_DEADBAND = 0.05;
   }
     
 }
