@@ -25,19 +25,13 @@ public class Climber extends SubsystemBase {
     climbingRight.setNeutralMode(NeutralModeValue.Brake);
   }
   
-  public void setClimberLPower(double power){
-    climbingLeft.set(power); //could be wrong direction, fix when we get bot
-  }
-  public void setClimberRPower(double power){
-    climbingRight.set(-power); //could be wrong direction, fix when we get bot
+  public void setClimberPower(double power){
+    climbingLeft.set(power);
+    climbingRight.set(-power);
   }
 
-  public double getLPosition() {
+  public double getPosition() {
     return climbingLeft.getPosition().getValueAsDouble();
-  }
-
-  public double getRPosition() {
-    return climbingRight.getPosition().getValueAsDouble();
   }
 
   public boolean cageInPosition(){
@@ -46,7 +40,6 @@ public class Climber extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Climber L Position", getLPosition());
-    SmartDashboard.putNumber("Climber R Position", getRPosition());
+    SmartDashboard.putNumber("Climber Position", getPosition());
   }
 }

@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.commands.Teleop.Climb;
-import frc.robot.commands.Teleop.CoralAngle;
+import frc.robot.commands.Teleop.AngleCoral;
 import frc.robot.commands.Teleop.DropAlgaeIntake;
 import frc.robot.commands.Teleop.EjectAlgae;
 import frc.robot.commands.Teleop.EjectCoral;
@@ -28,7 +28,7 @@ import frc.robot.commands.Teleop.StowAlgaeIntake;
 import frc.robot.commands.Teleop.IntakeCoral;
 import frc.robot.commands.Teleop.MoveElevator;
 import frc.robot.commands.Teleop.PivotCoralIntake;
-import frc.robot.commands.Teleop.ResetGyro;
+//import frc.robot.commands.Teleop.ResetGyro;
 import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.AlgaePivot;
 import frc.robot.subsystems.Climber;
@@ -65,7 +65,7 @@ public class RobotContainer {
     private final int rotationAxis = XboxController.Axis.kRightX.value;
 
     // Driver Buttons
-    private final POVButton zeroGyro = new POVButton(driver, 180);
+    //private final POVButton zeroGyro = new POVButton(driver, 180);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
     // Alerts
@@ -75,9 +75,6 @@ public class RobotContainer {
     // BooleanSuppliers
     private final BooleanSupplier rightTriggerOperator = () -> operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > Short.MAX_VALUE - 10;
     private final BooleanSupplier leftTriggerOperator = () -> operator.getRawAxis(XboxController.Axis.kLeftTrigger.value) > Short.MAX_VALUE - 10;
-    private final BooleanSupplier rightBumperOperator = () -> operator.getRawAxis(XboxController.Button.kRightBumper.value) == 1;
-    private final BooleanSupplier leftBumperOperator = () -> operator.getRawAxis(XboxController.Button.kLeftBumper.value) == 1;
-    private final BooleanSupplier toggleManualOperator = () -> operator.getRawAxis(XboxController.Button.kStart.value) == 1;
     private final BooleanSupplier BooleanElevator = () -> operator.getRawAxis(XboxController.Axis.kLeftY.value) != 0;
     private final BooleanSupplier BooleanCoralIntakePivot = () -> operator.getRawAxis(XboxController.Axis.kRightY.value) != 0;
     // booleanSuppliers driver
@@ -105,66 +102,62 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-
-
-
-    //text
     //driver commands 
      new JoystickButton(driver, XboxController.Button.kA.value)
-     .whileTrue(new EjectAlgae(algae));
+      .whileTrue(new EjectAlgae(algae));
      new Trigger(rightTriggerDriver)
-     .onTrue(new DropAlgaeIntake(algaePivot))
-     .whileTrue(new IntakeAlgae(algae))
-     .onFalse(new StowAlgaeIntake(algaePivot));
+      .onTrue(new DropAlgaeIntake(algaePivot))
+      .whileTrue(new IntakeAlgae(algae))
+      .onFalse(new StowAlgaeIntake(algaePivot));
      
 
     //operater Coral commands
 
     new JoystickButton(operator, XboxController.Button.kB.value)
-    .whileTrue(new IntakeCoral(coral));  
+      .whileTrue(new IntakeCoral(coral));  
     new Trigger(rightTriggerOperator)
-    .whileTrue( new EjectCoral(coral));   
+      .whileTrue( new EjectCoral(coral));   
 
     new Trigger(leftTriggerOperator)
-    .whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED));
+      .whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED));
     new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
-    .whileTrue(new Climb(climber, -Constants.Climber.CLIMB_SPEED));
+      .whileTrue(new Climb(climber, -Constants.Climber.CLIMB_SPEED));
 
     // Elevator
     //Manual
     new Trigger(BooleanElevator)
-    .whileTrue(new MoveElevator(elevator,manualElevator.getAsDouble()));
+      .whileTrue(new MoveElevator(elevator,manualElevator.getAsDouble()));
 
     //Presets (elevator & coral pivot)
     new JoystickButton(operator, XboxController.Button.kA.value)
-    .onTrue(new GoToLevel(elevator, Constants.Elevator.LOWER_ALGAE_POSITION));
+      .onTrue(new GoToLevel(elevator, Constants.Elevator.LOWER_ALGAE_POSITION));
     new JoystickButton(operator, XboxController.Button.kY.value)
-    .onTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION));
+      .onTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION));
     new JoystickButton(operator, XboxController.Button.kX.value)
-    .onTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION))
-    .onTrue(new CoralAngle(coralPivot, Constants.CoralPivot.CORAL_STATION_POSITION));
+      .onTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION))
+      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.CORAL_STATION_POSITION));
     
     operatorDpadUp
-    .onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION))
-    .onTrue(new CoralAngle(coralPivot, Constants.CoralPivot.REEF_POSITION));
+      .onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION))
+      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
     
     operatorDpadRight.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_THREE_POSITION))
-    .onTrue(new CoralAngle(coralPivot, Constants.CoralPivot.REEF_POSITION));
+      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
     
     operatorDpadLeft.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION))
-    .onTrue(new CoralAngle(coralPivot, Constants.CoralPivot.REEF_POSITION));
+      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
     
     operatorDpadDown.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_ONE_POSITION))
-    .onTrue(new CoralAngle(coralPivot, Constants.CoralPivot.REEF_POSITION));
+      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
 
     //Coral Pivot
     //Manual
     new Trigger(BooleanCoralIntakePivot)
-    .whileTrue(new PivotCoralIntake(coralPivot, manualCoralIntakePivot.getAsDouble()));
+      .whileTrue(new PivotCoralIntake(coralPivot, manualCoralIntakePivot.getAsDouble()));
 
     //Reset Gyro
-    zeroGyro
-    .onTrue(new ResetGyro(drivetrain));
+    // zeroGyro
+    //   .onTrue(new ResetGyro(drivetrain));
   }
 
   public Command getAutonomousCommand() {

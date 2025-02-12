@@ -8,11 +8,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CoralPivot;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class CoralAngle extends Command {
-  /** Creates a new CoralAngle. */
+public class AngleCoral extends Command {
   private double position;
   private CoralPivot pivot;
-  public CoralAngle(CoralPivot pivot, double position) {
+  public AngleCoral(CoralPivot pivot, double position) {
     this.pivot = pivot;
     this.position = position;
     addRequirements(pivot);
