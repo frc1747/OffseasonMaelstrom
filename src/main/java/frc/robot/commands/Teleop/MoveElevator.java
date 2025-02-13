@@ -8,9 +8,7 @@ package frc.robot.commands.Teleop;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
 
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class MoveElevator extends Command {
-  /** Creates a new MoveElevator. */
   private double speed;
   private Elevator elevator;
 
@@ -20,23 +18,19 @@ public class MoveElevator extends Command {
     addRequirements(elevator);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     elevator.setPower(speed);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {}
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     elevator.setPower(0.0);
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

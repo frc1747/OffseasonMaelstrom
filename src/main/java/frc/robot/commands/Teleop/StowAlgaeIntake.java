@@ -9,40 +9,34 @@ import frc.robot.Constants;
 import frc.robot.subsystems.AlgaePivot;
 
 
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class StowAlgaeIntake extends Command {
-  /** Creates a new StowAlgaeIntake. */
-  private AlgaePivot intakePivot;
+  private AlgaePivot algaePivot;
 
-  public StowAlgaeIntake(AlgaePivot intakePivot) {
-    this.intakePivot = intakePivot;
-    addRequirements(intakePivot);
+  public StowAlgaeIntake(AlgaePivot algaePivot) {
+    this.algaePivot = algaePivot;
+    addRequirements(algaePivot);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intakePivot.setPivotPower(-Constants.AlgaePivot.PIVOT_IN_SPEED);
+    algaePivot.setPivotPower(-Constants.AlgaePivot.PIVOT_IN_SPEED);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (intakePivot.getPosition() < Constants.AlgaePivot.SLOW_POSITION){
-      intakePivot.setPivotPower(-Constants.AlgaePivot.PIVOT_IN_SPEED_SLOW);
+    if (algaePivot.getPosition() < Constants.AlgaePivot.SLOW_POSITION){
+      algaePivot.setPivotPower(-Constants.AlgaePivot.PIVOT_IN_SPEED_SLOW);
       return;
     }
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intakePivot.setPivotPower(0.0);
+    algaePivot.setPivotPower(0.0);
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return intakePivot.switchPressed();
+    return algaePivot.switchPressed();
   }
 }

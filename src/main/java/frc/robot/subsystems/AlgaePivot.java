@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
@@ -22,11 +23,13 @@ public class AlgaePivot extends SubsystemBase {
   private SparkMax pivot;
   private DigitalInput limitSwitch;
   private SparkClosedLoopController controller;
+  private AbsoluteEncoder encoder;
 
   public AlgaePivot() {
     pivot = new SparkMax(Constants.AlgaePivot.PIVOT_ID, MotorType.kBrushless);
     limitSwitch = new DigitalInput(Constants.AlgaePivot.LIMIT_SWITCH_ID);
     controller = pivot.getClosedLoopController();
+    encoder = pivot.getAbsoluteEncoder();
     double p = Constants.AlgaePivot.PID_P;
     double i = Constants.AlgaePivot.PID_I;
     double d = Constants.AlgaePivot.PID_D;
@@ -54,7 +57,7 @@ public class AlgaePivot extends SubsystemBase {
   }
   
   public double getPosition(){
-    return pivot.getEncoder().getPosition();
+    return encoder.getPosition();
   }
 
   public boolean switchPressed(){
@@ -64,5 +67,6 @@ public class AlgaePivot extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Algae Pivot Encoder", getPosition());
+    SmartDashboard.putBoolean("Algae Pivot Limit Switch", switchPressed());
   }
 }

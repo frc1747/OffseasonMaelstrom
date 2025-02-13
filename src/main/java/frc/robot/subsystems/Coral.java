@@ -4,17 +4,21 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Coral extends SubsystemBase {
-  private Talon coral;
+  private SparkMax coral;
   private DigitalInput limitSwitch;
 
   public Coral() {
-    coral = new Talon(Constants.Coral.INTAKE_ID);
+    coral = new SparkMax(Constants.Coral.INTAKE_ID, MotorType.kBrushless);
     limitSwitch = new DigitalInput(Constants.Coral.CORAL_LIMIT_SWITCH_ID); 
     //configure brake mode
   }
