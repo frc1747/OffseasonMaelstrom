@@ -21,7 +21,7 @@ public class Coral extends SubsystemBase {
     //configure brake mode
   }
 
-  public void setIntakePower(double power){
+  public void setIntakePower(double power) {
     coral.set(power);
   }
 

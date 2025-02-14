@@ -2,6 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+//TO DO:
+//Check zeroGyro
+
 package frc.robot;
 
 import java.util.function.BooleanSupplier;
@@ -125,8 +128,9 @@ public class RobotContainer {
 
     // Elevator
     //Manual
-    new Trigger(BooleanElevator)
-      .whileTrue(new MoveElevator(elevator,manualElevator.getAsDouble()));
+    //I dont know which button is kStart and which is kBack. If this is the wrong button we will fix it later
+    new JoystickButton(operator, XboxController.Button.kBack.value)
+      .whileTrue(new MoveElevator(elevator, manualElevator.getAsDouble()));
 
     //Presets (elevator & coral pivot)
     new JoystickButton(operator, XboxController.Button.kA.value)
@@ -152,7 +156,8 @@ public class RobotContainer {
 
     //Coral Pivot
     //Manual
-    new Trigger(BooleanCoralIntakePivot)
+    //I dont know which button is kStart and which is kBack. If this is the wrong button we will fix it later
+    new JoystickButton(operator, XboxController.Button.kStart.value)
       .whileTrue(new PivotCoralIntake(coralPivot, manualCoralIntakePivot.getAsDouble()));
 
     //Reset Gyro

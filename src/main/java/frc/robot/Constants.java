@@ -140,10 +140,10 @@ public class Constants {
   public static final class AlgaePivot {
     public static final int PIVOT_ID = 43;
     public static final int LIMIT_SWITCH_ID = 44;
-    public static final double PIVOT_IN_SPEED = 0.2;
-    public static final double PIVOT_IN_SPEED_SLOW = 0.1;
-    public static final double SLOW_POSITION = 100;
+    public static final double STOWED = 0;
     public static final double DROPPED = 500;
+    public static final double POSITION_THRESHOLD = 5;
+    public static final int COUNTER_MAX_VALUE = 100;
     public static final double PID_P = 1;
     public static final double PID_I = 0;
     public static final double PID_D = 0;
@@ -160,6 +160,8 @@ public class Constants {
     public static final int PIVOT_ID = 47;
     public static final double CORAL_STATION_POSITION = 100;
     public static final double REEF_POSITION = 200;
+    public static final double POSITION_THRESHOLD = 5;
+    public static final int COUNTER_MAX_VALUE = 100;
     public static final double PID_P = 1;
     public static final double PID_I = 0;
     public static final double PID_D = 0;
@@ -184,6 +186,8 @@ public class Constants {
     public static final double CORAL_STATION_POSITION = 290;
     public static final double LOWER_ALGAE_POSITION = 150;
     public static final double UPPER_ALGAE_POSITION = 250;
+    public static final double POSITION_THRESHOLD = 5;
+    public static final int COUNTER_MAX_VALUE = 100;
     public static final double PID_P = 1;
     public static final double PID_I = 0;
     public static final double PID_D = 0;

@@ -48,7 +48,7 @@ public class AlgaePivot extends SubsystemBase {
     pivot.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
-  public void setPivotPower(double power){
+  public void setPivotPower(double power) {
     pivot.set(power);
   }
 
@@ -56,11 +56,11 @@ public class AlgaePivot extends SubsystemBase {
     controller.setReference(position, SparkBase.ControlType.kPosition);
   }
   
-  public double getPosition(){
+  public double getPosition() {
     return encoder.getPosition();
   }
 
-  public boolean switchPressed(){
+  public boolean switchPressed() {
     return !limitSwitch.get();
   }
 

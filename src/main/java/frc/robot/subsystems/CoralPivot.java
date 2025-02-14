@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
-
+import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -20,10 +20,12 @@ import frc.robot.Constants;
 public class CoralPivot extends SubsystemBase {
   private SparkMax pivot;
   private SparkClosedLoopController controller;
+  private SparkAbsoluteEncoder encoder;
 
   public CoralPivot() {
     pivot = new SparkMax(Constants.CoralPivot.PIVOT_ID, MotorType.kBrushless);
     controller = pivot.getClosedLoopController();
+    encoder = pivot.getAbsoluteEncoder();
     double p = Constants.CoralPivot.PID_P;
     double i = Constants.CoralPivot.PID_I;
     double d = Constants.CoralPivot.PID_D;
@@ -43,12 +45,12 @@ public class CoralPivot extends SubsystemBase {
   }
   
 
-  public void setPivotPower(double power){
+  public void setPivotPower(double power) {
     pivot.set(power);
   }
 
-  public double getPosition(){
-    return pivot.getEncoder().getPosition();
+  public double getPosition() {
+    return encoder.getPosition();
   }
 
   public void setPosition(double position) {

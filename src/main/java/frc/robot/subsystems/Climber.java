@@ -25,7 +25,7 @@ public class Climber extends SubsystemBase {
     climbingRight.setNeutralMode(NeutralModeValue.Brake);
   }
   
-  public void setClimberPower(double power){
+  public void setClimberPower(double power) {
     climbingLeft.set(power);
     climbingRight.set(-power);
   }
@@ -34,7 +34,7 @@ public class Climber extends SubsystemBase {
     return climbingLeft.getPosition().getValueAsDouble();
   }
 
-  public boolean cageInPosition(){
+  public boolean cageInPosition() {
     return !linebreak.get();
   }
 

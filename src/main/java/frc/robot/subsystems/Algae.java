@@ -21,11 +21,11 @@ public class Algae extends SubsystemBase {
     limitSwitch = new DigitalInput(Constants.Algae.LIMIT_SWITCH_ID);
   }
 
-  public void setIntakePower(double power){
+  public void setIntakePower(double power) {
     intake.set(power);
   }
 
-  public boolean switchPressed(){
+  public boolean switchPressed() {
     return !limitSwitch.get();
   }
 

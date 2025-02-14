@@ -10,6 +10,7 @@ import frc.robot.subsystems.AlgaePivot;
 
 public class DropAlgaeIntake extends Command {
   private AlgaePivot algaePivot;
+  private int counter;
   public DropAlgaeIntake(AlgaePivot algaePivot) {
     this.algaePivot = algaePivot;
     addRequirements(algaePivot);
@@ -19,6 +20,7 @@ public class DropAlgaeIntake extends Command {
   @Override
   public void initialize() {
     algaePivot.setPosition(Constants.AlgaePivot.DROPPED);
+    counter = 0;
   }
 
   @Override
@@ -32,6 +34,16 @@ public class DropAlgaeIntake extends Command {
 
   @Override
   public boolean isFinished() {
-    return (algaePivot.getPosition()==Constants.AlgaePivot.DROPPED);
+    if ((algaePivot.getPosition() < Constants.AlgaePivot.DROPPED + Constants.AlgaePivot.POSITION_THRESHOLD) && (algaePivot.getPosition() > Constants.AlgaePivot.DROPPED - Constants.AlgaePivot.POSITION_THRESHOLD)) {
+      counter++;
+    } else {
+      counter = 0;
+    }
+
+    if (counter > Constants.AlgaePivot.COUNTER_MAX_VALUE) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

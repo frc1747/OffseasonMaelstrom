@@ -148,13 +148,13 @@ public class Drivetrain extends SubsystemBase {
     return Constants.Drivetrain.swerveKinematics.toChassisSpeeds(getModuleStates());
   }
 
-  public void drive(ChassisSpeeds speeds){
+  public void drive(ChassisSpeeds speeds) {
     SwerveModuleState[] states = Constants.Drivetrain.swerveKinematics.toSwerveModuleStates(
       ChassisSpeeds.fromFieldRelativeSpeeds(speeds, getYaw())
     );
     
     SwerveDriveKinematics.desaturateWheelSpeeds(states, Constants.Drivetrain.MAX_SPEED);
-    for(SwerveModule mod : swerveMods){
+    for(SwerveModule mod : swerveMods) {
       mod.setDesiredState(states[mod.moduleNumber], true);
     }
   }
@@ -180,7 +180,7 @@ public class Drivetrain extends SubsystemBase {
           );
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.Drivetrain.MAX_SPEED);
 
-        for(SwerveModule mod : swerveMods){
+        for(SwerveModule mod : swerveMods) {
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
 }        
 }
@@ -224,7 +224,7 @@ public class Drivetrain extends SubsystemBase {
     return states;
   }
 
-  public SwerveModulePosition[] getModulePositions(){
+  public SwerveModulePosition[] getModulePositions() {
     SwerveModulePosition[] positions = new SwerveModulePosition[4];
     for (SwerveModule mod : swerveMods) {
       positions[mod.moduleNumber] = mod.getPosition();
@@ -245,7 +245,7 @@ public class Drivetrain extends SubsystemBase {
   public void setPose(Pose2d pose) {
     swerveOdometry.resetPosition(getYaw(), getModulePositions(), pose);
   }
-  //public ChassisSpeeds getCurrentSpeeds(){
+  //public ChassisSpeeds getCurrentSpeeds() {
   //  return speed;
   //}
 

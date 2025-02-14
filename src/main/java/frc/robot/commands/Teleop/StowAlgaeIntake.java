@@ -11,6 +11,7 @@ import frc.robot.subsystems.AlgaePivot;
 
 public class StowAlgaeIntake extends Command {
   private AlgaePivot algaePivot;
+  private int counter;
 
   public StowAlgaeIntake(AlgaePivot algaePivot) {
     this.algaePivot = algaePivot;
@@ -19,24 +20,30 @@ public class StowAlgaeIntake extends Command {
 
   @Override
   public void initialize() {
-    algaePivot.setPivotPower(-Constants.AlgaePivot.PIVOT_IN_SPEED);
+    algaePivot.setPosition(Constants.AlgaePivot.STOWED);
+    counter = 0;
   }
 
   @Override
   public void execute() {
-    if (algaePivot.getPosition() < Constants.AlgaePivot.SLOW_POSITION){
-      algaePivot.setPivotPower(-Constants.AlgaePivot.PIVOT_IN_SPEED_SLOW);
-      return;
-    }
   }
 
   @Override
   public void end(boolean interrupted) {
-    algaePivot.setPivotPower(0.0);
   }
 
   @Override
   public boolean isFinished() {
-    return algaePivot.switchPressed();
+    if ((algaePivot.getPosition() < Constants.AlgaePivot.STOWED + Constants.AlgaePivot.POSITION_THRESHOLD) && (algaePivot.getPosition() > Constants.AlgaePivot.STOWED - Constants.AlgaePivot.POSITION_THRESHOLD)) {
+      counter++;
+    } else {
+      counter = 0;
+    }
+
+    if (counter > Constants.AlgaePivot.COUNTER_MAX_VALUE) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
