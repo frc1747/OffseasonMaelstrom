@@ -1,8 +1,15 @@
 package frc.robot;
 
+import com.ctre.phoenix6.signals.SensorDirectionValue;
+
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.util.Units;
+import frc.robot.util.COTSFalconSwerveConstants;
+import frc.robot.util.SwerveModuleConstants;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -13,7 +20,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
  * constants are needed, to reduce verbosity.
  */
 public class Constants {
-     public static class DrivetrainConstants {
+  public static class Drivetrain {
     public static final COTSFalconSwerveConstants chosenModule = COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L2);
 
     public static final SensorDirectionValue canCoderDirection = chosenModule.canCoderDirection; // Should the cancoder be inverted based on the swerve module we're using
@@ -123,6 +130,75 @@ public class Constants {
       public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
   }
+
+  public static final class Algae {
+    public static final int INTAKE_ID = 41;
+    public static final int LIMIT_SWITCH_ID = 42;
+    public static final double ROLLER_SPEED = 0.1;
+  }
+
+  public static final class AlgaePivot {
+    public static final int PIVOT_ID = 43;
+    public static final int LIMIT_SWITCH_ID = 44;
+    public static final double STOWED = 0;
+    public static final double DROPPED = 500;
+    public static final double POSITION_THRESHOLD = 5;
+    public static final int COUNTER_MAX_VALUE = 100;
+    public static final double PID_P = 1;
+    public static final double PID_I = 0;
+    public static final double PID_D = 0;
+    public static final double PID_F = 0;
+  }
+
+  public static final class Coral {
+    public static final int INTAKE_ID = 45;
+    public static final int CORAL_LIMIT_SWITCH_ID = 46;
+    public static final double INTAKE_SPEED = 0.1;
+  }
   
+  public static final class CoralPivot {
+    public static final int PIVOT_ID = 47;
+    public static final double CORAL_STATION_POSITION = 100;
+    public static final double REEF_POSITION = 200;
+    public static final double POSITION_THRESHOLD = 5;
+    public static final int COUNTER_MAX_VALUE = 100;
+    public static final double PID_P = 1;
+    public static final double PID_I = 0;
+    public static final double PID_D = 0;
+    public static final double PID_F = 0;
+  }
+
+  public static final class Climber {
+    public static final int LEFT_ID = 48;
+    public static final int RIGHT_ID = 49;
+    public static final int LINEBREAK_ID = 50;
+    public static final double CLIMB_SPEED = 0.2;
+  }
+
+  public static final class Elevator {
+    public static final int ELEVATOR_ID = 51;
+    public static final int LIMIT_SWITCH_BOTTOM_ID = 52;
+    public static final int LIMIT_SWITCH_TOP_ID = 53;
+    public static final double LEVEL_ONE_POSITION = 100;
+    public static final double LEVEL_TWO_POSITION = 200;
+    public static final double LEVEL_THREE_POSITION = 300;
+    public static final double LEVEL_FOUR_POSITION = 400;
+    public static final double CORAL_STATION_POSITION = 290;
+    public static final double LOWER_ALGAE_POSITION = 150;
+    public static final double UPPER_ALGAE_POSITION = 250;
+    public static final double POSITION_THRESHOLD = 5;
+    public static final int COUNTER_MAX_VALUE = 100;
+    public static final double PID_P = 1;
+    public static final double PID_I = 0;
+    public static final double PID_D = 0;
+    public static final double PID_F = 0;
+  }
+
+  public static class Controller {
+    public static final int DRIVER_CONTROLLER_PORT = 0;
+    public static final int OPERATOR_CONTROLLER_PORT = 1;
+
+    public static final double STICK_DEADBAND = 0.05;
+  }
     
 }
