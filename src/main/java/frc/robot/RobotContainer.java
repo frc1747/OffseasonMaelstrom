@@ -78,8 +78,7 @@ public class RobotContainer {
     // BooleanSuppliers
     private final BooleanSupplier rightTriggerOperator = () -> operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > Short.MAX_VALUE - 10;
     private final BooleanSupplier leftTriggerOperator = () -> operator.getRawAxis(XboxController.Axis.kLeftTrigger.value) > Short.MAX_VALUE - 10;
-    private final BooleanSupplier BooleanElevator = () -> operator.getRawAxis(XboxController.Axis.kLeftY.value) != 0;
-    private final BooleanSupplier BooleanCoralIntakePivot = () -> operator.getRawAxis(XboxController.Axis.kRightY.value) != 0;
+
     // booleanSuppliers driver
     private final BooleanSupplier rightTriggerDriver = () -> driver.getRawAxis(XboxController.Axis.kRightTrigger.value) > Short.MAX_VALUE - 10;
 
@@ -98,7 +97,8 @@ public class RobotContainer {
         () -> -driver.getRawAxis(translationAxis), 
         () -> -driver.getRawAxis(strafeAxis), 
         () -> -driver.getRawAxis(rotationAxis), 
-        () -> robotCentric.getAsBoolean()
+        () -> robotCentric.getAsBoolean(),
+        () -> elevator.getPosition()
       )
     );
     configureBindings();

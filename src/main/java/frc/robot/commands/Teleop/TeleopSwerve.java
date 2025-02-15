@@ -16,8 +16,9 @@ public class TeleopSwerve extends Command {
     private DoubleSupplier strafeSup;
     private DoubleSupplier rotationSup;
     private BooleanSupplier robotCentricSup;
+    private DoubleSupplier elevatorPos;
 
-    public TeleopSwerve(Drivetrain drivetrain, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
+    public TeleopSwerve(Drivetrain drivetrain, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup, DoubleSupplier elevatorPos) {
         this.drivetrain = drivetrain;
         addRequirements(drivetrain);
 
@@ -25,6 +26,7 @@ public class TeleopSwerve extends Command {
         this.strafeSup = strafeSup;
         this.rotationSup = rotationSup;
         this.robotCentricSup = robotCentricSup;
+        this.elevatorPos = elevatorPos;
     }
 
     @Override
@@ -35,11 +37,20 @@ public class TeleopSwerve extends Command {
         double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Controller.STICK_DEADBAND);
 
         // Drive
-        drivetrain.drive(
-            new Translation2d(translationVal, strafeVal).times(Constants.Drivetrain.MAX_SPEED), 
-            rotationVal * Constants.Drivetrain.maxAngularVelocity, 
-            !robotCentricSup.getAsBoolean(), 
-            true
-        );
+        if(elevatorPos.getAsDouble() >= Constants.Elevator.MIN_SLOW_POSITION){
+            drivetrain.drive(
+                new Translation2d(translationVal, strafeVal).times(Constants.Drivetrain.MAX_SPEED*(1.0-elevatorPos.getAsDouble()/Constants.Elevator.TOP_POSITION)), 
+                rotationVal * Constants.Drivetrain.maxAngularVelocity, 
+                !robotCentricSup.getAsBoolean(), 
+                true
+            );
+        } else {
+            drivetrain.drive(
+                new Translation2d(translationVal, strafeVal).times(Constants.Drivetrain.MAX_SPEED),
+                rotationVal * Constants.Drivetrain.maxAngularVelocity,
+                !robotCentricSup.getAsBoolean(),
+                true
+            );
+        }
     }
 }
