@@ -196,7 +196,18 @@ public class Constants {
     public static final double PID_F = 0;
   }
 
-  public static class Controller {
+  public static final class Blinkin {
+    public static final int CHANNEL = 1; //Placeholder value
+    public static final double LAWN_GREEN = 0.71;
+    public static final double LIME = 0.73;
+    public static final double DARK_GREEN = 0.75;
+    public static final double GREEN = 0.77;
+    public static final double DARK_RED = 0.59;
+    public static final double RED = 0.61;
+    public static final double RED_ORANGE = 0.63; // I only added all these values to be able to test which colors we want. Will get rid of extras when we decide.
+  }
+
+  public static final class Controller {
     public static final int DRIVER_CONTROLLER_PORT = 0;
     public static final int OPERATOR_CONTROLLER_PORT = 1;
 
