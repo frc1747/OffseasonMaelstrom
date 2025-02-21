@@ -26,7 +26,7 @@ public class CoralPivot extends SubsystemBase {
   private DigitalInput limit_switch_bottom;
 
   public CoralPivot() {
-    pivot = new SparkMax(Constants.CoralPivot.PIVOT_ID, MotorType.kBrushless);
+    pivot = new SparkMax(Constants.CoralPivot.PIVOT_ID, MotorType.kBrushed);
     limit_switch_top = new DigitalInput(Constants.CoralPivot.LIMIT_SWITCH_TOP_ID);
     limit_switch_bottom = new DigitalInput(Constants.CoralPivot.LIMIT_SWITCH_BOTTOM_ID);
     controller = pivot.getClosedLoopController();
