@@ -152,7 +152,7 @@ public class Constants {
 
   public static final class Coral {
     public static final int INTAKE_ID = 45;
-    public static final int CORAL_LIMIT_SWITCH_ID = 46;
+    public static final int CORAL_LIMIT_SWITCH_ID = 1;
     public static final double INTAKE_SPEED = 0.1;
   }
   
@@ -177,8 +177,9 @@ public class Constants {
 
   public static final class Elevator {
     public static final int ELEVATOR_ID = 51;
-    public static final int LIMIT_SWITCH_BOTTOM_ID = 52;
-    public static final int LIMIT_SWITCH_TOP_ID = 53;
+    public static final int ELEVATOR2_ID = 52;
+    public static final int LIMIT_SWITCH_BOTTOM_ID = 52; // not
+    public static final int LIMIT_SWITCH_TOP_ID = 53; // diff
     public static final double LEVEL_ONE_POSITION = 100;
     public static final double LEVEL_TWO_POSITION = 200;
     public static final double LEVEL_THREE_POSITION = 300;

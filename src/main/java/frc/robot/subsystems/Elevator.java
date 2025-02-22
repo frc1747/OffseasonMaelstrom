@@ -27,8 +27,8 @@ public class Elevator extends SubsystemBase {
 
   public Elevator() {
     elevator = new SparkMax(Constants.Elevator.ELEVATOR_ID, MotorType.kBrushless);
-    limitSwitchTop = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_TOP_ID);
-    limitSwitchBottom = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_BOTTOM_ID);
+    //limitSwitchTop = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_TOP_ID);
+    //limitSwitchBottom = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_BOTTOM_ID);
     controller = elevator.getClosedLoopController();
     encoder = elevator.getAbsoluteEncoder();
     double p = Constants.Elevator.PID_P;
