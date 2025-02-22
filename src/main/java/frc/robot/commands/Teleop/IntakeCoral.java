@@ -18,7 +18,7 @@ public class IntakeCoral extends Command {
 
   @Override
   public void initialize() {
-    intake.setIntakePower(Constants.Coral.INTAKE_SPEED);
+    intake.setIntakePower(-Constants.Coral.INTAKE_SPEED);
   }
 
   @Override

@@ -31,6 +31,6 @@ public class IntakeAlgae extends Command {
 
   @Override
   public boolean isFinished() {
-    return intake.switchPressed();
+    return false; 
   }
 }

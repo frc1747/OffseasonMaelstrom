@@ -31,6 +31,7 @@ public class Algae extends SubsystemBase {
 
   @Override
   public void periodic() {
+    //System.out.println();
     //SmartDashboard.putBoolean("Algae Limit Switch", switchPressed());
   }
 }
