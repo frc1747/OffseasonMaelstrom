@@ -80,7 +80,7 @@ public class RobotContainer {
     private final BooleanSupplier leftTriggerOperator = () -> operator.getRawAxis(XboxController.Axis.kLeftTrigger.value) > Short.MAX_VALUE - 10;
 
     // booleanSuppliers driver
-    private final BooleanSupplier rightTriggerDriver = () -> driver.getRawAxis(XboxController.Axis.kRightTrigger.value) > Short.MAX_VALUE - 10;
+    private final BooleanSupplier rightTriggerDriver = () -> driver.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0;
 
     
     //DoubleSuppliers
@@ -101,6 +101,8 @@ public class RobotContainer {
         () -> elevator.getPosition()
       )
     );
+    elevator.setDefaultCommand(new MoveElevator(elevator, 0.0, operator));
+    coralPivot.setDefaultCommand(new PivotCoralIntake(coralPivot, 0.0, operator));
     configureBindings();
   }
 
@@ -108,7 +110,7 @@ public class RobotContainer {
     //driver commands 
     new JoystickButton(driver, XboxController.Button.kA.value)
       .whileTrue(new EjectAlgae(algae));
-    new Trigger(rightTriggerDriver)
+    new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0)) 
       .onTrue(new DropAlgaeIntake(algaePivot))
       .whileTrue(new IntakeAlgae(algae))
       .onFalse(new StowAlgaeIntake(algaePivot));
@@ -118,10 +120,10 @@ public class RobotContainer {
 
     new JoystickButton(operator, XboxController.Button.kB.value)
       .whileTrue(new IntakeCoral(coral));  
-    new Trigger(rightTriggerOperator)
+    new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0))
       .whileTrue( new EjectCoral(coral));   
 
-    new Trigger(leftTriggerOperator)
+    new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
       .whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED));
     new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
       .whileTrue(new Climb(climber, -Constants.Climber.CLIMB_SPEED));
@@ -129,17 +131,17 @@ public class RobotContainer {
     // Elevator
     //Manual
     //I dont know which button is kStart and which is kBack. If this is the wrong button we will fix it later
-    new JoystickButton(operator, XboxController.Button.kBack.value)
-      .whileTrue(new MoveElevator(elevator, manualElevator.getAsDouble()));
+    //new Trigger(() ->  (Math.abs(manualElevator.getAsDouble()) > .05))
+    //  .whileTrue(new MoveElevator(elevator, manualElevator.getAsDouble()/2.0));
 
     //Presets (elevator & coral pivot)
-    new JoystickButton(operator, XboxController.Button.kA.value)
-      .onTrue(new GoToLevel(elevator, Constants.Elevator.LOWER_ALGAE_POSITION));
-    new JoystickButton(operator, XboxController.Button.kY.value)
-      .onTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION));
-    new JoystickButton(operator, XboxController.Button.kX.value)
-      .onTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION))
-      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.CORAL_STATION_POSITION));
+    // new JoystickButton(operator, XboxController.Button.kA.value)
+    //   .onTrue(new GoToLevel(elevator, Constants.Elevator.LOWER_ALGAE_POSITION));
+    // new JoystickButton(operator, XboxController.Button.kY.value)
+    //   .onTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION));
+    // new JoystickButton(operator, XboxController.Button.kX.value)
+    //   .onTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION))
+    //   .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.CORAL_STATION_POSITION));
     
     operatorDpadUp
       .onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION))
@@ -157,8 +159,8 @@ public class RobotContainer {
     //Coral Pivot
     //Manual
     //I dont know which button is kStart and which is kBack. If this is the wrong button we will fix it later
-    new JoystickButton(operator, XboxController.Button.kStart.value)
-      .whileTrue(new PivotCoralIntake(coralPivot, manualCoralIntakePivot.getAsDouble()));
+    //new JoystickButton(operator, XboxController.Button.kStart.value)
+    //  .whileTrue(new PivotCoralIntake(coralPivot, manualCoralIntakePivot.getAsDouble()));
 
     //Reset Gyro
     // zeroGyro

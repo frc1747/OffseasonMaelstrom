@@ -4,29 +4,33 @@
 
 package frc.robot.commands.Teleop;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CoralPivot;
 
 public class PivotCoralIntake extends Command {
   private CoralPivot pivot;
   private double speed;
-  public PivotCoralIntake(CoralPivot pivot, double speed) {
+  private Joystick joystick;
+
+  public PivotCoralIntake(CoralPivot pivot, double speed, Joystick joystick) {
     this.pivot = pivot;
     this.speed = speed;
+    this.joystick = joystick;
     addRequirements(pivot);
   }
 
   @Override
   public void initialize() {
-    pivot.setPivotPower(speed);
   }
 
   @Override
-  public void execute() {}
+  public void execute() {
+    pivot.setPivotPower(joystick.getRawAxis(5) / 2);
+  }
 
   @Override
   public void end(boolean interrupted) {
-    pivot.setPivotPower(0.0);
   }
 
   @Override
