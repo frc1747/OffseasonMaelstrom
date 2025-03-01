@@ -58,5 +58,7 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Elevator Position", getPosition());
+    SmartDashboard.putBoolean("Bottom Limit Switch", isAtBottom());
+    SmartDashboard.putBoolean("Top Limit Switch", isAtTop());
   }
 }
