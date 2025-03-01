@@ -27,6 +27,8 @@ public class Constants {
     public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW- (DO NOT USE, ENABLES ROBOT-CENTRIC)
     public static final int PIGEON_ID = 50;
 
+    //speed I AM SPEED
+    public static final Double SlowSpeed = 0.5;
     // Physical measurements
     public static final double trackWidth = Units.inchesToMeters(22.5);
     public static final double wheelBase = Units.inchesToMeters(22.5);

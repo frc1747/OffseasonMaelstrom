@@ -98,7 +98,8 @@ public class RobotContainer {
         () -> -driver.getRawAxis(strafeAxis), 
         () -> -driver.getRawAxis(rotationAxis), 
         () -> robotCentric.getAsBoolean(),
-        () -> elevator.getPosition()
+        () -> elevator.getPosition() ,
+        () -> driver.getRawButton(XboxController.Button.kRightBumper.value)
       )
     );
     elevator.setDefaultCommand(new MoveElevator(elevator, 0.0, operator));
