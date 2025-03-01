@@ -12,6 +12,7 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,8 +28,8 @@ public class Elevator extends SubsystemBase {
 
   public Elevator() {
     elevator = new SparkMax(Constants.Elevator.ELEVATOR_ID, MotorType.kBrushless);
-    limitSwitchTop = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_TOP_ID);
-    limitSwitchBottom = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_BOTTOM_ID);
+    //limitSwitchTop = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_TOP_ID);
+    //limitSwitchBottom = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_BOTTOM_ID);
     controller = elevator.getClosedLoopController();
     encoder = elevator.getAbsoluteEncoder();
     double p = Constants.Elevator.PID_P;
@@ -38,6 +39,7 @@ public class Elevator extends SubsystemBase {
 
     SparkMaxConfig config = new SparkMaxConfig();
     config
+      .idleMode(IdleMode.kBrake)
       .closedLoop
         .pidf(
           p,
@@ -55,7 +57,7 @@ public class Elevator extends SubsystemBase {
     return !limitSwitchBottom.get();
   }
   public void setPower(double pow) {
-    elevator.set(pow);
+    elevator.set(-pow);
   }
 
   public void setPosition(double position) {
