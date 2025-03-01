@@ -15,28 +15,28 @@ import frc.robot.Constants;
 
 public class Climber extends SubsystemBase {
   private TalonFX climbingLeft;
-  private TalonFX climbingRight;
-  private DigitalInput linebreak;
+  //private TalonFX climbingRight;
+  //private DigitalInput linebreak;
 
   public Climber() {
     climbingLeft = new TalonFX(Constants.Climber.LEFT_ID);
-    climbingRight = new TalonFX(Constants.Climber.RIGHT_ID);
+    //climbingRight = new TalonFX(Constants.Climber.RIGHT_ID);
     climbingLeft.setNeutralMode(NeutralModeValue.Brake);
-    climbingRight.setNeutralMode(NeutralModeValue.Brake);
+    //climbingRight.setNeutralMode(NeutralModeValue.Brake);
   }
   
   public void setClimberPower(double power) {
     climbingLeft.set(power);
-    climbingRight.set(-power);
+    //climbingRight.set(-power);
   }
 
   public double getPosition() {
     return climbingLeft.getPosition().getValueAsDouble();
   }
 
-  public boolean cageInPosition() {
-    return !linebreak.get();
-  }
+  // public boolean cageInPosition() {
+  //   return !linebreak.get();
+  // }
 
   @Override
   public void periodic() {

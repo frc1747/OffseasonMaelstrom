@@ -43,7 +43,7 @@ public class Elevator extends SubsystemBase {
   }
 
   public void setPower(double pow) {
-    elevator.set(pow);
+    elevator.set(-pow);
   }
 
   public void setPosition(double position) {
