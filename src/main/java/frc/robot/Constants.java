@@ -180,7 +180,7 @@ public class Constants {
     public static final int LIMIT_SWITCH_BOTTOM_ID = 5;
     public static final int LIMIT_SWITCH_TOP_ID = 3;
     public static final int ENCODER_CHANNEL = 1;
-    public static final double MOTOR_TO_SHAFT_RATIO = 16;
+    public static final double MOTOR_TO_SHAFT_RATIO = 64;
     public static final double LEVEL_ONE_POSITION = 100;
     public static final double LEVEL_TWO_POSITION = 200;
     public static final double LEVEL_THREE_POSITION = 300;
