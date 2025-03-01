@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
@@ -20,6 +21,7 @@ public class Elevator extends SubsystemBase {
   private DigitalInput limitSwitchTop;
   private DigitalInput limitSwitchBottom;
   private DutyCycleEncoder encoder;
+  private PositionVoltage PositionControl;
 
   public Elevator() {
     elevator = new TalonFX(Constants.Elevator.ELEVATOR_ID);
@@ -32,6 +34,7 @@ public class Elevator extends SubsystemBase {
     slot0Configs.kI = Constants.Elevator.PID_I;
     slot0Configs.kD = Constants.Elevator.PID_D;
     elevator.getConfigurator().apply(slot0Configs);
+    this.PositionControl =  new PositionVoltage(0).withSlot(0);
   }
 
   public boolean isAtTop() {
@@ -47,8 +50,8 @@ public class Elevator extends SubsystemBase {
   }
 
   public void setPosition(double position) {
-    double distance = (position - encoder.get())*Constants.Elevator.MOTOR_TO_SHAFT_RATIO;
-    elevator.setPosition(elevator.getPosition().getValueAsDouble() + distance);
+    //double distance = (position - encoder.get())*Constants.Elevator.MOTOR_TO_SHAFT_RATIO;
+    elevator.setControl(PositionControl.withPosition(position));
   }
 
   public double getPosition() {
@@ -57,7 +60,10 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Elevator Position", getPosition());
+    if(isAtTop() || isAtBottom()) setPower(0);
+    if(isAtBottom())elevator.setPosition(0);
+    SmartDashboard.putNumber("Elevator AbsPosition", getPosition());
+    SmartDashboard.putNumber("Elevator RelPosition", elevator.getPosition().getValueAsDouble());
     SmartDashboard.putBoolean("Bottom Limit Switch", isAtBottom());
     SmartDashboard.putBoolean("Top Limit Switch", isAtTop());
   }

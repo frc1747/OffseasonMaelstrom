@@ -11,7 +11,6 @@ import frc.robot.subsystems.Elevator;
 public class GoToLevel extends Command {
   private final double position;
   private Elevator elevator;
-  private int counter;
 
   public GoToLevel(Elevator elevator, double position) {
     this.elevator = elevator;
@@ -21,28 +20,22 @@ public class GoToLevel extends Command {
 
   @Override
   public void initialize() {
-    counter = 0;
-    elevator.setPosition(position);
+    //elevator.setPosition(position);
   }
 
   @Override
-  public void execute() {}
+  public void execute() {
+    elevator.setPosition(position);
+   
+  }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    elevator.setPosition(elevator.getPosition());
+  }
 
   @Override
   public boolean isFinished() {
-    if ((elevator.getPosition() < position + Constants.Elevator.POSITION_THRESHOLD) && (elevator.getPosition() > position - Constants.Elevator.POSITION_THRESHOLD)) {
-      counter++;
-    } else {
-      counter = 0;
-    }
-
-    if (counter > Constants.Elevator.COUNTER_MAX_VALUE) {
-      return true;
-    } else {
-      return false;
-    }
+    return false;
   }
 }

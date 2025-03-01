@@ -142,6 +142,9 @@ public class RobotContainer {
     // new JoystickButton(operator, XboxController.Button.kX.value)
     //   .onTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION))
     //   .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.CORAL_STATION_POSITION));
+
+    new JoystickButton(operator,XboxController.Button.kRightBumper.value)
+      .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION));
     
     operatorDpadUp
       .onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION))
