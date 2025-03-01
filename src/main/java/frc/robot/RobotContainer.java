@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import frc.robot.subsystems.LimeLight;
+import frc.robot.subsystems.PoseEstimatorSubsystem;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
@@ -14,6 +16,9 @@ import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -87,7 +92,13 @@ public class RobotContainer {
     private final DoubleSupplier manualCoralIntakePivot = () -> operator.getRawAxis(XboxController.Axis.kRightY.value);
     private final DoubleSupplier manualElevator = () -> operator.getRawAxis(XboxController.Axis.kLeftY.value);
 
+  // Limelight Vision and Pose
+  private final LimeLight limeLight = new LimeLight("limelight");
+  private final PoseEstimatorSubsystem poseEstimator = new PoseEstimatorSubsystem(drivetrain, limeLight);
+  public static Field2d estimatedField;
   public RobotContainer() {
+    estimatedField = new Field2d();
+    SmartDashboard.putData("Estimated Field", estimatedField);
     
     
     //drivetrain
