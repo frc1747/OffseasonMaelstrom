@@ -179,6 +179,7 @@ public class Constants {
     public static final int ELEVATOR_ID = 51;
     public static final int LIMIT_SWITCH_BOTTOM_ID = 52;
     public static final int LIMIT_SWITCH_TOP_ID = 53;
+    public static final int ENCODER_CHANNEL = 1;
     public static final double LEVEL_ONE_POSITION = 100;
     public static final double LEVEL_TWO_POSITION = 200;
     public static final double LEVEL_THREE_POSITION = 300;
