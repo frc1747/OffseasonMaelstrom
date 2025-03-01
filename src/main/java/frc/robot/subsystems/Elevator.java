@@ -48,7 +48,7 @@ public class Elevator extends SubsystemBase {
 
   public void setPosition(double position) {
     double distance = position - encoder.get();
-    elevator.setPosition(elevator.getPosition().getValueAsDouble() + distance);
+    elevator.setPosition(elevator.getPosition().getValueAsDouble() + distance); //may need to account for gear ratio
   }
 
   public double getPosition() {
