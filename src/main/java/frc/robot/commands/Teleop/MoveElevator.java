@@ -5,30 +5,34 @@
 package frc.robot.commands.Teleop;
 
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
 
 public class MoveElevator extends Command {
   private double speed;
   private Elevator elevator;
+  private Joystick joystick;
 
-  public MoveElevator(Elevator elevator, double speed) {
+  public MoveElevator(Elevator elevator, double speed, Joystick joystick) {
     this.elevator = elevator;
     this.speed = speed;
+    this.joystick = joystick;
     addRequirements(elevator);
   }
 
   @Override
   public void initialize() {
-    elevator.setPower(speed);
   }
 
   @Override
-  public void execute() {}
+  public void execute() {
+    elevator.setPower(joystick.getRawAxis(1));
+  }
 
   @Override
   public void end(boolean interrupted) {
-    elevator.setPower(0.0);
+    //elevator.setPower(0.0);
   }
 
   @Override
