@@ -17,6 +17,7 @@ public class AutoAlgeaIntakeNegative extends Command {
   /** Creates a new AutoAlgeaIntakeNegative. */
   public AutoAlgeaIntakeNegative(Algae algae) {
     this.algae = algae;
+    addRequirements(this.algae);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

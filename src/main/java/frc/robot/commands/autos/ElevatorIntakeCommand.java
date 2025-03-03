@@ -6,24 +6,26 @@ package frc.robot.commands.autos;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
-import frc.robot.subsystems.Coral;
+import frc.robot.subsystems.Elevator;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AutoCoralIntakeNegative extends Command {
+public class ElevatorIntakeCommand extends Command {
+  /** Creates a new ElevatorPositiveCommand. */
   private Timer timer = new Timer();
-  private Coral coral;
-  /** Creates a new AutoCoralIntakePositive. */
-  public AutoCoralIntakeNegative(Coral coral) {
-    this.coral = coral;
-    addRequirements(this.coral);
+  private Elevator elevator;
+  private final double position;
+
+  public ElevatorIntakeCommand(Elevator elevator, double position) {
+    this.elevator = elevator;
+    this.position = position;
+    addRequirements(this.elevator);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.coral.setIntakePower(-Constants.Coral.INTAKE_SPEED);
+    this.elevator.setPosition(this.position);
     timer.reset();
     timer.start();
   }
@@ -35,7 +37,7 @@ public class AutoCoralIntakeNegative extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.coral.setIntakePower(0.0);
+    this.elevator.setPosition(0.0);
   }
 
   // Returns true when the command should end.

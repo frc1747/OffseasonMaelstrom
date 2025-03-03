@@ -18,6 +18,7 @@ public class AutoAlgaeIntakePositive extends Command {
   /** Creates a new Auto. */
   public AutoAlgaeIntakePositive(Algae algae) {
     this.algae = algae;
+    addRequirements(this.algae);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

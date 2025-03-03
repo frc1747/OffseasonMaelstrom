@@ -16,13 +16,14 @@ public class AutoCoralIntakePositive extends Command {
   /** Creates a new AutoCoralIntakePositive. */
   public AutoCoralIntakePositive(Coral coral) {
     this.coral = coral;
+    addRequirements(this.coral);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    coral.setIntakePower(Constants.Coral.INTAKE_SPEED);
+    this.coral.setIntakePower(Constants.Coral.INTAKE_SPEED);
     timer.reset();
     timer.start();
   }
@@ -34,7 +35,7 @@ public class AutoCoralIntakePositive extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    coral.setIntakePower(0.0);
+    this.coral.setIntakePower(0.0);
   }
 
   // Returns true when the command should end.

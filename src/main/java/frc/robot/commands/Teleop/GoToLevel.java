@@ -26,7 +26,6 @@ public class GoToLevel extends Command {
   @Override
   public void execute() {
     elevator.setPosition(position);
-   
   }
 
   @Override
