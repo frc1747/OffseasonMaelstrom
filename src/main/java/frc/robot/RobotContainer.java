@@ -12,6 +12,9 @@ import frc.robot.subsystems.PoseEstimatorSubsystem;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.Joystick;
@@ -26,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.commands.Teleop.Climb;
+import frc.robot.commands.GoToPose2d;
 import frc.robot.commands.Teleop.AngleCoral;
 import frc.robot.commands.Teleop.DropAlgaeIntake;
 import frc.robot.commands.Teleop.EjectAlgae;
@@ -123,10 +127,12 @@ public class RobotContainer {
       .onTrue(new DropAlgaeIntake(algaePivot))
       .whileTrue(new IntakeAlgae(algae))
       .onFalse(new StowAlgaeIntake(algaePivot));
+
+    // Driver vision code
+    new JoystickButton(driver, XboxController.Button.kB.value)
+      .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(7.67, 4.06), new Rotation2d(-3.13))));
      
-
     //operater Coral commands
-
     new JoystickButton(operator, XboxController.Button.kB.value)
       .whileTrue(new IntakeCoral(coral));  
     new Trigger(rightTriggerOperator)

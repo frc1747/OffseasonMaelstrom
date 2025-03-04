@@ -61,4 +61,9 @@ public class PoseEstimatorSubsystem extends SubsystemBase {
 
         //System.out.println(getEstimatedPose());
     }
+
+    public void setDesiredPose(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setDesiredPose'");
+    }
 }
