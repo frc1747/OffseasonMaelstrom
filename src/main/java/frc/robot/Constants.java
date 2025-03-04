@@ -134,17 +134,17 @@ public class Constants {
   public static final class Algae {
     public static final int INTAKE_ID = 41;
     public static final int LIMIT_SWITCH_ID = 7;
-    public static final double ROLLER_SPEED = 0.1;
+    public static final double ROLLER_SPEED = 0.5;
   }
 
   public static final class AlgaePivot {
     public static final int PIVOT_ID = 43;
     public static final int LIMIT_SWITCH_ID = 0;
-    public static final double STOWED = 0;
-    public static final double DROPPED = 500;
-    public static final double POSITION_THRESHOLD = 5;
+    public static final double STOWED = -0.2142;
+    public static final double DROPPED = -1.5952389240264893;
+    public static final double POSITION_THRESHOLD = 0.05;
     public static final int COUNTER_MAX_VALUE = 100;
-    public static final double PID_P = 1;
+    public static final double PID_P = .25;//sssshhhhh
     public static final double PID_I = 0;
     public static final double PID_D = 0;
     public static final double PID_F = 0;

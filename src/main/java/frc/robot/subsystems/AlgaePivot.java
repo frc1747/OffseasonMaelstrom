@@ -12,6 +12,7 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,13 +24,13 @@ public class AlgaePivot extends SubsystemBase {
   private SparkMax pivot;
   private DigitalInput limitSwitch;
   private SparkClosedLoopController controller;
-  private AbsoluteEncoder encoder;
+ // private AbsoluteEncoder encoder;
 
   public AlgaePivot() {
     pivot = new SparkMax(Constants.AlgaePivot.PIVOT_ID, MotorType.kBrushless);
-    limitSwitch = new DigitalInput(Constants.AlgaePivot.LIMIT_SWITCH_ID);
+    //limitSwitch = new DigitalInput(Constants.AlgaePivot.LIMIT_SWITCH_ID);
     controller = pivot.getClosedLoopController();
-    encoder = pivot.getAbsoluteEncoder();
+  //  encoder = pivot.getAbsoluteEncoder();
     double p = Constants.AlgaePivot.PID_P;
     double i = Constants.AlgaePivot.PID_I;
     double d = Constants.AlgaePivot.PID_D;
@@ -37,6 +38,7 @@ public class AlgaePivot extends SubsystemBase {
 
     SparkMaxConfig config = new SparkMaxConfig();
     config
+      .idleMode(IdleMode.kBrake)
       .closedLoop
         .pidf(
           p,
@@ -57,7 +59,7 @@ public class AlgaePivot extends SubsystemBase {
   }
   
   public double getPosition() {
-    return encoder.getPosition();
+    return pivot.getEncoder().getPosition();   //encoder.getPosition();
   }
 
   public boolean switchPressed() {
@@ -66,7 +68,9 @@ public class AlgaePivot extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Algae Pivot Encoder", getPosition());
-    SmartDashboard.putBoolean("Algae Pivot Limit Switch", switchPressed());
+    //System.out.println("hello");
+    System.out.println(getPosition());
+    //SmartDashboard.putNumber("Algae Pivot Encoder", getPosition());
+    //SmartDashboard.putBoolean("Algae Pivot Limit Switch", switchPressed());
   }
 }

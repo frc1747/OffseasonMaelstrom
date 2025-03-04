@@ -4,8 +4,10 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkRelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -22,8 +24,8 @@ public class Coral extends SubsystemBase {
     limitSwitch = new DigitalInput(Constants.Coral.CORAL_LIMIT_SWITCH_ID); 
     //configure brake mode
   }
-  public SparkAbsoluteEncoder getEncoder() {
-    return coral.getAbsoluteEncoder();
+  public RelativeEncoder getEncoder() {
+    return coral.getAlternateEncoder();
   }
 
   public void setIntakePower(double power) {

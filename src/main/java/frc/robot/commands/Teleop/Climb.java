@@ -23,7 +23,7 @@ public class Climb extends Command {
   public void execute() {
     //if (climber.cageInPosition()) {
       climber.setClimberPower(speed);
-    
+    //}
   }
 
   @Override
