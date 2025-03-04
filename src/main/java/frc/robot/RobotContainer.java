@@ -10,6 +10,8 @@ package frc.robot;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import com.revrobotics.spark.SparkMax;
+
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.Joystick;
@@ -47,8 +49,9 @@ public class RobotContainer {
     public final Climber climber = new Climber();
     public final Elevator elevator = new Elevator();
     public final Drivetrain drivetrain = new Drivetrain();
-    public final CoralPivot coralPivot = new CoralPivot();
     public final Coral coral = new Coral();
+    public final CoralPivot coralPivot = new CoralPivot(coral.getEncoder());
+    
     public final Algae algae = new Algae();
     public final AlgaePivot algaePivot = new AlgaePivot();
 

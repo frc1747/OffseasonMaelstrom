@@ -22,7 +22,7 @@ public class Algae extends SubsystemBase {
   }
 
   public void setIntakePower(double power) {
-    intake.set(power);
+    intake.set(-power);
   }
 
   public boolean switchPressed() {

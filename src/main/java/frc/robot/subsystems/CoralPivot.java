@@ -22,10 +22,10 @@ public class CoralPivot extends SubsystemBase {
   private SparkClosedLoopController controller;
   private SparkAbsoluteEncoder encoder;
 
-  public CoralPivot() {
+  public CoralPivot(SparkAbsoluteEncoder encoder) {
     pivot = new SparkMax(Constants.CoralPivot.PIVOT_ID, MotorType.kBrushed);
     controller = pivot.getClosedLoopController();
-    encoder = pivot.getAbsoluteEncoder();
+    this.encoder = encoder;
     double p = Constants.CoralPivot.PID_P;
     double i = Constants.CoralPivot.PID_I;
     double d = Constants.CoralPivot.PID_D;

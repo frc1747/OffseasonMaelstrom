@@ -49,7 +49,7 @@ public class AlgaePivot extends SubsystemBase {
   }
 
   public void setPivotPower(double power) {
-    pivot.set(power);
+    pivot.set(-power);
   }
 
   public void setPosition(double position) {
