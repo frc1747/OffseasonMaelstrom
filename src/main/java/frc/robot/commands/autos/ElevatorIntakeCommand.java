@@ -6,6 +6,7 @@ package frc.robot.commands.autos;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.CoralPivot;
 import frc.robot.subsystems.Elevator;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -14,10 +15,14 @@ public class ElevatorIntakeCommand extends Command {
   private Timer timer = new Timer();
   private Elevator elevator;
   private final double position;
+  private CoralPivot pivot;
+  private double PivPosition;
 
-  public ElevatorIntakeCommand(Elevator elevator, double position) {
+  public ElevatorIntakeCommand(Elevator elevator, CoralPivot pivot,double ElvPosition, double PivPosition) {
     this.elevator = elevator;
-    this.position = position;
+    this.pivot = pivot;
+    this.position = ElvPosition;
+    this.PivPosition = PivPosition;
     addRequirements(this.elevator);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -26,6 +31,7 @@ public class ElevatorIntakeCommand extends Command {
   @Override
   public void initialize() {
     this.elevator.setPosition(this.position);
+    pivot.setPosition(PivPosition);
     timer.reset();
     timer.start();
   }
