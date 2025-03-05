@@ -10,12 +10,15 @@ package frc.robot;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -41,6 +44,7 @@ import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.CoralPivot;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
+
 
 public class RobotContainer {
   public static CTREConfigs ctreConfigs = new CTREConfigs();
@@ -89,48 +93,54 @@ public class RobotContainer {
     //DoubleSuppliers
     private final DoubleSupplier manualCoralIntakePivot = () -> operator.getRawAxis(XboxController.Axis.kRightY.value);
     private final DoubleSupplier manualElevator = () -> operator.getRawAxis(XboxController.Axis.kLeftY.value);
-
-  public RobotContainer() {
+    //smartDash Board
+    private SendableChooser<Command> autoChooser;  
+       
+    
+      public RobotContainer() {
+        
+        
+        //drivetrain
+        drivetrain.setDefaultCommand(
+          new TeleopSwerve(
+            drivetrain, 
+            () -> -driver.getRawAxis(translationAxis), 
+            () -> -driver.getRawAxis(strafeAxis), 
+            () -> -driver.getRawAxis(rotationAxis), 
+            () -> robotCentric.getAsBoolean(),
+            () -> elevator.getPosition()
+          )
+        );
+        elevator.setDefaultCommand(new MoveElevator(elevator, 0.0, operator));
+        coralPivot.setDefaultCommand(new PivotCoralIntake(coralPivot, 0.0, operator));
+        configureBindings();
+      }
+    
+      private void configureBindings() {
+        //driver commands 
+        new JoystickButton(driver, XboxController.Button.kA.value)
+          .whileTrue(new EjectAlgae(algae));
+        new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0)) 
+          .onTrue(new DropAlgaeIntake(algaePivot))
+          .whileTrue(new IntakeAlgae(algae))
+          .onFalse(new StowAlgaeIntake(algaePivot));
+         
+    
+        //operater Coral commands
+    
+        new JoystickButton(operator, XboxController.Button.kB.value)
+          .whileTrue(new IntakeCoral(coral));  
+        new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0))
+          .whileTrue( new EjectCoral(coral));   
+    
+        new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
+          .whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED));
+        new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
+          .whileTrue(new Climb(climber, -Constants.Climber.CLIMB_SPEED));
     
     
-    //drivetrain
-    drivetrain.setDefaultCommand(
-      new TeleopSwerve(
-        drivetrain, 
-        () -> -driver.getRawAxis(translationAxis), 
-        () -> -driver.getRawAxis(strafeAxis), 
-        () -> -driver.getRawAxis(rotationAxis), 
-        () -> robotCentric.getAsBoolean(),
-        () -> elevator.getPosition()
-      )
-    );
-    elevator.setDefaultCommand(new MoveElevator(elevator, 0.0, operator));
-    coralPivot.setDefaultCommand(new PivotCoralIntake(coralPivot, 0.0, operator));
-    configureBindings();
-  }
-
-  private void configureBindings() {
-    //driver commands 
-    new JoystickButton(driver, XboxController.Button.kA.value)
-      .whileTrue(new EjectAlgae(algae));
-    new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0)) 
-      .onTrue(new DropAlgaeIntake(algaePivot))
-      .whileTrue(new IntakeAlgae(algae))
-      .onFalse(new StowAlgaeIntake(algaePivot));
-     
-
-    //operater Coral commands
-
-    new JoystickButton(operator, XboxController.Button.kB.value)
-      .whileTrue(new IntakeCoral(coral));  
-    new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0))
-      .whileTrue( new EjectCoral(coral));   
-
-    new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
-      .whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED));
-    new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
-      .whileTrue(new Climb(climber, -Constants.Climber.CLIMB_SPEED));
-
+        autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto Chooser", autoChooser);
     // Elevator
     //Manual
     //I dont know which button is kStart and which is kBack. If this is the wrong button we will fix it later
@@ -171,9 +181,11 @@ public class RobotContainer {
     //Reset Gyro
     // zeroGyro
     //   .onTrue(new ResetGyro(drivetrain));
+
   }
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+
+    return autoChooser.getSelected();
   }
 }
