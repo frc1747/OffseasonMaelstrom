@@ -202,5 +202,18 @@ public final class Constants {
 
     public static final double STICK_DEADBAND = 0.05;
   }
+
+  // PIDs for going to set positions
+  public static class GoToPose2dTranslation {
+    public static final double PID_P = 0.5;
+    public static final double PID_I = 0.0001;
+    public static final double PID_D = 0.0;
+  }
+
+  public static class GoToPose2dRotation {
+    public static final double PID_P = 0.5;
+    public static final double PID_I = 0.0001;
+    public static final double PID_D = 0.0;
+  }
     
 }

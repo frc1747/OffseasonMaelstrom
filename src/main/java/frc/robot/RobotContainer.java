@@ -9,6 +9,8 @@ package frc.robot;
 
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.PoseEstimatorSubsystem;
+
+import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
@@ -16,7 +18,9 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Alert.AlertType;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -43,6 +47,7 @@ import frc.robot.commands.Teleop.PivotCoralIntake;
 //import frc.robot.commands.Teleop.ResetGyro;
 import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.AlgaePivot;
+import frc.robot.subsystems.ButtonBoard;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.CoralPivot;
@@ -60,6 +65,7 @@ public class RobotContainer {
     public final Coral coral = new Coral();
     public final Algae algae = new Algae();
     public final AlgaePivot algaePivot = new AlgaePivot();
+    public final ButtonBoard buttonBoard = new ButtonBoard(null, null);
 
     //controllers
     private final Joystick driver = new Joystick(0);
@@ -128,10 +134,39 @@ public class RobotContainer {
       .whileTrue(new IntakeAlgae(algae))
       .onFalse(new StowAlgaeIntake(algaePivot));
 
-    // Driver vision code
-    new JoystickButton(driver, XboxController.Button.kB.value)
-      .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(7.67, 4.06), new Rotation2d(-3.13))));
-     
+    // Pose Estimation code (Uses Button Board)
+    Optional<Alliance> ally = DriverStation.getAlliance();
+    if (ally.isPresent()) {
+      if (ally.get() == Alliance.Blue) {
+        buttonBoard.Blue1() // AprTag 18
+          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(3.105, 3.995), new Rotation2d(0))));
+        buttonBoard.Blue2() // AprTag 19
+          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(3.802, 5.228), new Rotation2d(-60.255))));
+        buttonBoard.Blue3() // AprTag 20
+          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(5.195, 5.228), new Rotation2d(-119.197))));
+        buttonBoard.Blue4() // AprTag 21
+          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(5.891, 3.997), new Rotation2d(180.000))));
+        buttonBoard.Blue5() // AprTag 22
+          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(5.241, 2.814), new Rotation2d(122.829))));
+        buttonBoard.Blue6() // AprTag 17
+          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(3.779, 2.802), new Rotation2d(58.782))));
+      }
+      
+      if (ally.get() == Alliance.Red)  { 
+        buttonBoard.Blue1() // AprTag 10
+          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(11.652, 3.983), new Rotation2d(0))));
+        buttonBoard.Blue2() // AprTag 9
+          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(12.335, 5.278), new Rotation2d(-59.534))));
+        buttonBoard.Blue3() // AprTag 8
+          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(13.798, 5.254), new Rotation2d(-122.829))));
+        buttonBoard.Blue4() // AprTag 7
+          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(14.517, 4.031), new Rotation2d(180.000))));
+        buttonBoard.Blue5() // AprTag 6
+          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(13.822, 2.808), new Rotation2d(123.311))));
+        buttonBoard.Blue6() // AprTag 11
+          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(12.323, 2.760), new Rotation2d(58.782))));
+      }
+    
     //operater Coral commands
     new JoystickButton(operator, XboxController.Button.kB.value)
       .whileTrue(new IntakeCoral(coral));  
@@ -176,7 +211,7 @@ public class RobotContainer {
     //I dont know which button is kStart and which is kBack. If this is the wrong button we will fix it later
     new JoystickButton(operator, XboxController.Button.kStart.value)
       .whileTrue(new PivotCoralIntake(coralPivot, manualCoralIntakePivot.getAsDouble()));
-
+    }
     //Reset Gyro
     // zeroGyro
     //   .onTrue(new ResetGyro(drivetrain));
@@ -186,3 +221,4 @@ public class RobotContainer {
     return Commands.print("No autonomous command configured");
   }
 }
+

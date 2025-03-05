@@ -31,8 +31,6 @@ public class GoToPose2d extends Command {
     this.drivetrain = drivetrain;
     // the pose we want to end up at
     this.desiredPose = desiredPose;
-    this.transPid = new PIDController(0.5, 0.0001, 0.0);
-    this.rotPid = new PIDController(0.5, 0.0001, 0.0);
     addRequirements(poseEstimator);
   }
 
