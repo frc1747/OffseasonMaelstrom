@@ -28,7 +28,7 @@ public class AlgaePivot extends SubsystemBase {
 
   public AlgaePivot() {
     pivot = new SparkMax(Constants.AlgaePivot.PIVOT_ID, MotorType.kBrushless);
-    //limitSwitch = new DigitalInput(Constants.AlgaePivot.LIMIT_SWITCH_ID);
+    limitSwitch = new DigitalInput(Constants.AlgaePivot.LIMIT_SWITCH_ID);
     controller = pivot.getClosedLoopController();
   //  encoder = pivot.getAbsoluteEncoder();
     double p = Constants.AlgaePivot.PID_P;

@@ -166,6 +166,8 @@ public class Constants {
     public static final double PID_I = 0;
     public static final double PID_D = 0;
     public static final double PID_F = 0;
+    public static final int CORALPIVOT_LIMIT_SWITCH_BOTTOM_ID = 17;
+    public static final int CORALPIVOT_LIMIT_SWITCH_TOP_ID = 47; // Don't know the numbers for top or bottom yet
   }
 
   public static final class Climber {

@@ -19,9 +19,11 @@ import frc.robot.Constants;
 public class Algae extends SubsystemBase {
   private SparkMax intake;
   private DigitalInput limitSwitch;
+  
 
   public Algae() {
     intake = new SparkMax(Constants.Algae.INTAKE_ID, MotorType.kBrushless);
+    limitSwitch = new DigitalInput(Constants.Algae.LIMIT_SWITCH_ID);
 
     SparkMaxConfig config = new SparkMaxConfig();
     config
