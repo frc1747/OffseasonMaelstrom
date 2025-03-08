@@ -159,9 +159,9 @@ public class RobotContainer {
     //   .onTrue(new GoToLevel(elevator, Constants.Elevator.LOWER_ALGAE_POSITION));
     // new JoystickButton(operator, XboxController.Button.kY.value)
     //   .onTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION));
-    // new JoystickButton(operator, XboxController.Button.kX.value)
+    new JoystickButton(operator, XboxController.Button.kX.value)
     //   .onTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION))
-    //   .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.CORAL_STATION_POSITION));
+    .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.CORAL_STATION_POSITION));
 
     new JoystickButton(operator,XboxController.Button.kRightBumper.value)
       .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION));

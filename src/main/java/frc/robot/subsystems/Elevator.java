@@ -61,7 +61,7 @@ public class Elevator extends SubsystemBase {
 
   public void setPosition(double position) {
     //double distance = (position - encoder.get())*Constants.Elevator.MOTOR_TO_SHAFT_RATIO;
-    elevator.setControl(PositionControl.withPosition(position));
+    elevator.setControl(PositionControl.withPosition(position));// abs encoder
   }
 
   // encoder position in number of rotations

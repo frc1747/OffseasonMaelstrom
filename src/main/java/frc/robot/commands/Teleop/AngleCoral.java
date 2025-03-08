@@ -20,28 +20,22 @@ public class AngleCoral extends Command {
 
   @Override
   public void initialize() {
-    pivot.setPosition(position);
+    
     counter = 0;
   }
 
   @Override
-  public void execute() {}
+  public void execute() {
+    pivot.setPosition(position);
+  }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    pivot.setPosition(pivot.getPosition());
+  }
 
   @Override
   public boolean isFinished() {
-    if ((pivot.getPosition() < position + Constants.CoralPivot.POSITION_THRESHOLD) && (pivot.getPosition() > position - Constants.CoralPivot.POSITION_THRESHOLD)) {
-      counter++;
-    } else {
-      counter = 0;
-    }
-
-    if (counter > Constants.CoralPivot.COUNTER_MAX_VALUE) {
-      return true;
-    } else {
-      return false;
-    }
+    return false;
   }
 }
