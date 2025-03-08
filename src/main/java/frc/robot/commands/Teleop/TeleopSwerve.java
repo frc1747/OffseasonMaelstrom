@@ -41,7 +41,7 @@ public class TeleopSwerve extends Command {
         // Drive , watch this drive 
         if(elevatorPos.getAsDouble() >= Constants.Elevator.MIN_SLOW_POSITION){
             drivetrain.drive(
-                new Translation2d(translationVal, strafeVal).times(Constants.Drivetrain.MAX_SPEED*(1.0-elevatorPos.getAsDouble()/Constants.Elevator.TOP_POSITION)), 
+                new Translation2d(translationVal, strafeVal).times(Constants.Drivetrain.MAX_SPEED*(1.05-elevatorPos.getAsDouble()/Constants.Elevator.TOP_POSITION)), 
                 rotationVal * Constants.Drivetrain.maxAngularVelocity, 
                 !robotCentricSup.getAsBoolean(), 
                 true
