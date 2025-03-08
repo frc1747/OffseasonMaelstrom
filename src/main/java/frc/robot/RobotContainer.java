@@ -114,7 +114,7 @@ public class RobotContainer {
             () -> -driver.getRawAxis(strafeAxis), 
             () -> -driver.getRawAxis(rotationAxis), 
             () -> robotCentric.getAsBoolean(),
-            () -> elevator.getPosition()
+            () -> elevator.getPosition(),
             () -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0)
           )
         );
