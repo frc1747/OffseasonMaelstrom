@@ -37,7 +37,7 @@ public class CoralPivot extends SubsystemBase {
     //limitSwitch = new DigitalInput(Constants.CoralPivot.CORALPIVOT_LIMIT_SWITCH_BOTTOM_ID);
     limitSwitch = new DigitalInput(Constants.CoralPivot.CORALPIVOT_LIMIT_SWITCH_TOP_ID);
     controller = pivot.getClosedLoopController();
-    this.encoder = new DutyCycleEncoder(Constants.CoralPivot.ENCODER) ;
+    this.encoder = new DutyCycleEncoder(Constants.CoralPivot.ENCODER);
     double p = Constants.CoralPivot.PID_P;
     double i = Constants.CoralPivot.PID_I;
     double d = Constants.CoralPivot.PID_D;
@@ -67,7 +67,7 @@ public class CoralPivot extends SubsystemBase {
   }
 
   public void setPosition(double position) {
-    controller.setReference(position, SparkBase.ControlType.kPosition);
+    controller.setReference(position, SparkBase.ControlType.kDutyCycle);
   }
 
   @Override

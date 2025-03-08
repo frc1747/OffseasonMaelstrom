@@ -188,7 +188,7 @@ public class Constants {
     public static final int ENCODER_B = 4;
     public static final double MOTOR_TO_SHAFT_RATIO = 64;
     public static final double LEVEL_ONE_POSITION = 89.2;
-    public static final double LEVEL_TWO_POSITION = 202.8;
+    public static final double LEVEL_TWO_POSITION = -104.23;
     public static final double LEVEL_THREE_POSITION = 280.9;
     public static final double LEVEL_FOUR_POSITION = 393.9;
     public static final double CORAL_STATION_POSITION = 290;
@@ -198,7 +198,7 @@ public class Constants {
     public static final double MIN_SLOW_POSITION = 1;
     public static final double POSITION_THRESHOLD = 6;
     public static final int COUNTER_MAX_VALUE = 10;
-    public static final double PID_P = .3;
+    public static final double PID_P = .5;
     public static final double PID_I = 0;
     public static final double PID_D = 0;
     public static final double PID_F = 0;

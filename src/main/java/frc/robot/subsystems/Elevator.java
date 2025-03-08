@@ -69,6 +69,10 @@ public class Elevator extends SubsystemBase {
     return encoder.get() / 2048.0;
   }
 
+  public double getKrakenPosition() {
+    return elevator.getPosition().getValueAsDouble();
+  }
+
   @Override
   public void periodic() {
     double mult = 1.0;
