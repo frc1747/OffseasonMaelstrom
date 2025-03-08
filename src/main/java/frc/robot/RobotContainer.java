@@ -103,8 +103,9 @@ public class RobotContainer {
     private final DoubleSupplier manualElevator = () -> operator.getRawAxis(XboxController.Axis.kLeftY.value);
 
   // Limelight Vision and Pose
-  private final LimeLight limeLight = new LimeLight("limelight");
-  private final PoseEstimatorSubsystem poseEstimator = new PoseEstimatorSubsystem(drivetrain, limeLight);
+  private final LimeLight frontLimeLight = new LimeLight("High"); // don't actually know which faces forward, will fix later
+  private final LimeLight rearLimeLight = new LimeLight("Low");
+  private final PoseEstimatorSubsystem poseEstimator = new PoseEstimatorSubsystem(drivetrain, frontLimeLight, rearLimeLight);
   public static Field2d estimatedField;
   public RobotContainer() {
     estimatedField = new Field2d();
@@ -219,6 +220,4 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
-  }
-}
-
+  }}
