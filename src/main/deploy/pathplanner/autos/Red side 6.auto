@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red side 6"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "EleL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralLaunch"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
