@@ -27,6 +27,8 @@ public class Constants {
     public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW- (DO NOT USE, ENABLES ROBOT-CENTRIC)
     public static final int PIGEON_ID = 50;
 
+    //speed I AM SPEED
+    public static final Double SlowSpeed = 0.5;
     // Physical measurements
     public static final double trackWidth = Units.inchesToMeters(22.5);
     public static final double wheelBase = Units.inchesToMeters(22.5);
@@ -192,13 +194,12 @@ public class Constants {
     public static final double CORAL_STATION_POSITION = 290;
     public static final double LOWER_ALGAE_POSITION = 150;
     public static final double UPPER_ALGAE_POSITION = 250;
-    public static final double TOP_POSITION = 393.9;
-    public static final double BOTTOM_POSITION = 0.064;
-    public static final double MIN_SLOW_POSITION = 150;
+    public static final double TOP_POSITION = 6.62;
+    public static final double MIN_SLOW_POSITION = 1;
     public static final double POSITION_THRESHOLD = 6;
     public static final int COUNTER_MAX_VALUE = 10;
     public static final double PID_P = .3;
-    public static final double PID_I = 0.00;
+    public static final double PID_I = 0;
     public static final double PID_D = 0;
     public static final double PID_F = 0;
   }
