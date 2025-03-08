@@ -57,7 +57,7 @@ public class RobotContainer {
     public final Elevator elevator = new Elevator();
     public final Drivetrain drivetrain = new Drivetrain();
     public final Coral coral = new Coral();
-    public final CoralPivot coralPivot = new CoralPivot(coral.getEncoder());
+    public final CoralPivot coralPivot = new CoralPivot();
     
     public final Algae algae = new Algae();
     public final AlgaePivot algaePivot = new AlgaePivot();

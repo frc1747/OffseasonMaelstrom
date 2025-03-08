@@ -133,13 +133,13 @@ public class Constants {
 
   public static final class Algae {
     public static final int INTAKE_ID = 41;
-    public static final int LIMIT_SWITCH_ID = 7;
+    public static final int LIMIT_SWITCH_ID = 8;
     public static final double ROLLER_SPEED = 0.5;
   }
 
   public static final class AlgaePivot {
     public static final int PIVOT_ID = 43;
-    public static final int LIMIT_SWITCH_ID = 0;
+    public static final int LIMIT_SWITCH_ID = 8;
     public static final double STOWED = -0.2142;
     public static final double DROPPED = -1.5952389240264893;
     public static final double POSITION_THRESHOLD = 0.05;
@@ -152,7 +152,7 @@ public class Constants {
 
   public static final class Coral {
     public static final int INTAKE_ID = 45;
-    public static final int CORAL_LIMIT_SWITCH_ID = 4;
+    public static final int CORAL_LIMIT_SWITCH_ID = 6;
     public static final double INTAKE_SPEED = 0.5;
   }
   
@@ -166,8 +166,9 @@ public class Constants {
     public static final double PID_I = 0;
     public static final double PID_D = 0;
     public static final double PID_F = 0;
-    public static final int CORALPIVOT_LIMIT_SWITCH_BOTTOM_ID = 17;
-    public static final int CORALPIVOT_LIMIT_SWITCH_TOP_ID = 47; // Don't know the numbers for top or bottom yet
+    public static final int CORALPIVOT_LIMIT_SWITCH_BOTTOM_ID = 8;
+    public static final int CORALPIVOT_LIMIT_SWITCH_TOP_ID = 2; // Don't know the numbers for top or bottom yet
+    public static final int ENCODER = 1;
   }
 
   public static final class Climber {
@@ -180,9 +181,9 @@ public class Constants {
   public static final class Elevator {
     public static final int ELEVATOR_ID = 51;
     public static final int LIMIT_SWITCH_BOTTOM_ID = 7;
-    public static final int LIMIT_SWITCH_TOP_ID = 6;
+    public static final int LIMIT_SWITCH_TOP_ID = 5;
     public static final int ENCODER_A = 3;
-    public static final int ENCODER_B = 8;
+    public static final int ENCODER_B = 4;
     public static final double MOTOR_TO_SHAFT_RATIO = 64;
     public static final double LEVEL_ONE_POSITION = 89.2;
     public static final double LEVEL_TWO_POSITION = 202.8;

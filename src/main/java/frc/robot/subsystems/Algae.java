@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
@@ -17,13 +18,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Algae extends SubsystemBase {
-  private SparkMax intake;
+  private SparkFlex intake;
   private DigitalInput limitSwitch;
   
 
   public Algae() {
-    intake = new SparkMax(Constants.Algae.INTAKE_ID, MotorType.kBrushless);
-    limitSwitch = new DigitalInput(Constants.Algae.LIMIT_SWITCH_ID);
+    intake = new SparkFlex(Constants.Algae.INTAKE_ID, MotorType.kBrushless);
+//    limitSwitch = new DigitalInput(Constants.Algae.LIMIT_SWITCH_ID);
 
     SparkMaxConfig config = new SparkMaxConfig();
     config
@@ -39,7 +40,8 @@ public class Algae extends SubsystemBase {
   }
 
   public boolean switchPressed() {
-    return !limitSwitch.get();
+    return false;
+   // return !limitSwitch.get();
   }
 
   @Override

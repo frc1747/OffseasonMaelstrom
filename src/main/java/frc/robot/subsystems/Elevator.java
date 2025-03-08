@@ -56,7 +56,7 @@ public class Elevator extends SubsystemBase {
   }
 
   public void setPower(double pow) {
-    this.pow = pow;
+    this.pow = -pow;
   }
 
   public void setPosition(double position) {
@@ -76,19 +76,18 @@ public class Elevator extends SubsystemBase {
       mult = 0.2;
     }
     if (isAtBottom()) { // will not descend if bottom limit hit
-      if (pow > 0) mult = 0.0;
+      if (pow < 0) mult = 0.0;
     } 
     if (isAtTop()) { // will not ascend if top limit hit
-      if (pow < 0) mult = 0.0;
+      if (pow > 0) mult = 0.0;
     }
     elevator.set(-pow * mult);
-    
 
     if(isAtBottom()) {
       elevator.setPosition(0);
       encoder.reset();
     }
-    System.out.println("Encoder: " + getPosition());
+    //System.out.println("Encoder: " + getPosition());
     SmartDashboard.putNumber("Elevator AbsPosition", getPosition());
     SmartDashboard.putNumber("Elevator RelPosition", elevator.getPosition().getValueAsDouble());
     SmartDashboard.putBoolean("Bottom Limit Switch", isAtBottom());

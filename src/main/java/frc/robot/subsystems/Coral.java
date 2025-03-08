@@ -18,6 +18,7 @@ import frc.robot.Constants;
 public class Coral extends SubsystemBase {
   private SparkMax coral;
   private DigitalInput limitSwitch;
+  private double pow;
 
   public Coral() {
     coral = new SparkMax(Constants.Coral.INTAKE_ID, MotorType.kBrushless);
@@ -29,7 +30,7 @@ public class Coral extends SubsystemBase {
   }
 
   public void setIntakePower(double power) {
-    coral.set(power);
+    pow = -power;
   }
 
   public boolean switchPressed() {
@@ -38,6 +39,11 @@ public class Coral extends SubsystemBase {
 
   @Override
   public void periodic() {
+    double mult = 1.0;
+    if (switchPressed()) { // will not descend if bottom limit hit
+      if (pow > 0) mult = 0.0;
+    } 
+    coral.set(-pow * mult);
     SmartDashboard.putBoolean("Coral Limit Switch", switchPressed());
   }
 }
