@@ -28,7 +28,7 @@ public class AlgaePivot extends SubsystemBase {
 
   public AlgaePivot() {
     pivot = new SparkMax(Constants.AlgaePivot.PIVOT_ID, MotorType.kBrushless);
-    //limitSwitch = new DigitalInput(Constants.AlgaePivot.LIMIT_SWITCH_ID);
+    limitSwitch = new DigitalInput(Constants.AlgaePivot.LIMIT_SWITCH_ID);
     controller = pivot.getClosedLoopController();
   //  encoder = pivot.getAbsoluteEncoder();
     double p = Constants.AlgaePivot.PID_P;
@@ -51,7 +51,7 @@ public class AlgaePivot extends SubsystemBase {
   }
 
   public void setPivotPower(double power) {
-    pivot.set(power);
+    pivot.set(-power);
   }
 
   public void setPosition(double position) {
@@ -69,8 +69,8 @@ public class AlgaePivot extends SubsystemBase {
   @Override
   public void periodic() {
     //System.out.println("hello");
-    System.out.println(getPosition());
+    //System.out.println(getPosition());
     //SmartDashboard.putNumber("Algae Pivot Encoder", getPosition());
-    //SmartDashboard.putBoolean("Algae Pivot Limit Switch", switchPressed());
+    SmartDashboard.putBoolean("Algae Pivot Limit Switch", switchPressed());
   }
 }

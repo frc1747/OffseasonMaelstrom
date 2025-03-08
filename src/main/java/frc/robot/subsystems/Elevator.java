@@ -4,77 +4,93 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.Slot0Configs;
+import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
-import com.revrobotics.spark.SparkBase;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkClosedLoopController;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
-  private SparkMax elevator;
+  private TalonFX elevator;
   private DigitalInput limitSwitchTop;
   private DigitalInput limitSwitchBottom;
-  private SparkClosedLoopController controller;
-  private SparkAbsoluteEncoder encoder;
+  private Encoder encoder;
+  private PositionVoltage PositionControl;
+  private double pow;
+  private boolean bottomLimit;
+  private boolean topLimit;
 
   public Elevator() {
-    elevator = new SparkMax(Constants.Elevator.ELEVATOR_ID, MotorType.kBrushless);
-    //limitSwitchTop = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_TOP_ID);
-    //limitSwitchBottom = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_BOTTOM_ID);
-    controller = elevator.getClosedLoopController();
-    encoder = elevator.getAbsoluteEncoder();
-    double p = Constants.Elevator.PID_P;
-    double i = Constants.Elevator.PID_I;
-    double d = Constants.Elevator.PID_D;
-    double f = Constants.Elevator.PID_F;
+    elevator = new TalonFX(Constants.Elevator.ELEVATOR_ID);
+    elevator.setNeutralMode(NeutralModeValue.Brake);
+    limitSwitchTop = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_TOP_ID);
+    limitSwitchBottom = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_BOTTOM_ID);
+    encoder = new Encoder(Constants.Elevator.ENCODER_A, Constants.Elevator.ENCODER_B, true);
 
-    SparkMaxConfig config = new SparkMaxConfig();
-    config
-      .idleMode(IdleMode.kBrake)
-      .closedLoop
-        .pidf(
-          p,
-          i,
-          d,
-          f
-        );
+    var slot0Configs = new Slot0Configs();
+    slot0Configs.kP = Constants.Elevator.PID_P;
+    slot0Configs.kI = Constants.Elevator.PID_I;
+    slot0Configs.kD = Constants.Elevator.PID_D;
+    elevator.getConfigurator().apply(slot0Configs);
+    this.PositionControl =  new PositionVoltage(0).withSlot(0);
     
-    elevator.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    pow = 0.0;
+    bottomLimit = false;
+    topLimit = false;
   }
+
   public boolean isAtTop() {
     return  !limitSwitchTop.get();
   }
+
   public boolean isAtBottom() {
     return !limitSwitchBottom.get();
   }
+
   public void setPower(double pow) {
-    elevator.set(-pow);
+    this.pow = -pow;
   }
 
   public void setPosition(double position) {
-    controller.setReference(position, SparkBase.ControlType.kPosition);
+    //double distance = (position - encoder.get())*Constants.Elevator.MOTOR_TO_SHAFT_RATIO;
+    elevator.setControl(PositionControl.withPosition(position));
   }
 
+  // encoder position in number of rotations
   public double getPosition() {
-    return encoder.getPosition();
-  }
-
-  public double getVelocity() {
-    return encoder.getVelocity();
+    return encoder.get() / 2048.0;
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Elevator Position", getPosition());
-    SmartDashboard.putNumber("Elevator Velocity", getVelocity());
+    double mult = 1.0;
+    if (getPosition() > 6.5) { // cut power by 80% if encoder above 6.5 rotations
+      mult = 0.2;
+    }
+    if (isAtBottom()) { // will not descend if bottom limit hit
+      if (pow < 0) mult = 0.0;
+    } 
+    if (isAtTop()) { // will not ascend if top limit hit
+      if (pow > 0) mult = 0.0;
+    }
+    elevator.set(-pow * mult);
+
+    if(isAtBottom()) {
+      elevator.setPosition(0);
+      encoder.reset();
+    }
+    //System.out.println("Encoder: " + getPosition());
+    SmartDashboard.putNumber("Elevator AbsPosition", getPosition());
+    SmartDashboard.putNumber("Elevator RelPosition", elevator.getPosition().getValueAsDouble());
+    SmartDashboard.putBoolean("Bottom Limit Switch", isAtBottom());
+    SmartDashboard.putBoolean("Top Limit Switch", isAtTop());
   }
 }

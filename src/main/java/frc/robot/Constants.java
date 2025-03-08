@@ -101,7 +101,7 @@ public class Constants {
       public static final int driveMotorID = 1;
       public static final int angleMotorID = 2;
       public static final int canCoderID = 3;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(169.102); // was 297.9
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(168.49); // was 297.9
       public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
 
@@ -110,7 +110,7 @@ public class Constants {
       public static final int driveMotorID = 11;
       public static final int angleMotorID = 12;
       public static final int canCoderID = 13;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(124.189); // was 335.8
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(118.48); // was 335.8
       public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
     
@@ -119,7 +119,7 @@ public class Constants {
       public static final int driveMotorID = 21;
       public static final int angleMotorID = 22;
       public static final int canCoderID = 23;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(-346.641); // was 266.4 - 180
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(12.57); // was 2191.1866.4 - 180
       public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
 
@@ -128,23 +128,23 @@ public class Constants {
       public static final int driveMotorID = 31; 
       public static final int angleMotorID = 32;
       public static final int canCoderID = 33;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(120.447); // was 95.3 - 180
+      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(120.76); // was 95.3 - 180
       public static final SwerveModuleConstants constants = new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
   }
 
   public static final class Algae {
     public static final int INTAKE_ID = 41;
-    public static final int LIMIT_SWITCH_ID = 42;
-    public static final double ROLLER_SPEED = -0.5;
+    public static final int LIMIT_SWITCH_ID = 8;
+    public static final double ROLLER_SPEED = 0.5;
   }
 
   public static final class AlgaePivot {
     public static final int PIVOT_ID = 43;
-    public static final int LIMIT_SWITCH_ID = 44;
+    public static final int LIMIT_SWITCH_ID = 8;
     public static final double STOWED = -0.2142;
     public static final double DROPPED = -1.5952389240264893;
-    public static final double POSITION_THRESHOLD = -0.05;
+    public static final double POSITION_THRESHOLD = 0.05;
     public static final int COUNTER_MAX_VALUE = 100;
     public static final double PID_P = .25;//sssshhhhh
     public static final double PID_I = 0;
@@ -154,8 +154,8 @@ public class Constants {
 
   public static final class Coral {
     public static final int INTAKE_ID = 45;
-    public static final int CORAL_LIMIT_SWITCH_ID = 1;
-    public static final double INTAKE_SPEED = 0.1;
+    public static final int CORAL_LIMIT_SWITCH_ID = 6;
+    public static final double INTAKE_SPEED = 0.5;
   }
   
   public static final class CoralPivot {
@@ -168,32 +168,37 @@ public class Constants {
     public static final double PID_I = 0;
     public static final double PID_D = 0;
     public static final double PID_F = 0;
+    public static final int CORALPIVOT_LIMIT_SWITCH_BOTTOM_ID = 8;
+    public static final int CORALPIVOT_LIMIT_SWITCH_TOP_ID = 2; // Don't know the numbers for top or bottom yet
+    public static final int ENCODER = 1;
   }
 
   public static final class Climber {
     public static final int LEFT_ID = 48;
-    public static final int RIGHT_ID = 49;
+    //public static final int RIGHT_ID = 49;
     public static final int LINEBREAK_ID = 50;
     public static final double CLIMB_SPEED = 0.2;
   }
 
   public static final class Elevator {
     public static final int ELEVATOR_ID = 51;
-    public static final int ELEVATOR2_ID = 52;
-    public static final int LIMIT_SWITCH_BOTTOM_ID = 52; // not
-    public static final int LIMIT_SWITCH_TOP_ID = 53; // diff
-    public static final double LEVEL_ONE_POSITION = 100;
-    public static final double LEVEL_TWO_POSITION = 200;
-    public static final double LEVEL_THREE_POSITION = 300;
-    public static final double LEVEL_FOUR_POSITION = 400;
+    public static final int LIMIT_SWITCH_BOTTOM_ID = 7;
+    public static final int LIMIT_SWITCH_TOP_ID = 5;
+    public static final int ENCODER_A = 3;
+    public static final int ENCODER_B = 4;
+    public static final double MOTOR_TO_SHAFT_RATIO = 64;
+    public static final double LEVEL_ONE_POSITION = 89.2;
+    public static final double LEVEL_TWO_POSITION = 202.8;
+    public static final double LEVEL_THREE_POSITION = 280.9;
+    public static final double LEVEL_FOUR_POSITION = 393.9;
     public static final double CORAL_STATION_POSITION = 290;
     public static final double LOWER_ALGAE_POSITION = 150;
     public static final double UPPER_ALGAE_POSITION = 250;
     public static final double TOP_POSITION = 6.62;
     public static final double MIN_SLOW_POSITION = 1;
-    public static final double POSITION_THRESHOLD = 5;
-    public static final int COUNTER_MAX_VALUE = 100;
-    public static final double PID_P = 1;
+    public static final double POSITION_THRESHOLD = 6;
+    public static final int COUNTER_MAX_VALUE = 10;
+    public static final double PID_P = .3;
     public static final double PID_I = 0;
     public static final double PID_D = 0;
     public static final double PID_F = 0;
