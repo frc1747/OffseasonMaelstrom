@@ -59,7 +59,7 @@ public class CoralPivot extends SubsystemBase {
   
 
   public void setPivotPower(double power) {
-    pow = -power;
+    pow = power;
   }
 
   public double getPosition() {
@@ -79,7 +79,7 @@ public class CoralPivot extends SubsystemBase {
     if (!limitSwitch.get()) { // will not descend if bottom limit hit
       if (pow < 0) mult = 0.0;
     } 
-   pivot.set(pow * mult);
+   pivot.set(-pow * mult);
     
   }
 }
