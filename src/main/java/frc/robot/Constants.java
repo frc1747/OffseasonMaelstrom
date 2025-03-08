@@ -189,8 +189,8 @@ public class Constants {
     public static final double CORAL_STATION_POSITION = 290;
     public static final double LOWER_ALGAE_POSITION = 150;
     public static final double UPPER_ALGAE_POSITION = 250;
-    public static final double TOP_POSITION = 500;
-    public static final double MIN_SLOW_POSITION = 150;
+    public static final double TOP_POSITION = 6.62;
+    public static final double MIN_SLOW_POSITION = 1;
     public static final double POSITION_THRESHOLD = 5;
     public static final int COUNTER_MAX_VALUE = 100;
     public static final double PID_P = 1;
