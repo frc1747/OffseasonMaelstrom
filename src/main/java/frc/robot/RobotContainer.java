@@ -127,7 +127,7 @@ public class RobotContainer {
         //driver commands 
         new JoystickButton(driver, XboxController.Button.kA.value)
           .whileTrue(new EjectAlgae(algae));
-        new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0)) 
+        new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0)) 
           .onTrue(new DropAlgaeIntake(algaePivot))
           .whileTrue(new IntakeAlgae(algae))
           .onFalse(new StowAlgaeIntake(algaePivot));

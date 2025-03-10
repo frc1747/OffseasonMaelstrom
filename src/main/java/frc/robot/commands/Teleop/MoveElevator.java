@@ -6,6 +6,7 @@ package frc.robot.commands.Teleop;
 
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
 
@@ -27,7 +28,7 @@ public class MoveElevator extends Command {
 
   @Override
   public void execute() {
-    elevator.setPower(joystick.getRawAxis(1));
+    elevator.setPower(joystick.getRawAxis(XboxController.Axis.kRightY.value));
   }
 
   @Override
