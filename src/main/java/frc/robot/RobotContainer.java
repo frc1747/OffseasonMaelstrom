@@ -159,15 +159,15 @@ public class RobotContainer {
     //  .whileTrue(new MoveElevator(elevator, manualElevator.getAsDouble()/2.0));
 
     //Presets
-    buttonBoard.Blue1()
+    buttonBoard.Red1()
         .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_ONE_POSITION));
-    buttonBoard.Blue2()
+    buttonBoard.Red2()
         .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION));
-    buttonBoard.Blue3()
+    buttonBoard.Red3()
         .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_THREE_POSITION));
-    buttonBoard.Blue4()
+    buttonBoard.Red4()
         .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION));
-    buttonBoard.Blue5()
+    buttonBoard.Red5()
         .whileTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION));
 
     //Coral Pivot

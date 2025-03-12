@@ -177,7 +177,7 @@ public class Constants {
   public static final class Climber {
     public static final int LEFT_ID = 48;
     //public static final int RIGHT_ID = 49;
-    public static final int LINEBREAK_ID = 50;
+    public static final int LIMIT_SWITCH_ID = 9;
     public static final double CLIMB_SPEED = 0.4;
   }
 
