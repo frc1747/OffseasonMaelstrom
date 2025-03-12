@@ -65,12 +65,17 @@ public class RobotContainer {
     //controllers
     private final Joystick driver = new Joystick(0);
     private final Joystick operator = new Joystick(1);
+    private final Joystick blueHalf = new Joystick(2);
+    private final Joystick redHalf = new Joystick(3);
 
     // operator buttons
     public final POVButton operatorDpadUp = new POVButton(operator, 0);
     public final POVButton operatorDpadRight = new POVButton(operator, 90);
     public final POVButton operatorDpadDown = new POVButton(operator, 180);
     public final POVButton operatorDpadLeft = new POVButton(operator, 270);
+
+    // Button Board
+    public final ButtonBoard buttonBoard = new ButtonBoard(blueHalf,redHalf);
 
     // Drive Controls
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -153,30 +158,17 @@ public class RobotContainer {
     //new Trigger(() ->  (Math.abs(manualElevator.getAsDouble()) > .05))
     //  .whileTrue(new MoveElevator(elevator, manualElevator.getAsDouble()/2.0));
 
-    //Presets (elevator & coral pivot)
-    // new JoystickButton(operator, XboxController.Button.kA.value)
-    //   .onTrue(new GoToLevel(elevator, Constants.Elevator.LOWER_ALGAE_POSITION));
-    // new JoystickButton(operator, XboxController.Button.kY.value)
-    //   .onTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION));
-    // new JoystickButton(operator, XboxController.Button.kX.value)
-    //   .onTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION))
-    //   .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.CORAL_STATION_POSITION));
-
-    new JoystickButton(operator,XboxController.Button.kRightBumper.value)
-      .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION));
-    
-    operatorDpadUp
-      .onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION))
-      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
-    
-    operatorDpadRight.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_THREE_POSITION))
-      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
-    
-    operatorDpadLeft.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION))
-      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
-    
-    operatorDpadDown.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_ONE_POSITION))
-      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
+    //Presets
+    buttonBoard.Blue1()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_ONE_POSITION));
+    buttonBoard.Blue2()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION));
+    buttonBoard.Blue3()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_THREE_POSITION));
+    buttonBoard.Blue4()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION));
+    buttonBoard.Blue5()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION));
 
     //Coral Pivot
     //Manual

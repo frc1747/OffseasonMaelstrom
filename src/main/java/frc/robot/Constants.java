@@ -135,7 +135,6 @@ public class Constants {
 
   public static final class Algae {
     public static final int INTAKE_ID = 41;
-    public static final int LIMIT_SWITCH_ID = 8;
     public static final double ROLLER_IN_SPEED = 0.5;
     public static final double ROLLER_OUT_SPEED = -0.2;
   }
