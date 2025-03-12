@@ -76,7 +76,10 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     double mult = 1.0;
-    if (getPosition() > 6.5) { // cut power by 80% if encoder above 6.5 rotations
+    if (getPosition() > Constants.Elevator.TOP_SLOW_POS && elevator.get() < 0) { // cut power by 80% if encoder above TOP_SLOW_POS
+      mult = 0.2;
+    }
+    if (getPosition() < Constants.Elevator.BOTTOM_SLOW_POS && elevator.get() > 0) { // cut power by 80% if encoder below BOTTOM_SLOW_POS
       mult = 0.2;
     }
     if (isAtBottom()) { // will not descend if bottom limit hit

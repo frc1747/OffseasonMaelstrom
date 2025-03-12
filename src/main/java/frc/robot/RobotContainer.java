@@ -132,7 +132,6 @@ public class RobotContainer {
           .whileTrue(new IntakeAlgae(algae))
           .onFalse(new StowAlgaeIntake(algaePivot));
          
-    
         //operater Coral commands
     
         new JoystickButton(operator, XboxController.Button.kB.value)
@@ -141,9 +140,9 @@ public class RobotContainer {
           .whileTrue( new EjectCoral(coral));   
     
         new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
-          .whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED));
-        new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
-          .whileTrue(new Climb(climber, -Constants.Climber.CLIMB_SPEED));
+          .whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED, () -> driver.getRawButton(XboxController.Button.kY.value)));
+        //new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
+          //.whileTrue(new Climb(climber, -Constants.Climber.CLIMB_SPEED));
     
     
         autoChooser = AutoBuilder.buildAutoChooser();

@@ -17,7 +17,7 @@ public class EjectAlgae extends Command {
 
   @Override
   public void initialize() {
-    intake.setIntakePower(-Constants.Algae.ROLLER_SPEED);
+    intake.setIntakePower(Constants.Algae.ROLLER_OUT_SPEED);
   }
 
   @Override
