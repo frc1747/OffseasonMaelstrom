@@ -61,7 +61,7 @@ public class Elevator extends SubsystemBase {
 
   public void setPosition(double position) {
     //double distance = (position - encoder.get())*Constants.Elevator.MOTOR_TO_SHAFT_RATIO;
-    elevator.setControl(PositionControl.withPosition(position));
+    elevator.setControl(PositionControl.withPosition(position));// abs encoder
   }
 
   // encoder position in number of rotations
@@ -69,10 +69,17 @@ public class Elevator extends SubsystemBase {
     return encoder.get() / 2048.0;
   }
 
+  public double getKrakenPosition() {
+    return elevator.getPosition().getValueAsDouble();
+  }
+
   @Override
   public void periodic() {
     double mult = 1.0;
-    if (getPosition() > 6.5) { // cut power by 80% if encoder above 6.5 rotations
+    if (getPosition() > Constants.Elevator.TOP_SLOW_POS && elevator.get() < 0) { // cut power by 80% if encoder above TOP_SLOW_POS
+      mult = 0.2;
+    }
+    if (getPosition() < Constants.Elevator.BOTTOM_SLOW_POS && elevator.get() > 0) { // cut power by 80% if encoder below BOTTOM_SLOW_POS
       mult = 0.2;
     }
     if (isAtBottom()) { // will not descend if bottom limit hit

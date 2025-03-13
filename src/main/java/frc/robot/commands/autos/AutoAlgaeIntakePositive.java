@@ -25,7 +25,7 @@ public class AutoAlgaeIntakePositive extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    algae.setIntakePower(Constants.Algae.ROLLER_SPEED);
+    algae.setIntakePower(Constants.Algae.ROLLER_IN_SPEED);
     time.reset();
     time.start();
   }

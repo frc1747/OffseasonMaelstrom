@@ -135,15 +135,15 @@ public class Constants {
 
   public static final class Algae {
     public static final int INTAKE_ID = 41;
-    public static final int LIMIT_SWITCH_ID = 8;
-    public static final double ROLLER_SPEED = 0.5;
+    public static final double ROLLER_IN_SPEED = 0.5;
+    public static final double ROLLER_OUT_SPEED = -0.2;
   }
 
   public static final class AlgaePivot {
     public static final int PIVOT_ID = 43;
     public static final int LIMIT_SWITCH_ID = 8;
     public static final double STOWED = -0.2142;
-    public static final double DROPPED = -1.5952389240264893;
+    public static final double DROPPED = -1.3952389240264893;
     public static final double POSITION_THRESHOLD = 0.05;
     public static final int COUNTER_MAX_VALUE = 100;
     public static final double PID_P = .25;//sssshhhhh
@@ -156,13 +156,14 @@ public class Constants {
     public static final int INTAKE_ID = 45;
     public static final int CORAL_LIMIT_SWITCH_ID = 6;
     public static final double INTAKE_SPEED = 0.5;
+    public static final double OUTTAKE_SPEED = 0.35;
   }
   
   public static final class CoralPivot {
     public static final int PIVOT_ID = 47;
-    public static final double CORAL_STATION_POSITION = 100;
+    public static final double CORAL_STATION_POSITION = 0.46;
     public static final double REEF_POSITION = 200;
-    public static final double POSITION_THRESHOLD = 5;
+    public static final double POSITION_THRESHOLD = 0.02;
     public static final int COUNTER_MAX_VALUE = 100;
     public static final double PID_P = 1;
     public static final double PID_I = 0;
@@ -176,8 +177,8 @@ public class Constants {
   public static final class Climber {
     public static final int LEFT_ID = 48;
     //public static final int RIGHT_ID = 49;
-    public static final int LINEBREAK_ID = 50;
-    public static final double CLIMB_SPEED = 0.2;
+    public static final int LIMIT_SWITCH_ID = 9;
+    public static final double CLIMB_SPEED = 0.4;
   }
 
   public static final class Elevator {
@@ -187,18 +188,20 @@ public class Constants {
     public static final int ENCODER_A = 3;
     public static final int ENCODER_B = 4;
     public static final double MOTOR_TO_SHAFT_RATIO = 64;
-    public static final double LEVEL_ONE_POSITION = 89.2;
-    public static final double LEVEL_TWO_POSITION = 202.8;
-    public static final double LEVEL_THREE_POSITION = 280.9;
-    public static final double LEVEL_FOUR_POSITION = 393.9;
-    public static final double CORAL_STATION_POSITION = 290;
+    public static final double LEVEL_ONE_POSITION = -70; // 1.94 abs
+    public static final double LEVEL_TWO_POSITION = -91.3 - 3; // 2.54 abs the 3 is a number add on
+    public static final double LEVEL_THREE_POSITION = -165 -3; //4.54 abs the 3 is a number add on
+    public static final double LEVEL_FOUR_POSITION = -238; //6.62 abs
+    public static final double CORAL_STATION_POSITION = -79; //2.19 abs
     public static final double LOWER_ALGAE_POSITION = 150;
-    public static final double UPPER_ALGAE_POSITION = 250;
+    public static final double UPPER_ALGAE_POSITION = -110; //2.97 abs
     public static final double TOP_POSITION = 6.62;
+    public static final double TOP_SLOW_POS = 5.97;
+    public static final double BOTTOM_SLOW_POS = .47;
     public static final double MIN_SLOW_POSITION = 1;
     public static final double POSITION_THRESHOLD = 6;
     public static final int COUNTER_MAX_VALUE = 10;
-    public static final double PID_P = .3;
+    public static final double PID_P = .5;
     public static final double PID_I = 0;
     public static final double PID_D = 0;
     public static final double PID_F = 0;

@@ -4,15 +4,20 @@
 
 package frc.robot.commands.Teleop;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Climber;
 
 public class Climb extends Command {
   private Climber climber;
   private double speed;
-  public Climb(Climber climber, double speed) {
+  private BooleanSupplier safety;
+  public Climb(Climber climber, double speed, BooleanSupplier safety) {
     this.climber = climber;
     this.speed = speed;
+    this.safety = safety;
     addRequirements(climber);
   }
 
@@ -21,9 +26,9 @@ public class Climb extends Command {
 
   @Override
   public void execute() {
-    //if (climber.cageInPosition()) {
+    if (safety.getAsBoolean()) {
       climber.setClimberPower(speed);
-    //}
+    }
   }
 
   @Override

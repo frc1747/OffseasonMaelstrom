@@ -30,7 +30,7 @@ public class GoToLevel extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    elevator.setPosition(elevator.getPosition());
+    elevator.setPosition(elevator.getKrakenPosition());
   }
 
   @Override

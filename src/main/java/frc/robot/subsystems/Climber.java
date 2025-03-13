@@ -16,17 +16,20 @@ import frc.robot.Constants;
 public class Climber extends SubsystemBase {
   private TalonFX climbingLeft;
   //private TalonFX climbingRight;
-  //private DigitalInput linebreak;
+  private DigitalInput limitSwitch;
+  private double pow;
 
   public Climber() {
     climbingLeft = new TalonFX(Constants.Climber.LEFT_ID);
     //climbingRight = new TalonFX(Constants.Climber.RIGHT_ID);
     climbingLeft.setNeutralMode(NeutralModeValue.Brake);
     //climbingRight.setNeutralMode(NeutralModeValue.Brake);
+    limitSwitch = new DigitalInput(Constants.Climber.LIMIT_SWITCH_ID);
+    pow = 0.0;
   }
   
-  public void setClimberPower(double power) {
-    climbingLeft.set(power);
+  public void setClimberPower(double pow) {
+    this.pow = pow;
     //climbingRight.set(-power);
   }
 
@@ -34,12 +37,17 @@ public class Climber extends SubsystemBase {
     return climbingLeft.getPosition().getValueAsDouble();
   }
 
-  // public boolean cageInPosition() {
-  //   return !linebreak.get();
-  // }
+   public boolean isAtBottom() {
+     return !limitSwitch.get();
+   }
 
   @Override
   public void periodic() {
+    double mult = 1.0;
+    if (isAtBottom()) { // will not descend if bottom limit hit
+      if (pow < 0) mult = 0.0;
+    }
+    climbingLeft.set(pow*mult);
     SmartDashboard.putNumber("Climber Position", getPosition());
   }
 }

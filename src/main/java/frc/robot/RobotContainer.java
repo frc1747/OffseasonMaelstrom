@@ -29,6 +29,7 @@ import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.commands.autos.AutoCoralIntakeNegative;
 import frc.robot.commands.autos.ElevatorIntakeCommand;
 import frc.robot.commands.Teleop.Climb;
+import frc.robot.commands.ResetGyro;
 import frc.robot.commands.Teleop.AngleCoral;
 import frc.robot.commands.Teleop.DropAlgaeIntake;
 import frc.robot.commands.Teleop.EjectAlgae;
@@ -65,12 +66,17 @@ public class RobotContainer {
     //controllers
     private final Joystick driver = new Joystick(0);
     private final Joystick operator = new Joystick(1);
+    private final Joystick blueHalf = new Joystick(2);
+    private final Joystick redHalf = new Joystick(3);
 
     // operator buttons
     public final POVButton operatorDpadUp = new POVButton(operator, 0);
     public final POVButton operatorDpadRight = new POVButton(operator, 90);
     public final POVButton operatorDpadDown = new POVButton(operator, 180);
     public final POVButton operatorDpadLeft = new POVButton(operator, 270);
+
+    // Button Board
+    public final ButtonBoard buttonBoard = new ButtonBoard(blueHalf,redHalf);
 
     // Drive Controls
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -103,9 +109,9 @@ public class RobotContainer {
       public RobotContainer() {
         
         NamedCommands.registerCommand("CoralLaunch", new AutoCoralIntakeNegative(coral));
-      NamedCommands.registerCommand("EleL4", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_FOUR_POSITION,Constants.CoralPivot.REEF_POSITION));
-// imports needed 
-     // NamedCommands.registerCommand("shoot", new ShootAuto(shooter, intake,feeder , "shoot"));
+        NamedCommands.registerCommand("EleL4", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_FOUR_POSITION,Constants.CoralPivot.REEF_POSITION));
+        // imports needed 
+        // NamedCommands.registerCommand("shoot", new ShootAuto(shooter, intake,feeder , "shoot"));
         //drivetrain
         drivetrain.setDefaultCommand(
           new TeleopSwerve(
@@ -127,12 +133,11 @@ public class RobotContainer {
         //driver commands 
         new JoystickButton(driver, XboxController.Button.kA.value)
           .whileTrue(new EjectAlgae(algae));
-        new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0)) 
+        new Trigger(() -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0)) 
           .onTrue(new DropAlgaeIntake(algaePivot))
           .whileTrue(new IntakeAlgae(algae))
           .onFalse(new StowAlgaeIntake(algaePivot));
          
-    
         //operater Coral commands
     
         new JoystickButton(operator, XboxController.Button.kB.value)
@@ -141,9 +146,9 @@ public class RobotContainer {
           .whileTrue( new EjectCoral(coral));   
     
         new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
-          .whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED));
-        new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
-          .whileTrue(new Climb(climber, -Constants.Climber.CLIMB_SPEED));
+          .whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED, () -> driver.getRawButton(XboxController.Button.kY.value)));
+        //new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
+          //.whileTrue(new Climb(climber, -Constants.Climber.CLIMB_SPEED));
     
     
         autoChooser = AutoBuilder.buildAutoChooser();
@@ -154,30 +159,19 @@ public class RobotContainer {
     //new Trigger(() ->  (Math.abs(manualElevator.getAsDouble()) > .05))
     //  .whileTrue(new MoveElevator(elevator, manualElevator.getAsDouble()/2.0));
 
-    //Presets (elevator & coral pivot)
-    // new JoystickButton(operator, XboxController.Button.kA.value)
-    //   .onTrue(new GoToLevel(elevator, Constants.Elevator.LOWER_ALGAE_POSITION));
-    // new JoystickButton(operator, XboxController.Button.kY.value)
-    //   .onTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION));
-    // new JoystickButton(operator, XboxController.Button.kX.value)
-    //   .onTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION))
-    //   .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.CORAL_STATION_POSITION));
-
-    new JoystickButton(operator,XboxController.Button.kRightBumper.value)
-      .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION));
-    
-    operatorDpadUp
-      .onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION))
-      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
-    
-    operatorDpadRight.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_THREE_POSITION))
-      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
-    
-    operatorDpadLeft.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION))
-      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
-    
-    operatorDpadDown.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_ONE_POSITION))
-      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
+    //Presets
+    buttonBoard.Red1()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_ONE_POSITION));
+    buttonBoard.Red2()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION));
+    buttonBoard.Red3()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_THREE_POSITION));
+    buttonBoard.Red4()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION));
+    buttonBoard.Red5()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION));
+    buttonBoard.Red6()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION));
 
     //Coral Pivot
     //Manual
@@ -187,7 +181,7 @@ public class RobotContainer {
 
     //Reset Gyro
     // zeroGyro
-    //   .onTrue(new ResetGyro(drivetrain));
+    new JoystickButton(operator, XboxController.Button.kRightBumper.value).onTrue(new ResetGyro(drivetrain));
 
   }
 
