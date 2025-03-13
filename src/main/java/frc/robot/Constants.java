@@ -156,7 +156,7 @@ public class Constants {
     public static final int INTAKE_ID = 45;
     public static final int CORAL_LIMIT_SWITCH_ID = 6;
     public static final double INTAKE_SPEED = 0.5;
-    public static final double OUTTAKE_SPEED = 0.2;
+    public static final double OUTTAKE_SPEED = 0.35;
   }
   
   public static final class CoralPivot {
@@ -189,12 +189,12 @@ public class Constants {
     public static final int ENCODER_B = 4;
     public static final double MOTOR_TO_SHAFT_RATIO = 64;
     public static final double LEVEL_ONE_POSITION = -70; // 1.94 abs
-    public static final double LEVEL_TWO_POSITION = -91.3; // 2.54 abs
-    public static final double LEVEL_THREE_POSITION = -165; //4.54 abs
-    public static final double LEVEL_FOUR_POSITION = -238; //6.64 abs
-    public static final double CORAL_STATION_POSITION = 290;
+    public static final double LEVEL_TWO_POSITION = -91.3 - 3; // 2.54 abs the 3 is a number add on
+    public static final double LEVEL_THREE_POSITION = -165 -3; //4.54 abs the 3 is a number add on
+    public static final double LEVEL_FOUR_POSITION = -238; //6.62 abs
+    public static final double CORAL_STATION_POSITION = -79; //2.19 abs
     public static final double LOWER_ALGAE_POSITION = 150;
-    public static final double UPPER_ALGAE_POSITION = 250;
+    public static final double UPPER_ALGAE_POSITION = -110; //2.97 abs
     public static final double TOP_POSITION = 6.62;
     public static final double TOP_SLOW_POS = 5.97;
     public static final double BOTTOM_SLOW_POS = .47;

@@ -108,9 +108,9 @@ public class RobotContainer {
       public RobotContainer() {
         
         NamedCommands.registerCommand("CoralLaunch", new AutoCoralIntakeNegative(coral));
-      NamedCommands.registerCommand("EleL4", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_FOUR_POSITION,Constants.CoralPivot.REEF_POSITION));
-// imports needed 
-     // NamedCommands.registerCommand("shoot", new ShootAuto(shooter, intake,feeder , "shoot"));
+        NamedCommands.registerCommand("EleL4", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_FOUR_POSITION,Constants.CoralPivot.REEF_POSITION));
+        // imports needed 
+        // NamedCommands.registerCommand("shoot", new ShootAuto(shooter, intake,feeder , "shoot"));
         //drivetrain
         drivetrain.setDefaultCommand(
           new TeleopSwerve(
@@ -169,6 +169,8 @@ public class RobotContainer {
         .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION));
     buttonBoard.Red5()
         .whileTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION));
+    buttonBoard.Red6()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION));
 
     //Coral Pivot
     //Manual

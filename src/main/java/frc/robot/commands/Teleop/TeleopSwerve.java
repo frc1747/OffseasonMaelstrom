@@ -42,7 +42,7 @@ public class TeleopSwerve extends Command {
         if(elevatorPos.getAsDouble() >= Constants.Elevator.MIN_SLOW_POSITION){
             drivetrain.drive(
                 new Translation2d(translationVal, strafeVal).times(Constants.Drivetrain.MAX_SPEED*(1.05-elevatorPos.getAsDouble()/Constants.Elevator.TOP_POSITION)), 
-                rotationVal * Constants.Drivetrain.maxAngularVelocity, 
+                rotationVal * Constants.Drivetrain.maxAngularVelocity*(1.05-elevatorPos.getAsDouble()/Constants.Elevator.TOP_POSITION), 
                 !robotCentricSup.getAsBoolean(), 
                 true
             );
@@ -50,7 +50,7 @@ public class TeleopSwerve extends Command {
         else if(slowDown){
             drivetrain.drive( 
                 new Translation2d(translationVal, strafeVal).times(Constants.Drivetrain.MAX_SPEED*(1.0-elevatorPos.getAsDouble()/Constants.Elevator.TOP_POSITION)).times(Constants.Drivetrain.SlowSpeed),
-                rotationVal * Constants.Drivetrain.maxAngularVelocity, 
+                rotationVal * Constants.Drivetrain.maxAngularVelocity*(1.0-elevatorPos.getAsDouble()/Constants.Elevator.TOP_POSITION), 
                 !robotCentricSup.getAsBoolean(), 
                 true
             );
