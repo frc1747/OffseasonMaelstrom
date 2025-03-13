@@ -29,6 +29,7 @@ import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.commands.autos.AutoCoralIntakeNegative;
 import frc.robot.commands.autos.ElevatorIntakeCommand;
 import frc.robot.commands.Teleop.Climb;
+import frc.robot.commands.ResetGyro;
 import frc.robot.commands.Teleop.AngleCoral;
 import frc.robot.commands.Teleop.DropAlgaeIntake;
 import frc.robot.commands.Teleop.EjectAlgae;
@@ -180,7 +181,7 @@ public class RobotContainer {
 
     //Reset Gyro
     // zeroGyro
-    //   .onTrue(new ResetGyro(drivetrain));
+    new JoystickButton(operator, XboxController.Button.kRightBumper.value).onTrue(new ResetGyro(drivetrain));
 
   }
 
