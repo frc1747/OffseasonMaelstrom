@@ -172,6 +172,10 @@ public class RobotContainer {
         .whileTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION));
     buttonBoard.Red6()
         .whileTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION));
+    buttonBoard.Red8()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LOWER_ALGAE_POSITION));
+    buttonBoard.Red10()
+        .whileTrue( new GoToLevel(elevator, Constants.Elevator.HOME_POSTION));
 
     //Coral Pivot
     //Manual
