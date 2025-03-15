@@ -18,8 +18,9 @@ public class TeleopSwerve extends Command {
     private BooleanSupplier robotCentricSup;
     private DoubleSupplier elevatorPos;
     private BooleanSupplier SpeedButton;
+    private BooleanSupplier slowOverride;
 
-    public TeleopSwerve(Drivetrain drivetrain, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup, DoubleSupplier elevatorPos, BooleanSupplier SpeedButton ) {
+    public TeleopSwerve(Drivetrain drivetrain, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup, DoubleSupplier elevatorPos, BooleanSupplier SpeedButton, BooleanSupplier slowOverride) {
         this.drivetrain = drivetrain;
         addRequirements(drivetrain);
         this.SpeedButton = SpeedButton;
@@ -28,6 +29,7 @@ public class TeleopSwerve extends Command {
         this.rotationSup = rotationSup;
         this.robotCentricSup = robotCentricSup;
         this.elevatorPos = elevatorPos;
+        this.slowOverride = slowOverride;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class TeleopSwerve extends Command {
         boolean slowDown = SpeedButton.getAsBoolean();
 
         // Drive , watch this drive 
-        if(elevatorPos.getAsDouble() >= Constants.Elevator.MIN_SLOW_POSITION){
+        if(elevatorPos.getAsDouble() >= Constants.Elevator.MIN_SLOW_POSITION && !slowOverride.getAsBoolean()) {
             drivetrain.drive(
                 new Translation2d(translationVal, strafeVal).times(Constants.Drivetrain.MAX_SPEED*(1.05-elevatorPos.getAsDouble()/Constants.Elevator.TOP_POSITION)), 
                 rotationVal * Constants.Drivetrain.maxAngularVelocity*(1.05-elevatorPos.getAsDouble()/Constants.Elevator.TOP_POSITION), 
