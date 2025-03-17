@@ -9,6 +9,7 @@ import static edu.wpi.first.units.Units.Value;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.CoralPivot;
 
 public class PivotCoralIntake extends Command {
@@ -29,7 +30,7 @@ public class PivotCoralIntake extends Command {
 
   @Override
   public void execute() {
-    pivot.setPivotPower(joystick.getRawAxis(XboxController.Axis.kLeftY.value) / 2);
+    pivot.setPivotPower(joystick.getRawAxis(XboxController.Axis.kLeftY.value) / Constants.CoralPivot.PIVOT_REDUCTION);
   }
 
   @Override
