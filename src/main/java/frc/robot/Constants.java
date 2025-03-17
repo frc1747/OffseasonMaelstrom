@@ -160,6 +160,7 @@ public class Constants {
   }
   
   public static final class CoralPivot {
+    public static final int PIVOT_REDUCTION = 3;
     public static final int PIVOT_ID = 47;
     public static final double CORAL_STATION_POSITION = 0.46;
     public static final double REEF_POSITION = 200;
@@ -191,8 +192,8 @@ public class Constants {
     public static final double LEVEL_ONE_POSITION = -70; // 1.94 abs
     public static final double LEVEL_TWO_POSITION = -91.3 - 3; // 2.54 abs the 3 is a number add on
     public static final double LEVEL_THREE_POSITION = -165 -3; //4.54 abs the 3 is a number add on
-    public static final double LEVEL_FOUR_POSITION = -238; //6.62 abs
-    public static final double CORAL_STATION_POSITION = -79; //2.19 abs
+    public static final double LEVEL_FOUR_POSITION = -234; //6.62 abs
+    public static final double CORAL_STATION_POSITION = -81; //2.19 abs was 79
     public static final double LOWER_ALGAE_POSITION = 150;
     public static final double UPPER_ALGAE_POSITION = -110; //2.97 abs
     public static final double TOP_POSITION = 6.62;
