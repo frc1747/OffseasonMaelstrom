@@ -18,6 +18,7 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,6 +32,7 @@ public class CoralPivot extends SubsystemBase {
   private DigitalInput limitSwitch;
   private DigitalInput limitSwitchTop;
   private double pow;
+  private PIDController pid;
 
   public CoralPivot() {
     pivot = new SparkMax(Constants.CoralPivot.PIVOT_ID, MotorType.kBrushed);
@@ -42,20 +44,22 @@ public class CoralPivot extends SubsystemBase {
     double i = Constants.CoralPivot.PID_I;
     double d = Constants.CoralPivot.PID_D;
     double f = Constants.CoralPivot.PID_F;
+    this.pid = new PIDController(p, i, d);
 
-    SparkMaxConfig config = new SparkMaxConfig();
-    config
-      .idleMode(IdleMode.kBrake)
-      .closedLoop
-        .pidf(
-          p,
-          i,
-          d,
-          f
-        );
+
+    // SparkMaxConfig config = new SparkMaxConfig();
+    // config
+    //   .idleMode(IdleMode.kBrake)
+    //   .closedLoop
+    //     .pidf(
+    //       p,
+    //       i,
+    //       d,
+    //       f
+    //     );
     
-    pivot.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-  }
+  //   pivot.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+ }
   
 
   public void setPivotPower(double power) {
@@ -68,6 +72,7 @@ public class CoralPivot extends SubsystemBase {
 
   public void setPosition(double position) {
     controller.setReference(position, SparkBase.ControlType.kDutyCycle);
+    pow = pid.calculate(encoder.get(), position);
   }
 
   @Override
@@ -80,6 +85,5 @@ public class CoralPivot extends SubsystemBase {
       if (pow < 0) mult = 0.0;
     } 
    pivot.set(-pow * mult);
-    
   }
 }
