@@ -39,6 +39,7 @@ import frc.robot.commands.Teleop.StowAlgaeIntake;
 import frc.robot.commands.Teleop.IntakeCoral;
 import frc.robot.commands.Teleop.MoveElevator;
 import frc.robot.commands.Teleop.PivotCoralIntake;
+import frc.robot.commands.Teleop.SetCoral;
 //import frc.robot.commands.Teleop.ResetGyro;
 import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.AlgaePivot;
@@ -171,6 +172,9 @@ public class RobotContainer {
         .whileTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION));
     buttonBoard.Red6()
         .whileTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION));
+
+    buttonBoard.Blue1()
+        .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.position));
 
     //Coral Pivot
     //Manual

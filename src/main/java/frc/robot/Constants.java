@@ -165,13 +165,19 @@ public class Constants {
     public static final double REEF_POSITION = 200;
     public static final double POSITION_THRESHOLD = 0.02;
     public static final int COUNTER_MAX_VALUE = 100;
-    public static final double PID_P = 1;
+    public static final double PID_P = 0.1;
     public static final double PID_I = 0;
     public static final double PID_D = 0;
     public static final double PID_F = 0;
     public static final int CORALPIVOT_LIMIT_SWITCH_BOTTOM_ID = 8;
     public static final int CORALPIVOT_LIMIT_SWITCH_TOP_ID = 2; // Don't know the numbers for top or bottom yet
     public static final int ENCODER = 1;
+    public static final double position = 0.2088;
+    public double getPosition;
+    public void setPosition(double position2) {
+      // TODO Auto-generated method stub
+      throw new UnsupportedOperationException("Unimplemented method 'setPosition'");
+    }
   }
 
   public static final class Climber {

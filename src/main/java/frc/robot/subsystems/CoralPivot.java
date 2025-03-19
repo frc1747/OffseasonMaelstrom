@@ -77,6 +77,7 @@ public class CoralPivot extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("is connected", encoder.isConnected());
     SmartDashboard.putNumber("Coral Pivot Encoder", getPosition());
     SmartDashboard.putBoolean("top coral", !limitSwitch.get());
    // SmartDashboard.putBoolean("top limt",!limitSwitchTop.get() );
