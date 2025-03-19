@@ -162,20 +162,23 @@ public class RobotContainer {
 
     //Presets
     buttonBoard.Red1()
-        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_ONE_POSITION));
-    buttonBoard.Red2()
-        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION));
-    buttonBoard.Red3()
-        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_THREE_POSITION));
-    buttonBoard.Red4()
-        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION));
-    buttonBoard.Red5()
-        .whileTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION));
-    buttonBoard.Red6()
-        .whileTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION));
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_ONE_POSITION)).whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.L1_position) );
 
-    buttonBoard.Blue1()
-        .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.position));
+    buttonBoard.Red2()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION)).whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.L2_position) );
+
+    buttonBoard.Red3()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_THREE_POSITION)).whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.L3_position) );
+
+    buttonBoard.Red4()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION)).whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.L4_position) );
+
+    buttonBoard.Red5()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION)).whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.Station_position) );
+        ;
+    buttonBoard.Red6()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION)).whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.Station_position) );
+        ;
 
     //Coral Pivot
     //Manual

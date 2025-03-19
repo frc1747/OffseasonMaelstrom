@@ -160,13 +160,13 @@ public class Constants {
   }
   
   public static final class CoralPivot {
-    public static final double PIVOT_REDUCTION = 2.5;
+    public static final double PIVOT_REDUCTION = 1.5;
     public static final int PIVOT_ID = 47;
     public static final double CORAL_STATION_POSITION = 0.46;
     public static final double REEF_POSITION = 200;
     public static final double POSITION_THRESHOLD = 0.02;
     public static final int COUNTER_MAX_VALUE = 100;
-    public static final double PID_P = 0.5;
+    public static final double PID_P = 3;
     public static final double PID_I = 0;
     public static final double PID_D = 0;
     public static final double PID_F = 0;
@@ -174,6 +174,11 @@ public class Constants {
     public static final int CORALPIVOT_LIMIT_SWITCH_TOP_ID = 2; // Don't know the numbers for top or bottom yet
     public static final int ENCODER = 1;
     public static final double position = 0.2088;
+    public static final double Station_position = 0.2088;
+    public static final double L1_position = 0.2878;
+    public static final double L2_position = 0.2955;
+    public static final double L3_position = .2955;
+    public static final double L4_position = .2955;
     public double getPosition;
     public void setPosition(double position2) {
       // TODO Auto-generated method stub
@@ -195,9 +200,9 @@ public class Constants {
     public static final int ENCODER_A = 3;
     public static final int ENCODER_B = 4;
     public static final double MOTOR_TO_SHAFT_RATIO = 64;
-    public static final double LEVEL_ONE_POSITION = -70; // 1.94 abs
+    public static final double LEVEL_ONE_POSITION = -54; // 1.507 abs
     public static final double LEVEL_TWO_POSITION = -91.3 - 3; // 2.54 abs the 3 is a number add on
-    public static final double LEVEL_THREE_POSITION = -165 -3; //4.54 abs the 3 is a number add on
+    public static final double LEVEL_THREE_POSITION = -145; //4.54 abs the 3 is a number add on
     public static final double LEVEL_FOUR_POSITION = -234; //6.62 abs
     public static final double CORAL_STATION_POSITION = -81; //2.19 abs was 79
     public static final double LOWER_ALGAE_POSITION = 150;
@@ -208,7 +213,7 @@ public class Constants {
     public static final double MIN_SLOW_POSITION = 1;
     public static final double POSITION_THRESHOLD = 6;
     public static final int COUNTER_MAX_VALUE = 10;
-    public static final double PID_P = 1;
+    public static final double PID_P = 1.5;
     public static final double PID_I = 0;
     public static final double PID_D = 0;
     public static final double PID_F = 0;
