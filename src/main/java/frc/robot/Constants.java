@@ -78,7 +78,7 @@ public class Constants {
     // TODO: Tune these later
     public static final double MAX_SPEED = 4.1;  // Max speed in m/s
     public static final double MAX_ACCEL = 4.1;  // Max acceleration in m/s
-    public static final double maxAngularVelocity = 10.0;  // Rad/s
+    public static final double maxAngularVelocity = 6.0;  // Rad/s
 
     // TODO: Tune these later
     public static final double DRIVE_KP = 0.05;
@@ -156,7 +156,7 @@ public class Constants {
     public static final int INTAKE_ID = 45;
     public static final int CORAL_LIMIT_SWITCH_ID = 6;
     public static final double INTAKE_SPEED = 0.5;
-    public static final double OUTTAKE_SPEED = 0.35;
+    public static final double OUTTAKE_SPEED = 0.8;
   }
   
   public static final class CoralPivot {
@@ -202,10 +202,11 @@ public class Constants {
     public static final double MIN_SLOW_POSITION = 1;
     public static final double POSITION_THRESHOLD = 6;
     public static final int COUNTER_MAX_VALUE = 10;
-    public static final double PID_P = .5;
+    public static final double PID_P = 1;
     public static final double PID_I = 0;
     public static final double PID_D = 0;
     public static final double PID_F = 0;
+    public static final double SLOWDOWN_FACTOR = 1.15;
   }
 
   public static class Controller {
