@@ -11,7 +11,6 @@ import frc.robot.subsystems.CoralPivot;
 public class AngleCoral extends Command {
   private double position;
   private CoralPivot pivot;
-  private int counter;
   public AngleCoral(CoralPivot pivot, double position) {
     this.pivot = pivot;
     this.position = position;
@@ -19,10 +18,7 @@ public class AngleCoral extends Command {
   }
 
   @Override
-  public void initialize() {
-    
-    counter = 0;
-  }
+  public void initialize() {}
 
   @Override
   public void execute() {
