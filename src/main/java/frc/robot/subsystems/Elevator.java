@@ -73,6 +73,12 @@ public class Elevator extends SubsystemBase {
     return elevator.getPosition().getValueAsDouble();
   }
 
+  public void goHome() {
+    if (!isAtBottom()) {
+      setPower(1);
+    }
+  }
+
   @Override
   public void periodic() {
     double mult = 1.0;

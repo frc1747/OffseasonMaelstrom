@@ -34,6 +34,7 @@ import frc.robot.commands.Teleop.AngleCoral;
 import frc.robot.commands.Teleop.DropAlgaeIntake;
 import frc.robot.commands.Teleop.EjectAlgae;
 import frc.robot.commands.Teleop.EjectCoral;
+import frc.robot.commands.Teleop.GoHome;
 import frc.robot.commands.Teleop.GoToLevel;
 import frc.robot.commands.Teleop.IntakeAlgae;
 import frc.robot.commands.Teleop.StowAlgaeIntake;
@@ -162,24 +163,42 @@ public class RobotContainer {
 
     //Presets
     buttonBoard.Red1()
-        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_ONE_POSITION)).whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.L1_position) );
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_ONE_POSITION))
+        .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.L1_position));
 
     buttonBoard.Red2()
-        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION)).whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.L2_position) );
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION))
+        .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.L2_position));
 
     buttonBoard.Red3()
-        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_THREE_POSITION)).whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.L3_position) );
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_THREE_POSITION))
+        .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.L3_position));
 
     buttonBoard.Red4()
-        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION)).whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.L4_position) );
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION))
+        .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.L4_position));
 
     buttonBoard.Red5()
-        .whileTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION)).whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.Station_position) );
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION))
+        .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.Station_position));
         ;
     buttonBoard.Red6()
-        .whileTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION)).whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.L2_position) );
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION))
+        .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.L2_position));
         ;
-
+    buttonBoard.Red8()
+        .whileTrue(new GoToLevel(elevator, Constants.Elevator.LOWER_ALGAE_POSITION))
+        .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.L2_position));
+        ;
+    buttonBoard.Red10()
+        .whileTrue(new GoHome(elevator))
+        .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.HOME_POSTION));
+        ;
+    buttonBoard.Blue1().whileTrue(new IntakeCoral(coral)); 
+    buttonBoard.Blue2()
+          .whileTrue( new EjectCoral(coral));
+    buttonBoard
+          .Blue3().whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED, () -> driver.getRawButton(XboxController.Button.kY.value)));
     //Coral Pivot
     //Manual
     //I dont know which button is kStart and which is kBack. If this is the wrong button we will fix it later

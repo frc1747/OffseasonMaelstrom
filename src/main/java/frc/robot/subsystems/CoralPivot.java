@@ -45,6 +45,7 @@ public class CoralPivot extends SubsystemBase {
     double d = Constants.CoralPivot.PID_D;
     double f = Constants.CoralPivot.PID_F;
     this.pid = new PIDController(p, i, d);
+    pid.setTolerance(.0001);
 
 
     // SparkMaxConfig config = new SparkMaxConfig();
