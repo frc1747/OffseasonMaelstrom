@@ -205,7 +205,7 @@ public class Constants {
     public static final double LEVEL_TWO_POSITION = -91.3 - 3; // 2.54 abs the 3 is a number add on
     public static final double LEVEL_THREE_POSITION = -145; //4.54 abs the 3 is a number add on
     public static final double LEVEL_FOUR_POSITION = -234; //6.62 abs
-    public static final double CORAL_STATION_POSITION = -81; //2.19 abs was 79
+    public static final double CORAL_STATION_POSITION = -83; //2.19 abs was 79
     public static final double LOWER_ALGAE_POSITION = -91.3-3;
     public static final double UPPER_ALGAE_POSITION = -110; //2.97 abs
     public static final double HOME_POSTION = 0;
