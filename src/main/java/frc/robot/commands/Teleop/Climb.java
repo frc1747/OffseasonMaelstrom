@@ -22,12 +22,15 @@ public class Climb extends Command {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+   
+  }
 
   @Override
   public void execute() {
     if (safety.getAsBoolean()) {
-      climber.setClimberPower(speed);
+      climber.setClimberPower(speed
+      );
     }
   }
 
