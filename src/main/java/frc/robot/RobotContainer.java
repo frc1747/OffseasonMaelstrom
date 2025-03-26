@@ -106,9 +106,13 @@ public class RobotContainer {
   private final LimeLight limeLight = new LimeLight("limelight");
   private final PoseEstimatorSubsystem poseEstimator = new PoseEstimatorSubsystem(drivetrain, limeLight);
   public static Field2d estimatedField;
+
   public RobotContainer() {
+    drivetrain.setPoseEstimator(poseEstimator);
     estimatedField = new Field2d();
     SmartDashboard.putData("Estimated Field", estimatedField);
+
+
     
     
     //drivetrain

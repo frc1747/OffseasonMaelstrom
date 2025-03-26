@@ -50,6 +50,7 @@ public class Drivetrain extends SubsystemBase {
   public SwerveDriveOdometry swerveOdometry;
   public SwerveModule[] swerveMods;
   public Pigeon2 gyro;
+  public PoseEstimatorSubsystem poseEstimator;
 
   public SwerveModule[] swerveModules;
   //public ChassisSpeeds  speed;
@@ -63,6 +64,8 @@ public class Drivetrain extends SubsystemBase {
     gyro.reset();
     zeroGyro();
     //speed = new ChassisSpeeds(0,0,0);
+
+    poseEstimator = null;
 
 
     // Define all swerve modules with the constants defined in Constants.java
@@ -232,8 +235,12 @@ public class Drivetrain extends SubsystemBase {
     return positions;
   }
 
+  public void setPoseEstimator(PoseEstimatorSubsystem poseEstimator){
+    this.poseEstimator = poseEstimator;
+  }
+
   public Pose2d getPose() {
-    return swerveOdometry.getPoseMeters();
+    return poseEstimator.getEstimatedPose();
   }
 
   public void resetPose(Pose2d pose) {
