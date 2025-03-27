@@ -3,7 +3,9 @@
   "robotLength": 0.9144,
   "holonomicMode": true,
   "pathFolders": [],
-  "autoFolders": [],
+  "autoFolders": [
+    "RoseMary Autos"
+  ],
   "defaultMaxVel": 4.1,
   "defaultMaxAccel": 4.1,
   "defaultMaxAngVel": 572.0,
