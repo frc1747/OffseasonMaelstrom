@@ -147,7 +147,7 @@ public class RobotContainer {
         new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0))
           .whileTrue( new EjectCoral(coral));   
     
-        new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0.4))
+        new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0))
           .whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED, () -> driver.getRawButton(XboxController.Button.kY.value)));
         //new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
           //.whileTrue(new Climb(climber, -Constants.Climber.CLIMB_SPEED));
@@ -193,10 +193,8 @@ public class RobotContainer {
     buttonBoard.Red10()
         .whileTrue(new GoHome(elevator))
         .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.HOME_POSTION));
-        ;
     buttonBoard.Red9()
         .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.HOME_POSTION));
-        ;
     buttonBoard.Blue1().whileTrue(new IntakeCoral(coral)); 
     buttonBoard.Blue2()
           .whileTrue( new EjectCoral(coral));
