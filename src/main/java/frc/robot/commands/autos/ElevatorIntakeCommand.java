@@ -49,6 +49,6 @@ public class ElevatorIntakeCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(2);
+    return timer.hasElapsed(2);//Fine tune when bot go brrr
   }
 }
