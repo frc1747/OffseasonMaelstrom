@@ -105,5 +105,7 @@ public class Elevator extends SubsystemBase {
     SmartDashboard.putNumber("Elevator RelPosition", elevator.getPosition().getValueAsDouble());
     SmartDashboard.putBoolean("Bottom Limit Switch", isAtBottom());
     SmartDashboard.putBoolean("Top Limit Switch", isAtTop());
+    SmartDashboard.putNumber("ELevator Height %", 100*(getKrakenPosition()/-239)); // sean wants 100 to 0 D:
+
   }
 }

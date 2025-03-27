@@ -80,12 +80,14 @@ public class CoralPivot extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putBoolean("is connected", encoder.isConnected());
     SmartDashboard.putNumber("Coral Pivot Encoder", getPosition());
+    SmartDashboard.putNumber("coral angle", encoder.get()*360-28);// I  am sorry mark , your fav programmer braden D:
     SmartDashboard.putBoolean("top coral", !limitSwitch.get());
    // SmartDashboard.putBoolean("top limt",!limitSwitchTop.get() );
    double mult = 1.0;
     if (!limitSwitch.get()) { // will not descend if bottom limit hit
       if (pow < 0) mult = 0.0;
     } 
+    
    pivot.set(-pow * mult);
   }
 }

@@ -178,7 +178,7 @@ public class Constants {
     public static final double L1_position = 0.2878;
     public static final double L2_position = 0.2955;
     public static final double L3_position = .2955;
-    public static final double L4_position = .2955;
+    public static final double L4_position = 0.348;//was .2955
     public static final double HOME_POSTION = .005;
     public double getPosition;
     public void setPosition(double position2) {
@@ -204,8 +204,8 @@ public class Constants {
     public static final double LEVEL_ONE_POSITION = -54; // 1.507 abs
     public static final double LEVEL_TWO_POSITION = -91.3 - 3; // 2.54 abs the 3 is a number add on
     public static final double LEVEL_THREE_POSITION = -145; //4.54 abs the 3 is a number add on
-    public static final double LEVEL_FOUR_POSITION = -234; //6.62 abs
-    public static final double CORAL_STATION_POSITION = -81; //2.19 abs was 79
+    public static final double LEVEL_FOUR_POSITION = -239; //6.62 abs
+    public static final double CORAL_STATION_POSITION = -83; //2.19 abs was 79
     public static final double LOWER_ALGAE_POSITION = -91.3-3;
     public static final double UPPER_ALGAE_POSITION = -110; //2.97 abs
     public static final double HOME_POSTION = 0;
@@ -215,7 +215,7 @@ public class Constants {
     public static final double MIN_SLOW_POSITION = 1;
     public static final double POSITION_THRESHOLD = 6;
     public static final int COUNTER_MAX_VALUE = 10;
-    public static final double PID_P = 1.5;
+    public static final double PID_P = 2.5;
     public static final double PID_I = 0;
     public static final double PID_D = 0;
     public static final double PID_F = 0;

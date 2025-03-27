@@ -255,6 +255,8 @@ public class Drivetrain extends SubsystemBase {
     swerveOdometry.update(getYaw(), getModulePositions());
     SmartDashboard.putString("Robot Location: ", getPose().getTranslation().toString());
     SmartDashboard.putString("Yaw status", getYaw().toString());
+    SmartDashboard.putNumber("Yaw number", getYaw().getDegrees());
+    SmartDashboard.putNumber(" Velocity (mod 1)",Math.abs( swerveMods[0].getState().speedMetersPerSecond/4.1)); 
 
     for (SwerveModule mod : swerveMods) {
       SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCancoder().getDegrees());
