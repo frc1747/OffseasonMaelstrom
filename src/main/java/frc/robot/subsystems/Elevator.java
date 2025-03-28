@@ -37,10 +37,10 @@ public class Elevator extends SubsystemBase {
     limitSwitchBottom = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_BOTTOM_ID);
     encoder = new Encoder(Constants.Elevator.ENCODER_A, Constants.Elevator.ENCODER_B, true);
 
-    double p = Constants.CoralPivot.PID_P;
-    double i = Constants.CoralPivot.PID_I;
-    double d = Constants.CoralPivot.PID_D;
-    double f = Constants.CoralPivot.PID_F;
+    double p = Constants.Elevator.PID_P;
+    double i = Constants.Elevator.PID_I;
+    double d = Constants.Elevator.PID_D;
+    double f = Constants.Elevator.PID_F;
     this.pid = new PIDController(p, i, d);
     pid.setTolerance(.0001);
     pow = 0.0;
@@ -62,7 +62,7 @@ public class Elevator extends SubsystemBase {
 
   public void setPosition(double position) {
     //double distance = (position - encoder.get())*Constants.Elevator.MOTOR_TO_SHAFT_RATIO;
-    pow = pid.calculate(encoder.get(), position);
+    pow = pid.calculate(encoder.get()/2048.0, position);
   }
 
   // encoder position in number of rotations
