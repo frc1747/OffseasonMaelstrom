@@ -114,6 +114,8 @@ public class RobotContainer {
         NamedCommands.registerCommand("CoralLaunch", new AutoCoralIntakeNegative(coral));
         NamedCommands.registerCommand("CoralIntake" , new AutoCoralIntakePositive(coral ));
         NamedCommands.registerCommand("EleL2", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_TWO_POSITION, Constants.CoralPivot.REEF_POSITION));
+        NamedCommands.registerCommand("EleL3", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_THREE_POSITION, Constants.CoralPivot.REEF_POSITION));
+        NamedCommands.registerCommand("EleL4", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_FOUR_POSITION, Constants.CoralPivot.REEF_POSITION));
         // imports needed 
         // NamedCommands.registerCommand("shoot", new ShootAuto(shooter, intake,feeder , "shoot"));
         //drivetrain
