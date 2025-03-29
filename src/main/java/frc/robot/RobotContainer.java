@@ -197,7 +197,8 @@ public class RobotContainer {
     buttonBoard.Red10()
         .whileTrue(new GoHome(elevator))
         .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.HOME_POSTION));
-        ;
+    buttonBoard.Red9()
+        .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.HOME_POSTION));
     buttonBoard.Blue1().whileTrue(new IntakeCoral(coral)); 
     buttonBoard.Blue2()
           .whileTrue( new EjectCoral(coral));

@@ -10,6 +10,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
@@ -27,6 +28,7 @@ public class Elevator extends SubsystemBase {
   private double pow;
   private boolean bottomLimit;
   private boolean topLimit;
+  private PIDController pid;
 
   public Elevator() {
     elevator = new TalonFX(Constants.Elevator.ELEVATOR_ID);
@@ -35,13 +37,12 @@ public class Elevator extends SubsystemBase {
     limitSwitchBottom = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_BOTTOM_ID);
     encoder = new Encoder(Constants.Elevator.ENCODER_A, Constants.Elevator.ENCODER_B, true);
 
-    var slot0Configs = new Slot0Configs();
-    slot0Configs.kP = Constants.Elevator.PID_P;
-    slot0Configs.kI = Constants.Elevator.PID_I;
-    slot0Configs.kD = Constants.Elevator.PID_D;
-    elevator.getConfigurator().apply(slot0Configs);
-    this.PositionControl =  new PositionVoltage(0).withSlot(0);
-    
+    double p = Constants.Elevator.PID_P;
+    double i = Constants.Elevator.PID_I;
+    double d = Constants.Elevator.PID_D;
+    double f = Constants.Elevator.PID_F;
+    this.pid = new PIDController(p, i, d);
+    pid.setTolerance(.0001);
     pow = 0.0;
     bottomLimit = false;
     topLimit = false;
@@ -61,7 +62,7 @@ public class Elevator extends SubsystemBase {
 
   public void setPosition(double position) {
     //double distance = (position - encoder.get())*Constants.Elevator.MOTOR_TO_SHAFT_RATIO;
-    elevator.setControl(PositionControl.withPosition(position));// abs encoder
+    pow = pid.calculate(encoder.get()/2048.0, position);
   }
 
   // encoder position in number of rotations
@@ -105,5 +106,7 @@ public class Elevator extends SubsystemBase {
     SmartDashboard.putNumber("Elevator RelPosition", elevator.getPosition().getValueAsDouble());
     SmartDashboard.putBoolean("Bottom Limit Switch", isAtBottom());
     SmartDashboard.putBoolean("Top Limit Switch", isAtTop());
+    SmartDashboard.putNumber("ELevator Height %", 100*(getKrakenPosition()/-239)); // sean wants 100 to 0 D:
+
   }
 }
