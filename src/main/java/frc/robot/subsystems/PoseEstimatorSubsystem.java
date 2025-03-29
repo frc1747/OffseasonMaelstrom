@@ -5,6 +5,9 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
+
+import java.util.Optional;
+
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.VecBuilder;
@@ -27,12 +30,14 @@ public class PoseEstimatorSubsystem extends SubsystemBase {
     private LimeLight limeLight;
     private Pose2d currentEstimate;
     private Pose2d desiredPose;
+    private Optional<Alliance> ally;
 
     /** Creates a new PoseEstimatorSubsystem. */
     public PoseEstimatorSubsystem(Drivetrain drivetrain, LimeLight limeLight) {
         this.drivetrain = drivetrain;
         this.limeLight = limeLight;
         currentEstimate = new Pose2d();      // probably needs to be adjested later
+        ally = DriverStation.getAlliance();
     }
 
     public Pose2d getEstimatedPose() {
@@ -47,7 +52,6 @@ public class PoseEstimatorSubsystem extends SubsystemBase {
     public void periodic() {
         LimeLightHelpers.SetRobotOrientation(limeLight.getName(), drivetrain.getYaw().getDegrees(), 0, 0, 0, 180, 0);
         LimeLightHelpers.PoseEstimate mt2 = LimeLightHelpers.getBotPoseEstimate_wpiRed_MegaTag2(limeLight.getName());
-        if(DriverStation.getAlliance().equals(Alliance.Blue))  mt2 = LimeLightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(limeLight.getName());
         
         boolean rejectVisionUpdate = false;
         if (mt2 == null) {
@@ -62,29 +66,24 @@ public class PoseEstimatorSubsystem extends SubsystemBase {
         if (!rejectVisionUpdate) {
             currentEstimate = mt2.pose;
             drivetrain.setPose(currentEstimate);
-          //  drivetrain.gyro.setYaw(currentEstimate.getRotation().getDegrees());
         } else {
             currentEstimate = drivetrain.getPoseNOLL();
         }
-       // System.out.println("I KNOW, angle of poseestimator is" + currentEstimate.getRotation().getDegrees() );
-        RobotContainer.estimatedField.setRobotPose(currentEstimate);
+        RobotContainer.estimatedField.setRobotPose(getEstimatedPose());
 
 
         // green light if the robot is within 2 cm and 1.5 degrees of desired pose
-        if (desiredPose != null) {
-            Transform2d difference = desiredPose.minus(getEstimatedPose());
-            if (Math.sqrt(Math.pow(difference.getX(), 2) + Math.pow(difference.getY(), 2)) > 0.02) {
-                SmartDashboard.putBoolean("In Position", false);
-            } else if (difference.getRotation().getRadians() > Math.PI/120) {
-                SmartDashboard.putBoolean("In Position", false);
-            } else {
-                SmartDashboard.putBoolean("In Position", true);
-            }
-        } else {
-            SmartDashboard.putBoolean("In Position", false);
-        }
-
-
-        // System.out.println(getEstimatedPose());
+        // if (desiredPose != null) {
+        //     Transform2d difference = desiredPose.minus(getEstimatedPose());
+        //     if (Math.sqrt(Math.pow(difference.getX(), 2) + Math.pow(difference.getY(), 2)) > 0.02) {
+        //         SmartDashboard.putBoolean("In Position", false);
+        //     } else if (difference.getRotation().getRadians() > Math.PI/120) {
+        //         SmartDashboard.putBoolean("In Position", false);
+        //     } else {
+        //         SmartDashboard.putBoolean("In Position", true);
+        //     }
+        // } else {
+        //     SmartDashboard.putBoolean("In Position", false);
+        // }
     }
 }
