@@ -1,0 +1,110 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "3B-1-Bottom"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "EleL2"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralLaunch"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3B-2-Bottom"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3P-3-Bottom"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralLaunch"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3P-4-Bottom"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3P-5-Bottom"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralLaunch"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "RoseMary Blue Side Autos",
+  "choreoAuto": false
+}
