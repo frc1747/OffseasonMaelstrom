@@ -41,6 +41,6 @@ public class AutoCoralIntakeNegative extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(2);
+    return this.coral.switchPressed();
   }
 }
