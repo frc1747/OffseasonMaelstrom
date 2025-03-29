@@ -10,7 +10,10 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,6 +26,7 @@ public class PoseEstimatorSubsystem extends SubsystemBase {
     private Drivetrain drivetrain;
     private LimeLight limeLight;
     private Pose2d currentEstimate;
+    private Pose2d desiredPose;
 
     /** Creates a new PoseEstimatorSubsystem. */
     public PoseEstimatorSubsystem(Drivetrain drivetrain, LimeLight limeLight) {
@@ -35,11 +39,16 @@ public class PoseEstimatorSubsystem extends SubsystemBase {
         return currentEstimate;
     }
 
+    public void setDesiredPose(Pose2d desiredPose) {
+        this.desiredPose = desiredPose;
+    }
+
     @Override
     public void periodic() {
-        LimeLightHelpers.SetRobotOrientation(limeLight.getName(), drivetrain.getYaw().getDegrees(), 0, 0, 0, 0, 0);
-        LimeLightHelpers.PoseEstimate mt2 = LimeLightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(limeLight.getName());
-
+        LimeLightHelpers.SetRobotOrientation(limeLight.getName(), drivetrain.getYaw().getDegrees(), 0, 0, 0, 180, 0);
+        LimeLightHelpers.PoseEstimate mt2 = LimeLightHelpers.getBotPoseEstimate_wpiRed_MegaTag2(limeLight.getName());
+        if(DriverStation.getAlliance().equals(Alliance.Blue))  mt2 = LimeLightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(limeLight.getName());
+        
         boolean rejectVisionUpdate = false;
         if (mt2 == null) {
             return;
@@ -51,19 +60,31 @@ public class PoseEstimatorSubsystem extends SubsystemBase {
             rejectVisionUpdate = true;
         } 
         if (!rejectVisionUpdate) {
-            currentEstimate = Utilities.average(mt2.pose, drivetrain.getPose());
+            currentEstimate = mt2.pose;
             drivetrain.setPose(currentEstimate);
+          //  drivetrain.gyro.setYaw(currentEstimate.getRotation().getDegrees());
         } else {
-            currentEstimate = drivetrain.getPose();
+            currentEstimate = drivetrain.getPoseNOLL();
+        }
+       // System.out.println("I KNOW, angle of poseestimator is" + currentEstimate.getRotation().getDegrees() );
+        RobotContainer.estimatedField.setRobotPose(currentEstimate);
+
+
+        // green light if the robot is within 2 cm and 1.5 degrees of desired pose
+        if (desiredPose != null) {
+            Transform2d difference = desiredPose.minus(getEstimatedPose());
+            if (Math.sqrt(Math.pow(difference.getX(), 2) + Math.pow(difference.getY(), 2)) > 0.02) {
+                SmartDashboard.putBoolean("In Position", false);
+            } else if (difference.getRotation().getRadians() > Math.PI/120) {
+                SmartDashboard.putBoolean("In Position", false);
+            } else {
+                SmartDashboard.putBoolean("In Position", true);
+            }
+        } else {
+            SmartDashboard.putBoolean("In Position", false);
         }
 
-        RobotContainer.estimatedField.setRobotPose(getEstimatedPose());
 
-        //System.out.println(getEstimatedPose());
-    }
-
-    public void setDesiredPose(Object object) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setDesiredPose'");
+        // System.out.println(getEstimatedPose());
     }
 }

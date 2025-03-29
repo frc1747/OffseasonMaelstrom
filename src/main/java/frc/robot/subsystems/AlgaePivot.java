@@ -69,7 +69,7 @@ public class AlgaePivot extends SubsystemBase {
   @Override
   public void periodic() {
     //System.out.println("hello");
-    System.out.println(getPosition());
+    //System.out.println(getPosition());
     //SmartDashboard.putNumber("Algae Pivot Encoder", getPosition());
     //SmartDashboard.putBoolean("Algae Pivot Limit Switch", switchPressed());
   }

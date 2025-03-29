@@ -21,6 +21,7 @@ import frc.robot.util.SwerveModuleConstants;
  */
 public final class Constants {
   public static class Drivetrain {
+
     public static final COTSFalconSwerveConstants chosenModule = COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L2);
 
     public static final SensorDirectionValue canCoderDirection = chosenModule.canCoderDirection; // Should the cancoder be inverted based on the swerve module we're using
@@ -216,5 +217,7 @@ public final class Constants {
     public static final double PID_I = 0.0001;
     public static final double PID_D = 0.0;
   }
+
+  public static final String VisionConstants = null;
     
 }

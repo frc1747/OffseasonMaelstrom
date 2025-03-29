@@ -238,6 +238,9 @@ public class Drivetrain extends SubsystemBase {
   public void setPoseEstimator(PoseEstimatorSubsystem poseEstimator){
     this.poseEstimator = poseEstimator;
   }
+  public Pose2d getPoseNOLL(){
+    return swerveOdometry.getPoseMeters();
+  }
 
   public Pose2d getPose() {
     return poseEstimator.getEstimatedPose();

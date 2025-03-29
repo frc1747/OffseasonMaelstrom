@@ -65,7 +65,7 @@ public class RobotContainer {
     public final Coral coral = new Coral();
     public final Algae algae = new Algae();
     public final AlgaePivot algaePivot = new AlgaePivot();
-    public final ButtonBoard buttonBoard = new ButtonBoard(null, null);
+    public final ButtonBoard buttonBoard = new ButtonBoard(new Joystick(2), new Joystick(3));
 
     //controllers
     private final Joystick driver = new Joystick(0);
@@ -119,9 +119,9 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(
       new TeleopSwerve(
         drivetrain, 
-        () -> -driver.getRawAxis(translationAxis), 
-        () -> -driver.getRawAxis(strafeAxis), 
-        () -> -driver.getRawAxis(rotationAxis), 
+        () -> driver.getRawAxis(translationAxis), 
+        () -> driver.getRawAxis(strafeAxis), 
+        () -> driver.getRawAxis(rotationAxis), 
         () -> robotCentric.getAsBoolean(),
         () -> elevator.getPosition()
       )
@@ -132,6 +132,8 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+   // SmartDashboard.putData("Estimated Field", estimatedField);
+    //estimatedField.setRobotPose(poseEstimator.getEstimatedPose());
     //driver commands 
     new JoystickButton(driver, XboxController.Button.kA.value)
       .whileTrue(new EjectAlgae(algae));
@@ -143,7 +145,7 @@ public class RobotContainer {
     // Pose Estimation code (Uses Button Board)
     Optional<Alliance> ally = DriverStation.getAlliance();
     if (ally.isPresent()) {
-      if (ally.get() == Alliance.Blue) {
+   
         buttonBoard.Blue1() // AprTag 18
           .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(3.105, 3.995), new Rotation2d(0))));
         buttonBoard.Blue2() // AprTag 19
@@ -156,24 +158,26 @@ public class RobotContainer {
           .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(5.241, 2.814), new Rotation2d(122.829))));
         buttonBoard.Blue6() // AprTag 17
           .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(3.779, 2.802), new Rotation2d(58.782))));
-      }
-      
-      if (ally.get() == Alliance.Red)  { 
-        buttonBoard.Blue1() // AprTag 10
-          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(11.652, 3.983), new Rotation2d(0))));
-        buttonBoard.Blue2() // AprTag 9
-          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(12.335, 5.278), new Rotation2d(-59.534))));
-        buttonBoard.Blue3() // AprTag 8
-          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(13.798, 5.254), new Rotation2d(-122.829))));
-        buttonBoard.Blue4() // AprTag 7
-          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(14.517, 4.031), new Rotation2d(180.000))));
-        buttonBoard.Blue5() // AprTag 6
-          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(13.822, 2.808), new Rotation2d(123.311))));
-        buttonBoard.Blue6() // AprTag 11
-          .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(12.323, 2.760), new Rotation2d(58.782))));
-      }
     
+      
+      // //if (ally.get() == Alliance.Red)  { 
+      //   buttonBoard.Blue1() // AprTag 10
+      //     .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(11.652, 3.983), new Rotation2d(0))));
+      //   buttonBoard.Blue2() // AprTag 9
+      //     .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(12.335, 5.278), new Rotation2d(-59.534))));
+      //   buttonBoard.Blue3() // AprTag 8
+      //     .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(13.798, 5.254), new Rotation2d(-122.829))));
+      //   buttonBoard.Blue4() // AprTag 7
+      //     .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(14.517, 4.031), new Rotation2d(180.000))));
+      //   buttonBoard.Blue5() // AprTag 6
+      //     .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(13.822, 2.808), new Rotation2d(123.311))));
+      //   buttonBoard.Blue6() // AprTag 11
+      //     .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(12.323, 2.760), new Rotation2d(58.782))));
+      // }
+    }
     //operater Coral commands
+  //  estimatedField.setRobotPose(poseEstimator.getEstimatedPose());
+
     new JoystickButton(operator, XboxController.Button.kB.value)
       .whileTrue(new IntakeCoral(coral));  
     new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0))
@@ -184,6 +188,7 @@ public class RobotContainer {
     new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
       .whileTrue(new Climb(climber, -Constants.Climber.CLIMB_SPEED));
 
+    
     // Elevator
     //Manual
     //I dont know which button is kStart and which is kBack. If this is the wrong button we will fix it later
@@ -197,22 +202,22 @@ public class RobotContainer {
     //   .onTrue(new GoToLevel(elevator, Constants.Elevator.UPPER_ALGAE_POSITION));
     // new JoystickButton(operator, XboxController.Button.kX.value)
     //   .onTrue(new GoToLevel(elevator, Constants.Elevator.CORAL_STATION_POSITION))
-    //   .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.CORAL_STATION_POSITION));
+    // //   .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.CORAL_STATION_POSITION));
     
-    operatorDpadUp
-      .onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION))
-      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
+    // operatorDpadUp
+    //   .onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_FOUR_POSITION))
+    //   .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
     
-    operatorDpadRight.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_THREE_POSITION))
-      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
+    // operatorDpadRight.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_THREE_POSITION))
+    //   .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
     
-    operatorDpadLeft.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION))
-      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
+    // operatorDpadLeft.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_TWO_POSITION))
+    //   .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
     
-    operatorDpadDown.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_ONE_POSITION))
-      .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
+    // operatorDpadDown.onTrue(new GoToLevel(elevator, Constants.Elevator.LEVEL_ONE_POSITION))
+    //   .onTrue(new AngleCoral(coralPivot, Constants.CoralPivot.REEF_POSITION));
 
-    //Coral Pivot
+    // //Coral Pivot
     //Manual
     //I dont know which button is kStart and which is kBack. If this is the wrong button we will fix it later
     //new JoystickButton(operator, XboxController.Button.kStart.value)
@@ -221,8 +226,8 @@ public class RobotContainer {
     //Reset Gyro
     // zeroGyro
     //   .onTrue(new ResetGyro(drivetrain));
+  
   }
-
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
   }
