@@ -50,6 +50,7 @@ public class Drivetrain extends SubsystemBase {
   public SwerveDriveOdometry swerveOdometry;
   public SwerveModule[] swerveMods;
   public Pigeon2 gyro;
+  public PoseEstimatorSubsystem poseEstimator;
 
   public SwerveModule[] swerveModules;
   //public ChassisSpeeds  speed;
@@ -63,6 +64,8 @@ public class Drivetrain extends SubsystemBase {
     gyro.reset();
     zeroGyro();
     //speed = new ChassisSpeeds(0,0,0);
+
+    poseEstimator = null;
 
 
     // Define all swerve modules with the constants defined in Constants.java
@@ -87,7 +90,7 @@ public class Drivetrain extends SubsystemBase {
     resetModulesToAbsolute();
 
     swerveOdometry = new SwerveDriveOdometry(Constants.Drivetrain.swerveKinematics, getYaw(), getModulePositions());
-    /*
+    /* 
     AutoBuilder.configureHolonomic(
       this::getPose, // Robot pose supplier
       this::setPose, // Method to reset odometry (will be called if your auto has a starting pose)
@@ -97,10 +100,10 @@ public class Drivetrain extends SubsystemBase {
       this::shouldFlipPath,
       this // Reference to this subsystem to set requirements
     );
-
-    6.85782
-    40,526.388852
     */
+    //6.85782
+    //40,526.388852
+    
     RobotConfig ppConfig = new RobotConfig(
       55, 
       11.859622, 
@@ -126,8 +129,8 @@ public class Drivetrain extends SubsystemBase {
       this::getRobotRelativeChassisSpeeds,
       this::drive, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
       new PPHolonomicDriveController(
-        new PIDConstants(3.0, 0.0, 0.0), 
-        new PIDConstants(1, 0.0, 0.01)
+        new PIDConstants(1.0, 0.0, 0.0), 
+        new PIDConstants(5.0, 0.0, 0.0)
       ),
       ppConfig,
       this::shouldFlipPath,
@@ -232,8 +235,15 @@ public class Drivetrain extends SubsystemBase {
     return positions;
   }
 
-  public Pose2d getPose() {
+  public void setPoseEstimator(PoseEstimatorSubsystem poseEstimator){
+    this.poseEstimator = poseEstimator;
+  }
+  public Pose2d getPoseNOLL(){
     return swerveOdometry.getPoseMeters();
+  }
+
+  public Pose2d getPose() {
+    return poseEstimator.getEstimatedPose();
   }
 
   public void resetPose(Pose2d pose) {
@@ -255,8 +265,6 @@ public class Drivetrain extends SubsystemBase {
     swerveOdometry.update(getYaw(), getModulePositions());
     SmartDashboard.putString("Robot Location: ", getPose().getTranslation().toString());
     SmartDashboard.putString("Yaw status", getYaw().toString());
-    SmartDashboard.putNumber("Yaw number", getYaw().getDegrees());
-    SmartDashboard.putNumber(" Velocity (mod 1)",Math.abs( swerveMods[0].getState().speedMetersPerSecond/4.1)); 
 
     for (SwerveModule mod : swerveMods) {
       SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCancoder().getDegrees());

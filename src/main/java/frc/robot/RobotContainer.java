@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -51,6 +52,8 @@ import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.CoralPivot;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.LimeLight;
+import frc.robot.subsystems.PoseEstimatorSubsystem;
 
 
 public class RobotContainer {
@@ -107,9 +110,18 @@ public class RobotContainer {
     private final DoubleSupplier manualElevator = () -> operator.getRawAxis(XboxController.Axis.kLeftY.value);
     //smartDash Board
     private SendableChooser<Command> autoChooser;  
+
+    private final LimeLight limeLight = new LimeLight("limelight");
+    private final PoseEstimatorSubsystem poseEstimator = new PoseEstimatorSubsystem(drivetrain, limeLight);
+    public static Field2d estimatedField;
        
     
       public RobotContainer() {
+
+        drivetrain.setPoseEstimator(poseEstimator);
+        estimatedField = new Field2d();
+        SmartDashboard.putData("Estimated Field", estimatedField);
+
         
         NamedCommands.registerCommand("CoralLaunch", new AutoCoralIntakeNegative(coral));
         NamedCommands.registerCommand("CoralIntake" , new AutoCoralIntakePositive(coral ));
@@ -133,6 +145,7 @@ public class RobotContainer {
         elevator.setDefaultCommand(new MoveElevator(elevator, 0.0, operator));
         coralPivot.setDefaultCommand(new PivotCoralIntake(coralPivot, 0.0, operator));
         configureBindings();
+
       }
     
       private void configureBindings() {
