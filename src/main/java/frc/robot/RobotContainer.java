@@ -56,7 +56,7 @@ public class RobotContainer {
   public static CTREConfigs ctreConfigs = new CTREConfigs();
 
     //subsystems
-    public final Climber climber = new Climber();
+    public static final Climber climber = new Climber();
     public final Elevator elevator = new Elevator();
     public final Drivetrain drivetrain = new Drivetrain();
     public final Coral coral = new Coral();
