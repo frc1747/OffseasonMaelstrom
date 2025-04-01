@@ -65,6 +65,7 @@ public class CoralPivot extends SubsystemBase {
 
   public void setPivotPower(double power) {
     pow = power;
+    
   }
 
   public double getPosition() {
@@ -73,6 +74,7 @@ public class CoralPivot extends SubsystemBase {
 
   public void setPosition(double position) {
     //controller.setReference(position, SparkBase.ControlType.kDutyCycle);
+    //System.out.println("in set position for coral pivot");
     pow = pid.calculate(encoder.get(), position);
   }
 

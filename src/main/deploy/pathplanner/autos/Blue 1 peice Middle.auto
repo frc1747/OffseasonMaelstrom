@@ -5,22 +5,21 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "1-P-B-Middle"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "EleL2"
-                }
-              }
-            ]
+            "pathName": "1-P-B-Middle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "EleL1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralL1"
           }
         },
         {

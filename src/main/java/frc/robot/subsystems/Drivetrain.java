@@ -129,8 +129,8 @@ public class Drivetrain extends SubsystemBase {
       this::getRobotRelativeChassisSpeeds,
       this::drive, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
       new PPHolonomicDriveController(
-        new PIDConstants(1.0, 0.0, 0.0), 
-        new PIDConstants(5.0, 0.0, 0.0)
+        new PIDConstants(3.0, 0,0), 
+        new PIDConstants(1.0, 0.0, 0.01)
       ),
       ppConfig,
       this::shouldFlipPath,

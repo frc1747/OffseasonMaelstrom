@@ -6,6 +6,7 @@ package frc.robot.commands.autos;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.CoralPivot;
 import frc.robot.subsystems.Elevator;
 
@@ -23,32 +24,35 @@ public class ElevatorIntakeCommand extends Command {
     this.pivot = pivot;
     this.position = ElvPosition;
     this.PivPosition = PivPosition;
-    addRequirements(this.elevator);
+    addRequirements(this.elevator,this.pivot);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.elevator.setPosition(this.position);
-    pivot.setPosition(PivPosition);
+    
     timer.reset();
     timer.start();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    this.elevator.setPosition(this.position);
+    
+    
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.elevator.setPosition(0.0);
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
-    return timer.hasElapsed(2);//Fine tune when bot go brrr
+  public boolean isFinished(){
+    return timer.hasElapsed(4) || elevator.getPosition() == position ;//Fine tune when bot go brrr
   }
 }

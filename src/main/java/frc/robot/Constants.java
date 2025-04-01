@@ -166,7 +166,7 @@ public class Constants {
     public static final double REEF_POSITION = 200;
     public static final double POSITION_THRESHOLD = 0.02;
     public static final int COUNTER_MAX_VALUE = 100;
-    public static final double PID_P = 5; //BIG P
+    public static final double PID_P = 3; //BIG P
     public static final double PID_I = 0;
     public static final double PID_D = 0;
     public static final double PID_F = 0;
@@ -175,10 +175,10 @@ public class Constants {
     public static final int ENCODER = 1;
     public static final double position = 0.204;
     public static final double Station_position = 0.941;
-    public static final double L1_position = 0.941;
-    public static final double L2_position = 0.941;
-    public static final double L3_position = .941;
-    public static final double L4_position = .941; //was .2955
+    public static final double L1_position = 0.94;
+    public static final double L2_position = 0.641;
+    public static final double L3_position = .641;
+    public static final double L4_position = .934; //was .2955
     public static final double HOME_POSTION = .005;
     public double getPosition;
     public void setPosition(double position2) {

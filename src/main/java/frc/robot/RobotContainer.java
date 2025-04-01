@@ -30,6 +30,7 @@ import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.commands.autos.AutoCoralIntakeNegative;
 import frc.robot.commands.autos.AutoCoralIntakePositive;
 import frc.robot.commands.autos.ElevatorIntakeCommand;
+import frc.robot.commands.autos.pivotAuto;
 import frc.robot.commands.Teleop.Climb;
 import frc.robot.commands.ResetGyro;
 import frc.robot.commands.Teleop.AngleCoral;
@@ -54,6 +55,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimeLight;
 import frc.robot.subsystems.PoseEstimatorSubsystem;
+import frc.robot.commands.autos.pivotAuto;
 
 
 public class RobotContainer {
@@ -123,11 +125,16 @@ public class RobotContainer {
         SmartDashboard.putData("Estimated Field", estimatedField);
 
         
-        NamedCommands.registerCommand("CoralLaunch", new AutoCoralIntakeNegative(coral));
-        NamedCommands.registerCommand("CoralIntake" , new AutoCoralIntakePositive(coral ));
+        NamedCommands.registerCommand("CoralLaunch", new AutoCoralIntakePositive(coral));
+        NamedCommands.registerCommand("CoralIntake" , new AutoCoralIntakeNegative(coral ));
+        NamedCommands.registerCommand("coralL1", new pivotAuto( coralPivot, Constants.CoralPivot.L1_position));
+
+
         NamedCommands.registerCommand("EleL2", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_TWO_POSITION, Constants.CoralPivot.REEF_POSITION));
         NamedCommands.registerCommand("EleL3", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_THREE_POSITION, Constants.CoralPivot.REEF_POSITION));
         NamedCommands.registerCommand("EleL4", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_FOUR_POSITION, Constants.CoralPivot.REEF_POSITION));
+        NamedCommands.registerCommand("EleL1", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_ONE_POSITION, Constants.CoralPivot.L1_position));
+
         // imports needed 
         // NamedCommands.registerCommand("shoot", new ShootAuto(shooter, intake,feeder , "shoot"));
         //drivetrain
