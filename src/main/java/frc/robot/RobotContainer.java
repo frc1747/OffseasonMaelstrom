@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.commands.autos.AutoCoralIntakeNegative;
+import frc.robot.commands.autos.AutoCoralPivot;
 import frc.robot.commands.autos.ElevatorIntakeCommand;
 import frc.robot.commands.Teleop.Climb;
 import frc.robot.commands.ResetGyro;
@@ -111,7 +112,8 @@ public class RobotContainer {
       public RobotContainer() {
         
         NamedCommands.registerCommand("CoralLaunch", new AutoCoralIntakeNegative(coral));
-        NamedCommands.registerCommand("EleL4", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_FOUR_POSITION,Constants.CoralPivot.REEF_POSITION));
+        NamedCommands.registerCommand("EleL4", new ElevatorIntakeCommand(elevator, Constants.Elevator.LEVEL_FOUR_POSITION));
+        NamedCommands.registerCommand("CoralPivotL4", new AutoCoralPivot(coralPivot, Constants.CoralPivot.L4_position));
         // imports needed 
         // NamedCommands.registerCommand("shoot", new ShootAuto(shooter, intake,feeder , "shoot"));
         //drivetrain
