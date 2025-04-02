@@ -57,5 +57,6 @@ public class Climber extends SubsystemBase {
     }
     climbingLeft.set(pow*mult);
     SmartDashboard.putNumber("Climber Position", getPosition());
+    SmartDashboard.putBoolean("Climber Limit Switch", isAtBottom());
   }
 }

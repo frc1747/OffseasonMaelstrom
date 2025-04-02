@@ -155,6 +155,23 @@ public class RobotContainer {
     
         autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
+
+    SmartDashboard.putNumber("Elevator L1:", Constants.Elevator.LEVEL_ONE_POSITION);
+    SmartDashboard.putNumber("Elevator L2:", Constants.Elevator.LEVEL_TWO_POSITION);
+    SmartDashboard.putNumber("Elevator L3:", Constants.Elevator.LEVEL_THREE_POSITION);
+    SmartDashboard.putNumber("Elevator L4:", Constants.Elevator.LEVEL_FOUR_POSITION);
+    SmartDashboard.putNumber("Elevator Coral Station:", Constants.Elevator.CORAL_STATION_POSITION);
+    SmartDashboard.putNumber("Elevator Algae Bottom:", Constants.Elevator.LOWER_ALGAE_POSITION);
+    SmartDashboard.putNumber("Elevator Algae Top:", Constants.Elevator.UPPER_ALGAE_POSITION);
+
+    SmartDashboard.putNumber("Coral L1:", Constants.CoralPivot.L1_position);
+    SmartDashboard.putNumber("Coral L2:", Constants.CoralPivot.L2_position);
+    SmartDashboard.putNumber("Coral L3:", Constants.CoralPivot.L3_position);
+    SmartDashboard.putNumber("Coral L4:", Constants.CoralPivot.L4_position);
+    SmartDashboard.putNumber("Coral Station:", Constants.CoralPivot.Station_position);
+    SmartDashboard.putNumber("Coral Algae Bottom:", Constants.CoralPivot.LOWER_ALGAE_POSITION);
+    SmartDashboard.putNumber("Coral Algae Top:", Constants.CoralPivot.UPPER_ALGAE_POSITION);
+
     // Elevator
     //Manual
     //I dont know which button is kStart and which is kBack. If this is the wrong button we will fix it later
