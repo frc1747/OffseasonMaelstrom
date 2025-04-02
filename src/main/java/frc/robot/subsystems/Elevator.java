@@ -96,11 +96,13 @@ public class Elevator extends SubsystemBase {
       if (pow > 0) mult = 0.0;
     }
     elevator.set(-pow * mult);
+    //if(pow == 0); elevator.set(Constants.Elevator.HOLD_SPEED);
 
     if(isAtBottom()) {
       elevator.setPosition(0);
       encoder.reset();
     }
+    pid.reset();
     //System.out.println("Encoder: " + getPosition());
     SmartDashboard.putNumber("Elevator AbsPosition", getPosition());
     SmartDashboard.putNumber("Elevator RelPosition", elevator.getPosition().getValueAsDouble());

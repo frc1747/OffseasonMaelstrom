@@ -196,6 +196,7 @@ public class Constants {
   }
 
   public static final class Elevator {
+    public static final double speed = .5;
     public static final int ELEVATOR_ID = 51;
     public static final int LIMIT_SWITCH_BOTTOM_ID = 7;
     public static final int LIMIT_SWITCH_TOP_ID = 5;
@@ -216,9 +217,10 @@ public class Constants {
     public static final double MIN_SLOW_POSITION = 2;
     public static final double POSITION_THRESHOLD = 6;
     public static final int COUNTER_MAX_VALUE = 10;
-    public static final double PID_P = 0.8;
-    public static final double PID_I = 0.01;
-    public static final double PID_D = 0.02;
+    public static final double PID_P = 1
+    ;
+    public static final double PID_I = 0.04;
+    public static final double PID_D = 0.01;
     public static final double PID_F = 0;
     public static final double SLOWDOWN_FACTOR = 1.1;
   }
