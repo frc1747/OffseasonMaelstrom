@@ -50,7 +50,9 @@ public class Robot extends LoggedRobot {
   }
 
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    RobotContainer.climber.setCoast();
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -65,6 +67,8 @@ public class Robot extends LoggedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
+    RobotContainer.climber.setBrake();
   }
 
   @Override
@@ -78,6 +82,7 @@ public class Robot extends LoggedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    RobotContainer.climber.setBrake();
   }
 
   @Override

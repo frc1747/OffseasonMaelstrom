@@ -162,24 +162,25 @@ public class Constants {
   public static final class CoralPivot {
     public static final double PIVOT_REDUCTION = 2;
     public static final int PIVOT_ID = 47;
-    public static final double CORAL_STATION_POSITION = 0.46;
     public static final double REEF_POSITION = 200;
     public static final double POSITION_THRESHOLD = 0.02;
     public static final int COUNTER_MAX_VALUE = 100;
     public static final double PID_P = 5; //BIG P
-    public static final double PID_I = 0;
-    public static final double PID_D = 0;
+    public static final double PID_I = 0.01;
+    public static final double PID_D = 0.01;
     public static final double PID_F = 0;
     public static final int CORALPIVOT_LIMIT_SWITCH_BOTTOM_ID = 8;
     public static final int CORALPIVOT_LIMIT_SWITCH_TOP_ID = 2; // Don't know the numbers for top or bottom yet
     public static final int ENCODER = 1;
     public static final double position = 0.204;
-    public static final double Station_position = 0.941;
-    public static final double L1_position = 0.941;
-    public static final double L2_position = 0.941;
-    public static final double L3_position = .941;
-    public static final double L4_position = .941; //was .2955
-    public static final double HOME_POSTION = .005;
+    public static final double Station_position = 0.2135;
+    public static final double L1_position = 0.3267;
+    public static final double L2_position = 0.35;
+    public static final double L3_position = 0.35;
+    public static final double L4_position = 0.3277; //was .2955
+    public static final double HOME_POSTION = 0.005;
+    public static final double LOWER_ALGAE_POSITION = 0.294;
+    public static final double UPPER_ALGAE_POSITION = 0.2987;
     public double getPosition;
     public void setPosition(double position2) {
       // TODO Auto-generated method stub
@@ -195,19 +196,20 @@ public class Constants {
   }
 
   public static final class Elevator {
+    public static final double speed = .5;
     public static final int ELEVATOR_ID = 51;
     public static final int LIMIT_SWITCH_BOTTOM_ID = 7;
     public static final int LIMIT_SWITCH_TOP_ID = 5;
     public static final int ENCODER_A = 3;
     public static final int ENCODER_B = 4;
     public static final double MOTOR_TO_SHAFT_RATIO = 64;
-    public static final double LEVEL_ONE_POSITION = 1.507; // 1.507 abs
-    public static final double LEVEL_TWO_POSITION = 2.54; // 2.54 abs the 3 is a number add on
-    public static final double LEVEL_THREE_POSITION = 4.54; //4.54 abs the 3 is a number add on
-    public static final double LEVEL_FOUR_POSITION = 6.62; //6.62 abs
-    public static final double CORAL_STATION_POSITION = 2.19; //2.19 abs was 79
-    public static final double LOWER_ALGAE_POSITION = 2.97;
-    public static final double UPPER_ALGAE_POSITION = 2.97; //2.97 abs
+    public static final double LEVEL_ONE_POSITION = 1.7788; // 1.507 abs
+    public static final double LEVEL_TWO_POSITION = 2.9497; // 2.54 abs the 3 is a number add on
+    public static final double LEVEL_THREE_POSITION = 4.589; //4.54 abs the 3 is a number add on
+    public static final double LEVEL_FOUR_POSITION = 6.67; //6.62 abs
+    public static final double CORAL_STATION_POSITION = 2.02; //2.19 abs was 79
+    public static final double LOWER_ALGAE_POSITION = 1.6132;
+    public static final double UPPER_ALGAE_POSITION = 3.000; //2.97 abs
     public static final double HOME_POSTION = 0;
     public static final double TOP_POSITION = 6.62;
     public static final double TOP_SLOW_POS = 5.97;
@@ -215,9 +217,10 @@ public class Constants {
     public static final double MIN_SLOW_POSITION = 2;
     public static final double POSITION_THRESHOLD = 6;
     public static final int COUNTER_MAX_VALUE = 10;
-    public static final double PID_P = 0.3;
-    public static final double PID_I = 0;
-    public static final double PID_D = 0;
+    public static final double PID_P = 1
+    ;
+    public static final double PID_I = 0.04;
+    public static final double PID_D = 0.01;
     public static final double PID_F = 0;
     public static final double SLOWDOWN_FACTOR = 1.1;
   }

@@ -37,6 +37,14 @@ public class Climber extends SubsystemBase {
     return climbingLeft.getPosition().getValueAsDouble();
   }
 
+  public void setCoast() {
+    climbingLeft.setNeutralMode(NeutralModeValue.Coast);
+  }
+
+  public void setBrake() {
+    climbingLeft.setNeutralMode(NeutralModeValue.Brake);
+  }
+
    public boolean isAtBottom() {
      return !limitSwitch.get();
    }
@@ -45,9 +53,10 @@ public class Climber extends SubsystemBase {
   public void periodic() {
     double mult = 1.0;
     if (isAtBottom()) { // will not descend if bottom limit hit
-      if (pow < 0) mult = 0.0;
+      mult = 0.0;
     }
     climbingLeft.set(pow*mult);
     SmartDashboard.putNumber("Climber Position", getPosition());
+    SmartDashboard.putBoolean("Climber Limit Switch", isAtBottom());
   }
 }
