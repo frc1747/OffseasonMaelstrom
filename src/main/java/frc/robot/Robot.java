@@ -31,7 +31,8 @@ public class Robot extends LoggedRobot {
     Logger.recordMetadata("ProjectName", "MyProject"); // Set a metadata value
 
     if (isReal()) {
-      Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
+      
+      Logger.addDataReceiver(new WPILOGWriter("/home/lvuser/logs")); // Log to a USB stick ("/U/logs")
       Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
 }   else {
       setUseTiming(false); // Run as fast as possible
@@ -51,7 +52,7 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void disabledInit() {
-    RobotContainer.climber.setCoast();
+    //RobotContainer.climber.setCoast();
   }
 
   @Override
@@ -68,7 +69,7 @@ public class Robot extends LoggedRobot {
       m_autonomousCommand.schedule();
     }
 
-    RobotContainer.climber.setBrake();
+    //RobotContainer.climber.setBrake();
   }
 
   @Override
@@ -82,7 +83,7 @@ public class Robot extends LoggedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    RobotContainer.climber.setBrake();
+    //RobotContainer.climber.setBrake();
   }
 
   @Override

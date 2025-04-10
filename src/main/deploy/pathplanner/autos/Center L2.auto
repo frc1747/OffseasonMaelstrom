@@ -1,0 +1,37 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "center L2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "EleL4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PivotL2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "CoralLaunch"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

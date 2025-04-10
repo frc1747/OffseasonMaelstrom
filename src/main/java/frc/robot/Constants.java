@@ -156,7 +156,7 @@ public class Constants {
     public static final int INTAKE_ID = 45;
     public static final int CORAL_LIMIT_SWITCH_ID = 6;
     public static final double INTAKE_SPEED = 0.5;
-    public static final double OUTTAKE_SPEED = 0.8;
+    public static final double OUTTAKE_SPEED = 0.5;
   }
   
   public static final class CoralPivot {
@@ -179,7 +179,7 @@ public class Constants {
     public static final double L3_position = 0.35;
     public static final double L4_position = 0.3277; //was .2955
     public static final double HOME_POSTION = 0.005;
-    public static final double LOWER_ALGAE_POSITION = 0.294;
+    public static final double LOWER_ALGAE_POSITION = 0.27;
     public static final double UPPER_ALGAE_POSITION = 0.2987;
     public double getPosition;
     public void setPosition(double position2) {
@@ -205,9 +205,9 @@ public class Constants {
     public static final double MOTOR_TO_SHAFT_RATIO = 64;
     public static final double LEVEL_ONE_POSITION = 1.7788; // 1.507 abs
     public static final double LEVEL_TWO_POSITION = 2.9497; // 2.54 abs the 3 is a number add on
-    public static final double LEVEL_THREE_POSITION = 4.589; //4.54 abs the 3 is a number add on
+    public static final double LEVEL_THREE_POSITION = 4.579; //4.54 abs the 3 is a number add on
     public static final double LEVEL_FOUR_POSITION = 6.67; //6.62 abs
-    public static final double CORAL_STATION_POSITION = 2.02; //2.19 abs was 79
+    public static final double CORAL_STATION_POSITION = 2.21; //2.19 abs was 79
     public static final double LOWER_ALGAE_POSITION = 1.6132;
     public static final double UPPER_ALGAE_POSITION = 3.000; //2.97 abs
     public static final double HOME_POSTION = 0;

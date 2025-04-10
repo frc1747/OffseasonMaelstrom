@@ -10,7 +10,7 @@ import frc.robot.subsystems.CoralPivot;
 import frc.robot.subsystems.Elevator;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ElevatorIntakeCommand extends Command {
+public class PivotAuto extends Command {
   /** Creates a new ElevatorPositiveCommand. */
   private Timer timer = new Timer();
   private Elevator elevator;
@@ -18,17 +18,17 @@ public class ElevatorIntakeCommand extends Command {
   private CoralPivot pivot;
   private double PivPosition;
 
-  public ElevatorIntakeCommand(Elevator elevator,double ElvPosition) {
-    this.elevator = elevator;
-    this.position = ElvPosition;
-    addRequirements(this.elevator);
+  public PivotAuto(CoralPivot pivot,double position) {
+    this.pivot = pivot;
+    this.position = position;
+    addRequirements(this.pivot);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.elevator.setPosition(this.position);
+    this.pivot.setPosition(this.position);
     
     timer.reset();
     timer.start();

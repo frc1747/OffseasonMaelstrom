@@ -10,6 +10,7 @@ package frc.robot;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import com.fasterxml.jackson.databind.util.Named;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.revrobotics.spark.SparkMax;
@@ -28,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.commands.autos.AutoCoralIntakeNegative;
 import frc.robot.commands.autos.ElevatorIntakeCommand;
+import frc.robot.commands.autos.PivotAuto;
 import frc.robot.commands.Teleop.Climb;
 import frc.robot.commands.ResetGyro;
 import frc.robot.commands.Teleop.AngleCoral;
@@ -112,7 +114,8 @@ public class RobotContainer {
       public RobotContainer() {
         
         NamedCommands.registerCommand("CoralLaunch", new AutoCoralIntakeNegative(coral));
-        NamedCommands.registerCommand("EleL4", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_FOUR_POSITION,Constants.CoralPivot.REEF_POSITION));
+        NamedCommands.registerCommand("EleL2", new ElevatorIntakeCommand(elevator, Constants.Elevator.LEVEL_TWO_POSITION));
+        NamedCommands.registerCommand("PivotL2",new PivotAuto(coralPivot, Constants.CoralPivot.L2_position));
         // imports needed 
         // NamedCommands.registerCommand("shoot", new ShootAuto(shooter, intake,feeder , "shoot"));
         //drivetrain
@@ -220,7 +223,9 @@ public class RobotContainer {
          .Blue3().whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED, () -> driver.getRawButton(XboxController.Button.kY.value)));
   buttonBoard.Blue4().whileTrue(new ButtonElevator(elevator, -Constants.Elevator.speed));
   buttonBoard.Blue5().whileTrue(new ButtonElevator(elevator, Constants.Elevator.speed));
+  SmartDashboard.putBoolean("Presets",buttonBoard.Blue6().getAsBoolean() );
     //Coral Pivot
+    
     //Manual
     //I dont know which button is kStart and which is kBack. If this is the wrong button we will fix it later
     //new JoystickButton(operator, XboxController.Button.kStart.value)
@@ -237,3 +242,4 @@ public class RobotContainer {
     return autoChooser.getSelected();
   }
 }
+

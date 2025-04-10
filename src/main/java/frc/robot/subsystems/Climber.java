@@ -22,7 +22,7 @@ public class Climber extends SubsystemBase {
   public Climber() {
     climbingLeft = new TalonFX(Constants.Climber.LEFT_ID);
     //climbingRight = new TalonFX(Constants.Climber.RIGHT_ID);
-    climbingLeft.setNeutralMode(NeutralModeValue.Brake);
+ //   climbingLeft.setNeutralMode(NeutralModeValue.Brake);
     //climbingRight.setNeutralMode(NeutralModeValue.Brake);
     limitSwitch = new DigitalInput(Constants.Climber.LIMIT_SWITCH_ID);
     pow = 0.0;
@@ -37,13 +37,13 @@ public class Climber extends SubsystemBase {
     return climbingLeft.getPosition().getValueAsDouble();
   }
 
-  public void setCoast() {
-    climbingLeft.setNeutralMode(NeutralModeValue.Coast);
-  }
+  // public void setCoast() {
+  //   climbingLeft.setNeutralMode(NeutralModeValue.Coast);
+  // }
 
-  public void setBrake() {
-    climbingLeft.setNeutralMode(NeutralModeValue.Brake);
-  }
+  // public void setBrake() {
+  //   climbingLeft.setNeutralMode(NeutralModeValue.Brake);
+  // }
 
    public boolean isAtBottom() {
      return !limitSwitch.get();

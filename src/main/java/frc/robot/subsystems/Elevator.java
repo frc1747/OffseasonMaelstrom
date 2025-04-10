@@ -32,7 +32,7 @@ public class Elevator extends SubsystemBase {
 
   public Elevator() {
     elevator = new TalonFX(Constants.Elevator.ELEVATOR_ID);
-    elevator.setNeutralMode(NeutralModeValue.Brake);
+    //elevator.setNeutralMode(NeutralModeValue.Brake);
     limitSwitchTop = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_TOP_ID);
     limitSwitchBottom = new DigitalInput(Constants.Elevator.LIMIT_SWITCH_BOTTOM_ID);
     encoder = new Encoder(Constants.Elevator.ENCODER_A, Constants.Elevator.ENCODER_B, true);
@@ -82,13 +82,13 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
-    double mult = 1.0;
-    if (getPosition() > Constants.Elevator.TOP_SLOW_POS && elevator.get() < 0) { // cut power by 80% if encoder above TOP_SLOW_POS
-      mult = 0.5;
-    }
-    if (getPosition() < Constants.Elevator.BOTTOM_SLOW_POS && elevator.get() > 0) { // cut power by 80% if encoder below BOTTOM_SLOW_POS
-      mult = 0.5;
-    }
+     double mult = 1.0;
+    // if (getPosition() > Constants.Elevator.TOP_SLOW_POS && elevator.get() < 0) { // cut power by 80% if encoder above TOP_SLOW_POS
+    //   mult = 0.5;
+    // }
+    // if (getPosition() < Constants.Elevator.BOTTOM_SLOW_POS && elevator.get() > 0) { // cut power by 80% if encoder below BOTTOM_SLOW_POS
+    //   mult = 0.5;
+    // }
     if (isAtBottom()) { // will not descend if bottom limit hit
       if (pow < 0) mult = 0.0;
     } 
@@ -99,7 +99,7 @@ public class Elevator extends SubsystemBase {
     //if(pow == 0); elevator.set(Constants.Elevator.HOLD_SPEED);
 
     if(isAtBottom()) {
-      elevator.setPosition(0);
+      //elevator.setPosition(0);
       encoder.reset();
     }
     pid.reset();
