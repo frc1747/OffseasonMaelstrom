@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import org.littletonrobotics.junction.AutoLogOutput;
+
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -57,11 +59,11 @@ public class AlgaePivot extends SubsystemBase {
   public void setPosition(double position) {
     controller.setReference(position, SparkBase.ControlType.kPosition);
   }
-  
+   @AutoLogOutput
   public double getPosition() {
     return pivot.getEncoder().getPosition();   //encoder.getPosition();
   }
-
+  @AutoLogOutput
   public boolean switchPressed() {
     return !limitSwitch.get();
   }

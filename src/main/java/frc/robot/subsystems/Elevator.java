@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import org.littletonrobotics.junction.AutoLogOutput;
+
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -47,11 +49,11 @@ public class Elevator extends SubsystemBase {
     bottomLimit = false;
     topLimit = false;
   }
-
+  @AutoLogOutput
   public boolean isAtTop() {
     return  !limitSwitchTop.get();
   }
-
+  @AutoLogOutput
   public boolean isAtBottom() {
     return !limitSwitchBottom.get();
   }
@@ -66,6 +68,7 @@ public class Elevator extends SubsystemBase {
   }
 
   // encoder position in number of rotations
+  @AutoLogOutput // log the output of the getter method
   public double getPosition() {
     return encoder.get() / 2048.0;
   }

@@ -8,6 +8,9 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkRelativeEncoder;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+
+import org.littletonrobotics.junction.AutoLogOutput;
+
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
@@ -66,7 +69,7 @@ public class CoralPivot extends SubsystemBase {
   public void setPivotPower(double power) {
     pow = power;
   }
-
+   @AutoLogOutput
   public double getPosition() {
     return encoder.get();
   }

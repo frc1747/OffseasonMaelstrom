@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import org.littletonrobotics.junction.AutoLogOutput;
+
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -32,7 +34,7 @@ public class Climber extends SubsystemBase {
     this.pow = pow;
     //climbingRight.set(-power);
   }
-
+   @AutoLogOutput
   public double getPosition() {
     return climbingLeft.getPosition().getValueAsDouble();
   }
@@ -44,7 +46,7 @@ public class Climber extends SubsystemBase {
   public void setBrake() {
     climbingLeft.setNeutralMode(NeutralModeValue.Brake);
   }
-
+  @AutoLogOutput
    public boolean isAtBottom() {
      return !limitSwitch.get();
    }

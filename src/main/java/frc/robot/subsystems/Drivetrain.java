@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.Degrees;
 
+import org.littletonrobotics.junction.AutoLogOutput;
+
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.hardware.CANcoder;
@@ -143,7 +145,7 @@ public class Drivetrain extends SubsystemBase {
     }
     return result.get().equals(Alliance.Red);
   }
-
+   @AutoLogOutput
   public ChassisSpeeds getRobotRelativeChassisSpeeds() {
     return Constants.Drivetrain.swerveKinematics.toChassisSpeeds(getModuleStates());
   }
@@ -160,7 +162,6 @@ public class Drivetrain extends SubsystemBase {
   }
 
  public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
-   // CODE WITHOUT REASON
     //speed = new ChassisSpeeds(
      //         translation.getX(), 
        //       translation.getY(), 
@@ -205,7 +206,7 @@ public class Drivetrain extends SubsystemBase {
   public void simpleDrive(Translation2d translation, double rotation) {
     drive(translation, rotation, false, true);
   }
-
+  @AutoLogOutput
   public Rotation2d getYaw() {
     return (Constants.Drivetrain.invertGyro) ? Rotation2d.fromDegrees(180-gyro.getYaw().getValueAsDouble()) : Rotation2d.fromDegrees(gyro.getYaw().getValueAsDouble());
   }
@@ -215,7 +216,7 @@ public class Drivetrain extends SubsystemBase {
       mod.resetToAbsolute();
     }
   }
-
+  @AutoLogOutput
   public SwerveModuleState[] getModuleStates() {
     SwerveModuleState[] states = new SwerveModuleState[4];
     for (SwerveModule mod : swerveMods) {
@@ -231,7 +232,7 @@ public class Drivetrain extends SubsystemBase {
     }
     return positions;
   }
-
+  @AutoLogOutput
   public Pose2d getPose() {
     return swerveOdometry.getPoseMeters();
   }
