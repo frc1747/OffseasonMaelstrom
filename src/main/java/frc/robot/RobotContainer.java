@@ -111,10 +111,9 @@ public class RobotContainer {
     drivetrain.setPoseEstimator(poseEstimator);
     estimatedField = new Field2d();
     SmartDashboard.putData("Estimated Field", estimatedField);
+    System.out.println(estimatedField);
 
 
-    
-    
     //drivetrain
     drivetrain.setDefaultCommand(
       new TeleopSwerve(
@@ -187,6 +186,9 @@ public class RobotContainer {
       .whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED));
     new JoystickButton(operator, XboxController.Button.kLeftBumper.value)
       .whileTrue(new Climb(climber, -Constants.Climber.CLIMB_SPEED));
+
+    new JoystickButton(driver, XboxController.Button.kB.value) 
+      .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(1, 1), new Rotation2d(0, 0))));
 
     
     // Elevator

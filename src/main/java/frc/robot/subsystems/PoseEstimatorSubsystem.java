@@ -85,6 +85,6 @@ public class PoseEstimatorSubsystem extends SubsystemBase {
         }
 
 
-        // System.out.println(getEstimatedPose());
+        System.out.println(getEstimatedPose());
     }
 }
