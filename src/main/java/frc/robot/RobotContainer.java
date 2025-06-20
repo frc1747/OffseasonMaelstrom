@@ -188,7 +188,7 @@ public class RobotContainer {
       .whileTrue(new Climb(climber, -Constants.Climber.CLIMB_SPEED));
 
     new JoystickButton(driver, XboxController.Button.kB.value) 
-      .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(1, 1), new Rotation2d(0, 0))));
+      .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(9.31, 2.85), new Rotation2d(-1.52, -87.07))));
 
     
     // Elevator
