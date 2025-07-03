@@ -110,7 +110,8 @@ public class RobotContainer {
        
     
       public RobotContainer() {
-        
+       // Auto Commands 
+       NamedCommands.registerCommand("EleL2", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_TWO_POSITION,Constants.CoralPivot.REEF_POSITION)); 
         NamedCommands.registerCommand("CoralLaunch", new AutoCoralIntakeNegative(coral));
         NamedCommands.registerCommand("EleL4", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_FOUR_POSITION,Constants.CoralPivot.REEF_POSITION));
         // imports needed 
@@ -172,6 +173,7 @@ public class RobotContainer {
     SmartDashboard.putNumber("Coral Station:", Constants.CoralPivot.Station_position);
     SmartDashboard.putNumber("Coral Algae Bottom:", Constants.CoralPivot.LOWER_ALGAE_POSITION);
     SmartDashboard.putNumber("Coral Algae Top:", Constants.CoralPivot.UPPER_ALGAE_POSITION);
+
 
     // Elevator
     //Manual

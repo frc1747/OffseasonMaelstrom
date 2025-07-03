@@ -80,15 +80,24 @@ public class Constants {
     public static final double MAX_ACCEL = 4.1;  // Max acceleration in m/s
     public static final double maxAngularVelocity = 6.0;  // Rad/s
 
+    
     // TODO: Tune these later
-    public static final double DRIVE_KP = 0.05;
-    public static final double DRIVE_KI = 0.0;
-    public static final double DRIVE_KD = 0.0;
+    // TO DID I crushed it 
+    public static final double DRIVE_KP = 3;
+    public static final double DRIVE_KI = 0.02;
+    public static final double DRIVE_KD = 1.4;
     public static final double DRIVE_KF = 0.0;
 
-    public static final double DRIVE_KS = 0.0; 
+
+
+    public static final double DRIVE_KS = 0.05; 
     public static final double DRIVE_KV = 0.0;
     public static final double DRIVE_KA = 0.0;
+
+    public static final double AUTO_ANGLE_KP = 5;
+    public static final double AUTO_ANGLE_KI = 0;
+    public static final double AUTO_ANGLE_KD = 0;
+    public static final double AUTO_ANGLE_KF = 0;
 
     public static final double ANGLE_KP = chosenModule.angleKP;
     public static final double ANGLE_KI = chosenModule.angleKI;

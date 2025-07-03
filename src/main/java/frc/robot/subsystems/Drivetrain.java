@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.units.Units.Degrees;
 
+import org.littletonrobotics.junction.AutoLogOutput;
+
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.hardware.CANcoder;
@@ -126,13 +128,14 @@ public class Drivetrain extends SubsystemBase {
       this::getRobotRelativeChassisSpeeds,
       this::drive, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
       new PPHolonomicDriveController(
-        new PIDConstants(3.0, 0.0, 0.0), 
-        new PIDConstants(1, 0.0, 0.01)
+        new PIDConstants(Constants.Drivetrain.DRIVE_KP, Constants.Drivetrain.DRIVE_KI, Constants.Drivetrain.DRIVE_KD), // I hate you braden , Thanks Bradley
+        new PIDConstants(Constants.Drivetrain.AUTO_ANGLE_KP, Constants.Drivetrain.AUTO_ANGLE_KI,Constants.Drivetrain.AUTO_ANGLE_KD)
       ),
       ppConfig,
       this::shouldFlipPath,
       this // Reference to this subsystem to set requirements
     );
+    
   }
 
   public boolean shouldFlipPath() {
