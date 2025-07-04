@@ -14,6 +14,8 @@ import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -101,7 +103,9 @@ public class RobotContainer {
     //DoubleSuppliers
     private final DoubleSupplier manualCoralIntakePivot = () -> operator.getRawAxis(XboxController.Axis.kRightY.value);
     private final DoubleSupplier manualElevator = () -> operator.getRawAxis(XboxController.Axis.kLeftY.value);
+    //
 
+      private SendableChooser<Command> autoChooser;
   // Limelight Vision and Pose
   private final LimeLight limeLight = new LimeLight("limelight");
   private final PoseEstimatorSubsystem poseEstimator = new PoseEstimatorSubsystem(drivetrain, limeLight);
@@ -157,7 +161,8 @@ public class RobotContainer {
           .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(5.241, 2.814), new Rotation2d(122.829))));
         buttonBoard.Blue6() // AprTag 17
           .whileTrue(new GoToPose2d(poseEstimator, drivetrain, new Pose2d(new Translation2d(3.779, 2.802), new Rotation2d(58.782))));
-    
+        autoChooser = AutoBuilder.buildAutoChooser();
+        SmartDashboard.putData("Auto chooooooser", autoChooser);
       
       // //if (ally.get() == Alliance.Red)  { 
       //   buttonBoard.Blue1() // AprTag 10
@@ -231,7 +236,9 @@ public class RobotContainer {
   
   }
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return autoChooser.getSelected();
+    //
+    //return Commands.print("No autonomous command configured");
   }
 }
 

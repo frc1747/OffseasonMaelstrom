@@ -129,8 +129,8 @@ public class Drivetrain extends SubsystemBase {
       this::getRobotRelativeChassisSpeeds,
       this::drive, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
       new PPHolonomicDriveController(
-        new PIDConstants(3.0, 0.0, 0.0), 
-        new PIDConstants(1, 0.0, 0.01)
+        new PIDConstants(Constants.Drivetrain.DRIVE_KP, Constants.Drivetrain.DRIVE_KI, Constants.Drivetrain.DRIVE_KD), 
+        new PIDConstants(Constants.Drivetrain.ANGLE_KP, Constants.Drivetrain.ANGLE_KI, Constants.Drivetrain.ANGLE_KD)
       ),
       ppConfig,
       this::shouldFlipPath,
@@ -243,7 +243,8 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public Pose2d getPose() {
-    return poseEstimator.getEstimatedPose();
+    // return poseEstimator.getEstimatedPose();
+    return swerveOdometry.getPoseMeters();
   }
 
   public void resetPose(Pose2d pose) {
