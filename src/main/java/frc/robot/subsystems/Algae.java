@@ -8,6 +8,9 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
+import org.littletonrobotics.junction.AutoLogOutput;
+
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -38,7 +41,7 @@ public class Algae extends SubsystemBase {
   public void setIntakePower(double power) {
     intake.set(-power);
   }
-
+   @AutoLogOutput
   public boolean switchPressed() {
     return false;
    // return !limitSwitch.get();

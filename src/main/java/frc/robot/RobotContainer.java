@@ -14,6 +14,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.revrobotics.spark.SparkMax;
 
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.Joystick;
@@ -172,6 +173,8 @@ public class RobotContainer {
     SmartDashboard.putNumber("Coral Station:", Constants.CoralPivot.Station_position);
     SmartDashboard.putNumber("Coral Algae Bottom:", Constants.CoralPivot.LOWER_ALGAE_POSITION);
     SmartDashboard.putNumber("Coral Algae Top:", Constants.CoralPivot.UPPER_ALGAE_POSITION);
+
+    
 
     // Elevator
     //Manual

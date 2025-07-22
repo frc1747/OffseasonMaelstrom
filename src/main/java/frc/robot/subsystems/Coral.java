@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import org.littletonrobotics.junction.AutoLogOutput;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -32,6 +34,7 @@ public class Coral extends SubsystemBase {
     coral.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     //configure brake mode
   }
+   @AutoLogOutput
   public RelativeEncoder getEncoder() {
     return coral.getAlternateEncoder();
   }
@@ -39,7 +42,7 @@ public class Coral extends SubsystemBase {
   public void setIntakePower(double power) {
     pow = -power;
   }
-
+  @AutoLogOutput
   public boolean switchPressed() {
     return !limitSwitch.get();
   }
