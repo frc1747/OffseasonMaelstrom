@@ -57,12 +57,14 @@ public class PoseEstimatorSubsystem extends SubsystemBase {
         if (mt2 == null) {
             return;
         }
-
+        // test to see if the bot spins to quickly and rejects if it is to fast
+        // this is done by testing rejectVisionUpdate
         if (Math.abs(drivetrain.gyro.getRate()) > 720) { 
             rejectVisionUpdate = true;
         } else if (mt2.tagCount == 0) {
             rejectVisionUpdate = true;
         } 
+        // it's seeing if we need to reject vision
         if (!rejectVisionUpdate) {
             currentEstimate = mt2.pose;
             drivetrain.setPose(currentEstimate);
