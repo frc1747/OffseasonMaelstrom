@@ -54,10 +54,11 @@ public class Drivetrain extends SubsystemBase {
   public Pigeon2 gyro;
 
   public SwerveModule[] swerveModules;
-  //public ChassisSpeeds  speed;
   private SwerveModuleState[] swerveModuleStates;
+  private PoseEstimatorSubsystem poseEstimator;
 
-  public Drivetrain() {
+  public Drivetrain(PoseEstimatorSubsystem poseEstimator) {
+    this.poseEstimator = poseEstimator;
 
     // Create an instance of the gyro, config its parameters, and zero it out, 
     // making whichever direction the robot is facing when robot code is initialized 0
@@ -234,7 +235,7 @@ public class Drivetrain extends SubsystemBase {
   }
   @AutoLogOutput
   public Pose2d getPose() {
-    return swerveOdometry.getPoseMeters();
+    return poseEstimator.getPose();
   }
 
   public void resetPose(Pose2d pose) {
