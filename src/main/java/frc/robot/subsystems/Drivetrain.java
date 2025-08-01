@@ -128,14 +128,13 @@ public class Drivetrain extends SubsystemBase {
       this::getRobotRelativeChassisSpeeds,
       this::drive, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
       new PPHolonomicDriveController(
-        new PIDConstants(Constants.Drivetrain.DRIVE_KP, Constants.Drivetrain.DRIVE_KI, Constants.Drivetrain.DRIVE_KD), // I hate you braden , Thanks Bradley
-        new PIDConstants(Constants.Drivetrain.AUTO_ANGLE_KP, Constants.Drivetrain.AUTO_ANGLE_KI,Constants.Drivetrain.AUTO_ANGLE_KD)
+        new PIDConstants(3.0, 0.0, 0.0), 
+        new PIDConstants(1, 0.0, 0.01)
       ),
       ppConfig,
       this::shouldFlipPath,
       this // Reference to this subsystem to set requirements
     );
-    
   }
 
   public boolean shouldFlipPath() {
@@ -146,7 +145,7 @@ public class Drivetrain extends SubsystemBase {
     }
     return result.get().equals(Alliance.Red);
   }
-
+   @AutoLogOutput
   public ChassisSpeeds getRobotRelativeChassisSpeeds() {
     return Constants.Drivetrain.swerveKinematics.toChassisSpeeds(getModuleStates());
   }
@@ -163,7 +162,6 @@ public class Drivetrain extends SubsystemBase {
   }
 
  public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
-   // CODE WITHOUT REASON
     //speed = new ChassisSpeeds(
      //         translation.getX(), 
        //       translation.getY(), 
@@ -208,7 +206,7 @@ public class Drivetrain extends SubsystemBase {
   public void simpleDrive(Translation2d translation, double rotation) {
     drive(translation, rotation, false, true);
   }
-
+  @AutoLogOutput
   public Rotation2d getYaw() {
     return (Constants.Drivetrain.invertGyro) ? Rotation2d.fromDegrees(180-gyro.getYaw().getValueAsDouble()) : Rotation2d.fromDegrees(gyro.getYaw().getValueAsDouble());
   }
@@ -218,7 +216,7 @@ public class Drivetrain extends SubsystemBase {
       mod.resetToAbsolute();
     }
   }
-
+  @AutoLogOutput
   public SwerveModuleState[] getModuleStates() {
     SwerveModuleState[] states = new SwerveModuleState[4];
     for (SwerveModule mod : swerveMods) {
@@ -234,7 +232,7 @@ public class Drivetrain extends SubsystemBase {
     }
     return positions;
   }
-
+  @AutoLogOutput
   public Pose2d getPose() {
     return swerveOdometry.getPoseMeters();
   }
@@ -260,6 +258,8 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putString("Yaw status", getYaw().toString());
     SmartDashboard.putNumber("Yaw number", getYaw().getDegrees());
     SmartDashboard.putNumber(" Velocity (mod 1)",Math.abs( swerveMods[0].getState().speedMetersPerSecond/4.1)); 
+    SmartDashboard.putNumber("X pose", getPose().getX());
+    SmartDashboard.putNumber("y Pose", getPose().getY());
 
     for (SwerveModule mod : swerveMods) {
       SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCancoder().getDegrees());
