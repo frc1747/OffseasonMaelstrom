@@ -24,16 +24,21 @@ public class ElevatorIntakeCommand extends Command {
     this.position = ElvPosition;
     this.PivPosition = PivPosition;
     addRequirements(this.elevator);
+    addRequirements(this.pivot);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    this.elevator.setPosition(this.position);
-    pivot.setPosition(PivPosition);
-    timer.reset();
-    timer.start();
+    //timer.reset();
+    //timer.start();
+    this.elevator.setPower(-.4);
+    if(elevator.getPosition() >= position ) this.elevator.setPower(0);
+   
+   
+  
+   
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,12 +48,17 @@ public class ElevatorIntakeCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.elevator.setPosition(0.0);
+    //this.elevator.setPosition(0.0);
+   // this.pivot.setPosition(this.pivot.getPosition());
+    this.elevator.setPower(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(2);
+    
+
+    //timer.hasElapsed(2);
+    return elevator.getPosition() >= position;
   }
 }

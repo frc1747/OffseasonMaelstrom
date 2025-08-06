@@ -195,6 +195,14 @@ public class Constants {
       // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'setPosition'");
     }
+    public void setPower(double d) {
+      // TODO Auto-generated method stub
+      throw new UnsupportedOperationException("Unimplemented method 'setPower'");
+    }
+    public int getPosition() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPosition'");
+    }
   }
 
   public static final class Climber {

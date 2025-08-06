@@ -34,7 +34,8 @@ public class SetCoral extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    coralPivot.setPosition(coralPivot.getPosition());
+    
+    
   }
 
   // Returns true when the command should end.

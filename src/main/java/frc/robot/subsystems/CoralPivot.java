@@ -66,6 +66,10 @@ public class CoralPivot extends SubsystemBase {
   public void setPivotPower(double power) {
     pow = power;
   }
+  // yes i am petty
+  public void setPower(double power){
+    setPivotPower(power);
+  }
 
   public double getPosition() {
     return encoder.get();
