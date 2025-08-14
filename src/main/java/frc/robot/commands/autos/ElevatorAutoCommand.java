@@ -4,41 +4,38 @@
 
 package frc.robot.commands.autos;
 
+import edu.wpi.first.math.controller.ElevatorFeedforward;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.CoralPivot;
+import frc.robot.Constants;
 import frc.robot.subsystems.Elevator;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class ElevatorIntakeCommand extends Command {
+public class ElevatorAutoCommand extends Command {
   /** Creates a new ElevatorPositiveCommand. */
   private Timer timer = new Timer();
   private Elevator elevator;
   private final double position;
-  private CoralPivot pivot;
-  private double PivPosition;
+  private PIDController pid;
 
-  public ElevatorIntakeCommand(Elevator elevator, CoralPivot pivot,double ElvPosition, double PivPosition) {
+  public ElevatorAutoCommand(Elevator elevator,double ElvPosition, double PivPosition) {
     this.elevator = elevator;
-    this.pivot = pivot;
     this.position = ElvPosition;
-    this.PivPosition = PivPosition;
+    double p = Constants.Elevator.PID_P;
+    double i = Constants.Elevator.PID_I;
+    double d = Constants.Elevator.PID_D;
+    double f = Constants.Elevator.PID_F;
+    this.pid = new PIDController(p, i, d);
     addRequirements(this.elevator);
-    addRequirements(this.pivot);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //timer.reset();
-    //timer.start();
-    this.elevator.setPower(-.4);
-    if(elevator.getPosition() >= position ) this.elevator.setPower(0);
-   
-   
-  
-   
+     double power = pid.calculate(elevator.getPosition(), this.position);
+     this.elevator.setPower(power); 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -56,9 +53,10 @@ public class ElevatorIntakeCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    
-
     //timer.hasElapsed(2);
-    return elevator.getPosition() >= position;
+    boolean stop = true;
+    stop = stop && this.elevator.isAtTop() && this.elevator.isAtBottom();
+
+    return stop;
   }
 }

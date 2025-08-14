@@ -29,7 +29,7 @@ import frc.robot.commands.Teleop.TeleopSwerve;
 import frc.robot.commands.autos.AutoCoralIntakeNegative;
 import frc.robot.commands.autos.AutoCoralIntakePositive;
 import frc.robot.commands.autos.AutoPivot;
-import frc.robot.commands.autos.ElevatorIntakeCommand;
+import frc.robot.commands.autos.ElevatorAutoCommand;
 import frc.robot.commands.Teleop.Climb;
 import frc.robot.commands.ResetGyro;
 import frc.robot.commands.Teleop.AngleCoral;
@@ -113,9 +113,9 @@ public class RobotContainer {
     
       public RobotContainer() {
        // Auto Commands 
-       NamedCommands.registerCommand("EleL2", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_TWO_POSITION,Constants.CoralPivot.REEF_POSITION)); 
+       NamedCommands.registerCommand("EleL2", new ElevatorAutoCommand(elevator, coralPivot, Constants.Elevator.LEVEL_TWO_POSITION,Constants.CoralPivot.REEF_POSITION)); 
         NamedCommands.registerCommand("CoralLaunch", new AutoCoralIntakePositive(coral));
-        NamedCommands.registerCommand("EleL4", new ElevatorIntakeCommand(elevator, coralPivot, Constants.Elevator.LEVEL_FOUR_POSITION,Constants.CoralPivot.REEF_POSITION));
+        NamedCommands.registerCommand("EleL4", new ElevatorAutoCommand(elevator, coralPivot, Constants.Elevator.LEVEL_FOUR_POSITION,Constants.CoralPivot.REEF_POSITION));
         NamedCommands.registerCommand("pivot", new AutoPivot(coralPivot,Constants.CoralPivot.L2_position));
         // imports needed 
         // NamedCommands.registerCommand("shoot", new ShootAuto(shooter, intake,feeder , "shoot"));
