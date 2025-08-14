@@ -61,7 +61,9 @@ public class CoralPivot extends SubsystemBase {
     
   //   pivot.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
  }
-  
+  public boolean getLimitSwitch(){
+    return limitSwitch.get();
+  }
 
   public void setPivotPower(double power) {
     pow = power;
