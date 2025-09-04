@@ -9,6 +9,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.Constants.CoralPivot;
 import frc.robot.subsystems.Elevator;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
@@ -19,7 +20,7 @@ public class ElevatorAutoCommand extends Command {
   private final double position;
   private PIDController pid;
 
-  public ElevatorAutoCommand(Elevator elevator,double ElvPosition, double PivPosition) {
+  public ElevatorAutoCommand(Elevator elevator, double ElvPosition, double PivPosition) {
     this.elevator = elevator;
     this.position = ElvPosition;
     double p = Constants.Elevator.PID_P;
