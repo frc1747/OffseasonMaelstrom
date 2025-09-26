@@ -144,8 +144,7 @@ public class RobotContainer {
          
         //operater Coral commands
     
-        new JoystickButton(operator, XboxController.Button.kB.value)
-          .whileTrue(new IntakeCoral(coral));  
+         
         new Trigger(() -> (operator.getRawAxis(XboxController.Axis.kRightTrigger.value) > 0))
           .whileTrue( new EjectCoral(coral));   
     
@@ -215,14 +214,20 @@ public class RobotContainer {
     .whileTrue(new GoHome(elevator))
         .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.HOME_POSTION));
     buttonBoard.Red9()
-    .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.HOME_POSTION));
-    buttonBoard.Blue1().whileTrue(new IntakeCoral(coral)); 
+          .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.HOME_POSTION));
+
+    buttonBoard.Blue1() 
+          .whileTrue(new IntakeCoral(coral));
     buttonBoard.Blue2()
-          .whileTrue( new EjectCoral(coral));
-   buttonBoard
-         .Blue3().whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED, () -> driver.getRawButton(XboxController.Button.kY.value)));
-  buttonBoard.Blue4().whileTrue(new ButtonElevator(elevator, -Constants.Elevator.speed));
-  buttonBoard.Blue5().whileTrue(new ButtonElevator(elevator, Constants.Elevator.speed));
+          .whileTrue(new EjectCoral(coral));
+    buttonBoard.Blue3()
+          .whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED, () -> driver.getRawButton(XboxController.Button.kY.value)));
+    buttonBoard.Blue6()
+          .whileTrue(new ButtonElevator(elevator, Constants.Elevator.speed));
+    buttonBoard.Blue7()
+          .whileTrue(new ButtonElevator(elevator, -Constants.Elevator.speed));
+    
+
     //Coral Pivot
     //Manual
     //I dont know which button is kStart and which is kBack. If this is the wrong button we will fix it later
