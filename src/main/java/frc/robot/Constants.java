@@ -171,6 +171,7 @@ public class Constants {
   public static final class CoralPivot {
     public static final double PIVOT_REDUCTION = 2;
     public static final int PIVOT_ID = 47;
+    public static final double OFFSET = .899;
     public static final double REEF_POSITION = 200;
     public static final double POSITION_THRESHOLD = 0.02;
     public static final int COUNTER_MAX_VALUE = 100;
