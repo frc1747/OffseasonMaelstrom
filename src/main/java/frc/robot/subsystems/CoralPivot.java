@@ -74,7 +74,7 @@ public class CoralPivot extends SubsystemBase {
   }
 
   public double getPosition() {
-    return encoder.get() - Constants.CoralPivot.OFFSET- Constants.CoralPivot.HOME_POSTION;
+    return encoder.get();
   }
 
   public void setPosition(double position) {
