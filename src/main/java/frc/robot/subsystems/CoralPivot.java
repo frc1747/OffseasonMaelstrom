@@ -71,12 +71,12 @@ public class CoralPivot extends SubsystemBase {
   }
    @AutoLogOutput
   public double getPosition() {
-    return encoder.get();
+    return Math.abs(encoder.get())-.229;
   }
 
   public void setPosition(double position) {
     //controller.setReference(position, SparkBase.ControlType.kDutyCycle);
-    pow = pid.calculate(encoder.get(), position);
+    pow = pid.calculate(getPosition(), position);
   }
 
   @Override
@@ -87,9 +87,9 @@ public class CoralPivot extends SubsystemBase {
     SmartDashboard.putBoolean("top coral", !limitSwitch.get());
    // SmartDashboard.putBoolean("top limt",!limitSwitchTop.get() );
    double mult = 1.0;
-    if (!limitSwitch.get()) { // will not descend if bottom limit hit
-      if (pow < 0) mult = 0.0;
-    } 
+    // if (!limitSwitch.get()) { // will not descend if bottom limit hit
+    //   if (pow < 0) mult = 0.0;
+    // } 
     
    pivot.set(-pow * mult);
   }

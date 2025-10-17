@@ -12,9 +12,7 @@ import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.revrobotics.spark.SparkMax;
 
-import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.Joystick;
@@ -22,28 +20,26 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.Teleop.TeleopSwerve;
-import frc.robot.commands.autos.AutoCoralIntakeNegative;
-import frc.robot.commands.autos.ElevatorIntakeCommand;
-import frc.robot.commands.Teleop.Climb;
 import frc.robot.commands.ResetGyro;
-import frc.robot.commands.Teleop.AngleCoral;
 import frc.robot.commands.Teleop.ButtonElevator;
+import frc.robot.commands.Teleop.Climb;
 import frc.robot.commands.Teleop.DropAlgaeIntake;
 import frc.robot.commands.Teleop.EjectAlgae;
 import frc.robot.commands.Teleop.EjectCoral;
 import frc.robot.commands.Teleop.GoHome;
 import frc.robot.commands.Teleop.GoToLevel;
 import frc.robot.commands.Teleop.IntakeAlgae;
-import frc.robot.commands.Teleop.StowAlgaeIntake;
 import frc.robot.commands.Teleop.IntakeCoral;
 import frc.robot.commands.Teleop.MoveElevator;
 import frc.robot.commands.Teleop.PivotCoralIntake;
 import frc.robot.commands.Teleop.SetCoral;
+import frc.robot.commands.Teleop.StowAlgaeIntake;
+import frc.robot.commands.Teleop.TeleopSwerve;
+import frc.robot.commands.autos.AutoCoralIntakeNegative;
+import frc.robot.commands.autos.ElevatorIntakeCommand;
 //import frc.robot.commands.Teleop.ResetGyro;
 import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.AlgaePivot;
@@ -216,13 +212,13 @@ public class RobotContainer {
         .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.HOME_POSTION));
     buttonBoard.Red9()
     .whileTrue(new SetCoral(coralPivot, Constants.CoralPivot.HOME_POSTION));
-    buttonBoard.Blue1().whileTrue(new IntakeCoral(coral)); 
-    buttonBoard.Blue2()
-          .whileTrue( new EjectCoral(coral));
-   buttonBoard
-         .Blue3().whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED, () -> driver.getRawButton(XboxController.Button.kY.value)));
+  buttonBoard.Blue1().whileTrue(new IntakeCoral(coral)); 
+  buttonBoard.Blue2().whileTrue( new EjectCoral(coral));
+   buttonBoard.Blue3().whileTrue(new Climb(climber, Constants.Climber.CLIMB_SPEED, () -> driver.getRawButton(XboxController.Button.kY.value)));
   buttonBoard.Blue4().whileTrue(new ButtonElevator(elevator, -Constants.Elevator.speed));
   buttonBoard.Blue5().whileTrue(new ButtonElevator(elevator, Constants.Elevator.speed));
+  buttonBoard.Blue6().whileTrue(new PivotCoralIntake(coralPivot, .5, operator));
+  buttonBoard.Blue6().whileTrue(new PivotCoralIntake(coralPivot, -.5, operator)); // i am op and I can do what I want.
     //Coral Pivot
     //Manual
     //I dont know which button is kStart and which is kBack. If this is the wrong button we will fix it later

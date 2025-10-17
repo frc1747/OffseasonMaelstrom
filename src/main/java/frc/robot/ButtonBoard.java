@@ -27,7 +27,7 @@ public class ButtonBoard{
         return new JoystickButton(BlueHalf,7);
     }
     public JoystickButton Blue5(){
-        return new JoystickButton(BlueHalf,2);
+        return new JoystickButton(BlueHalf,1);
     }
     public JoystickButton Blue6(){
         return new JoystickButton(BlueHalf,9);
