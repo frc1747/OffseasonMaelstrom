@@ -32,9 +32,9 @@ public class Coral extends SubsystemBase {
     coral.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     //configure brake mode
   }
-  public RelativeEncoder getEncoder() {
-    return coral.getAlternateEncoder();
-  }
+  //public RelativeEncoder getEncoder() {
+  //  return coral.getAlternateEncoder();
+  //}
 
   public void setIntakePower(double power) {
     pow = -power;
