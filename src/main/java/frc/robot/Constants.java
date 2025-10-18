@@ -185,8 +185,8 @@ public class Constants {
     public static final double position = 0.204;
     public static final double Station_position = 0.2135;
     public static final double L1_position = 0.3267;
-    public static final double L2_position = 0.35;
-    public static final double L3_position = 0.35;
+    public static final double L2_position = 0.534; // was .35
+    public static final double L3_position = 0.534; // was .35
     public static final double L4_position = 0.3277; //was .2955
     public static final double HOME_POSTION = 0.005;
     public static final double LOWER_ALGAE_POSITION = 0.294;
@@ -222,9 +222,9 @@ public class Constants {
     public static final int ENCODER_B = 4;
     public static final double MOTOR_TO_SHAFT_RATIO = 64;
     public static final double LEVEL_ONE_POSITION = 1.7788; // 1.507 abs
-    public static final double LEVEL_TWO_POSITION = 2.9497; // 2.54 abs the 3 is a number add on
-    public static final double LEVEL_THREE_POSITION = 4.589; //4.54 abs the 3 is a number add on
-    public static final double LEVEL_FOUR_POSITION = 6.67; //6.62 abs
+    public static final double LEVEL_TWO_POSITION = 3.5351; // old number: 2.9497
+    public static final double LEVEL_THREE_POSITION = 4.4689; //4.589
+    public static final double LEVEL_FOUR_POSITION = 6.67; //6.67
     public static final double CORAL_STATION_POSITION = 2.02; //2.19 abs was 79
     public static final double LOWER_ALGAE_POSITION = 1.6132;
     public static final double UPPER_ALGAE_POSITION = 3.000; //2.97 abs

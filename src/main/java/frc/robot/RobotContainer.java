@@ -123,9 +123,9 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(
           new TeleopSwerve(
             drivetrain, 
-            () -> -driver.getRawAxis(translationAxis), 
-            () -> -driver.getRawAxis(strafeAxis), 
-            () -> -driver.getRawAxis(rotationAxis), 
+            () -> driver.getRawAxis(translationAxis), 
+            () -> driver.getRawAxis(strafeAxis), 
+            () -> driver.getRawAxis(rotationAxis), 
             () -> robotCentric.getAsBoolean(),
             () -> elevator.getPosition(),
             () -> (driver.getRawAxis(XboxController.Axis.kLeftTrigger.value) > 0)
